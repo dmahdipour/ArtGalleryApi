@@ -30,6 +30,27 @@ class Project extends Model
 
 
 
+    public function member():BelongsTo
+    {
+        return $this->belongsTo(Member::class);
+    }
+
+    public function technique():BelongsTo
+    {
+        return $this->belongsTo(Technique::class);
+    }
+
+    public function subject():BelongsTo
+    {
+        return $this->belongsTo(Subject::class);
+    }
+
+    public function style():BelongsTo
+    {
+        return $this->belongsTo(Style::class);
+    }
+
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

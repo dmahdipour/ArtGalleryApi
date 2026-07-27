@@ -10,7 +10,13 @@ class Comment extends Model
 {
     use LogsActivity;
 
-    protected $fillable=['name',  'contact', 'sender_name', 'content', 'is_published', 'is_read'];
+    protected $fillable=['project_id', 'name', 'contact', 'sender_name', 'content', 'is_published', 'is_read'];
+
+
+    public function project():BelongsTo
+    {
+        return $this->belongsTo(Project::class);
+    }
 
 
     public function getActivitylogOptions(): LogOptions

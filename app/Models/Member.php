@@ -25,10 +25,22 @@ class Member extends Model
         'linkedin',
         'website',
         'avatar',
-        'status'
+        'status',
+        'verification_code',
     ];
 
-     
+    
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::creating(function ($model) {
+            if (empty($model->verification_code)) {
+                $model->verification_code = random_int(123456, 987654);
+            }
+        });
+    }
+
 
     public function getActivitylogOptions(): LogOptions
     {

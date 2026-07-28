@@ -8,28 +8,28 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ChangePasswordConfirmCodeMail extends Mailable
+class VerificationCodeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $change_password_confirm_code;
+    public $verification_code;
 
-    public function __construct($change_password_confirm_code)
+    public function __construct($verification_code)
     {
-        $this->change_password_confirm_code = $change_password_confirm_code;
+        $this->verification_code = $verification_code;
     }
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'ارسال کد تایید تغییر رمز کاربری Human Cipher',
+            subject: 'ارسال کد تایید Human Cipher',
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            view: 'emails.passwordconfirmcode',
+            view: 'emails.verificationcode',
         );
     }
 

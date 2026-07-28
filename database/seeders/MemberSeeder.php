@@ -29,6 +29,7 @@ class MemberSeeder extends Seeder
             'website' => 'https://topon.ir',
             'password' => Hash::make('cilense'),
             'member_type' => 1,
+            'verification_code'=>1234,
         ]);
     }
 }

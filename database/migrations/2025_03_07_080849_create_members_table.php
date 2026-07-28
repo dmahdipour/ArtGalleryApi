@@ -13,22 +13,24 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('user_name')->nullable();
+            $table->string('email')->unique();
+            $table->string('user_name')->unique();
+            $table->integer('verification_code');
+            $table->boolean('is_email_verified')->default(false);
+            $table->string('password');
+            $table->foreignId('member_type')->references('id')->on('member_types')->onDelete('cascade')->default(1);
+            $table->string('name')->nullable();
             $table->string('avatar')->nullable();
-            $table->date('birthday');
-            $table->string('place');
-            $table->string('major');
-            $table->string('university');
-            $table->string('activities');
+            $table->date('birthday')->nullable();
+            $table->string('place')->nullable();
+            $table->string('major')->nullable();
+            $table->string('university')->nullable();
+            $table->string('activities')->nullable();
             $table->string('phone')->nullable();
-            $table->string('email')->nullable();
             $table->string('instagram')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('website')->nullable();
-            $table->string('password');
             $table->boolean('status')->default(true);
-            $table->foreignId('member_type')->references('id')->on('member_types')->onDelete('cascade');
             $table->timestamps();
         });
     }

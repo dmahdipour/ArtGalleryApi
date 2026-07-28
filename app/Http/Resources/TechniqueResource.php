@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Style;
+use App\Models\Technique;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class StyleCollection extends ResourceCollection
+class TechniqueResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -17,12 +17,8 @@ class StyleCollection extends ResourceCollection
     {
         return [
             'id'=>$this->id,
-            'project'=>$this->project->name,
-            'price'=>$this->price,
-            'count'=>$this->count,
-            'location'=>$this->location,
-            'address'=>$this->address,
-            'phone'=>$this->phone,
+            'name_fa'=>$this->name_fa,
+            'name_en'=>$this->name_en,
             'description'=>$this->description,
         ];
     }

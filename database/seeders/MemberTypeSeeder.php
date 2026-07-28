@@ -12,6 +12,7 @@ class MemberTypeSeeder extends Seeder
      */
     public function run(): void
     {
+        MemberType::create(['name'=>'admin', 'thumbnail'=>'', 'description'=>'مدیر سیستم']);
         MemberType::create(['name'=>'Public', 'thumbnail'=>'', 'description'=>'عادی']);
         MemberType::create(['name'=>'Owener', 'thumbnail'=>'', 'description'=>'صاحب کسب و کار']);
     }

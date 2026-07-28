@@ -3,6 +3,7 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Laravel\Sanctum\HasApiTokens;
@@ -26,6 +27,7 @@ class Member extends Model
         'website',
         'avatar',
         'status',
+        'about',
         'verification_code',
     ];
 
@@ -59,7 +61,8 @@ class Member extends Model
                 'linkedin',
                 'website',
                 'avatar',
-                'status'
+                'status',
+                'about',
             ])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();

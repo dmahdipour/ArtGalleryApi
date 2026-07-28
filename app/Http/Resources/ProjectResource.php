@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Project;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class Project extends ResourceCollection
+class ProjectResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -24,8 +23,8 @@ class Project extends ResourceCollection
             'technique_en'=>$this->technique->name_en,
             'style_fa'=>$this->style->name_fa,
             'style_en'=>$this->style->name_en,
-            'subject_fa'=>$this->style->subject_fa,
-            'subject_en'=>$this->style->subject_en,
+            'subject_fa'=>$this->subject->name_fa,
+            'subject_en'=>$this->subject->name_en,
             'height'=>$this->height,
             'width'=>$this->width,
             'year'=>$this->year,

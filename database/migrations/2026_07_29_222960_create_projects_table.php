@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('style_id')->references('id')->on('styles')->onDelete('cascade');
             $table->foreignId('subject_id')->references('id')->on('subjects')->onDelete('cascade');
             $table->string('image');
-            $table->string('thumbnail');
+            $table->string('thumbnail')->default('images/projects/thumbnails/default.png');
             $table->string('height');
             $table->string('width');
             $table->string('year');

@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Style;
+use App\Models\Subject;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class StyleCollection extends ResourceCollection
+class SubjectResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.

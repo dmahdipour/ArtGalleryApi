@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Technique;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class TechniqueCollection extends ResourceCollection
+class MemberTypeResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -17,8 +16,7 @@ class TechniqueCollection extends ResourceCollection
     {
         return [
             'id'=>$this->id,
-            'name_fa'=>$this->name_fa,
-            'name_en'=>$this->name_en,
+            'name'=>$this->name,
             'description'=>$this->description,
         ];
     }

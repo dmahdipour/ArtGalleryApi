@@ -12,12 +12,80 @@ class SellController extends Controller
 {
     public function info(Request $request)
     {
+        if (!$request->id) {
+            return response()->json(['error' => 'هیچ آی دی برای نظر وارد نشده است.'], 400);
+        }
         $item = Sell::where('id', $request->id)->get()->first(); 
         if($item)   
         {
-            return response()->json(['data' => ['data' => new SellResource($item)]], 200);
+            return response()->json(['data' => new SellResource($item)], 200);
         }
-        return response()->json(['error' => 'چنین پروژه ای وجود ندارد.'], 400);
+        return response()->json(['error' => 'چنین فروشی وجود ندارد.'], 400);
         
     }
+
+
+    public function add(Request $request)
+    {
+        if (!$request->project_id) {
+            return response()->json(['error' => 'آی دی پروژه وارد نشده است'], 400);
+        }
+        if (!$request->price) {
+            return response()->json(['error' => 'قیمتی برای پروژه وارد نشده است'], 400);
+        }
+
+        $item = Sell::create($request->all());
+
+        if($item)
+        {
+            return response()->json(['data' => ['message' => 'فروش پروژه با موفقیت ایجاد شد']], 200);
+        }
+        return response()->json(['error' => 'خطا در ایجاد فروش پروژه'], 400);
+        
+    } 
+    
+    
+    public function update(Request $request)
+    {
+        if (!$request->id) {
+            return response()->json(['error' => 'هیچ آی دی برای فروش وارد نشده است.'], 400);
+        }
+        if (!$request->project_id) {
+            return response()->json(['error' => 'هیچ آی دی پروژه ای برای فروش وارد نشده است.'], 400);
+        }
+        if (!$request->price) {
+            return response()->json(['error' => 'هیچ قیمتی برای فروش وارد نشده است.'], 400);
+        }
+        $item = Sell::where('id', $request->id)->get()->first(); 
+        if (!$item) {
+            return response()->json(['error' => 'چنین فروشی وجود ندارد.'], 400);
+        }
+        $res = $item->update($request->all());
+
+        if($res)
+        {
+            $item = Sell::where('id', $request->id)->get()->first(); 
+            return response()->json(['data' => new SellResource($item)], 200);
+        }
+        return response()->json(['error' => 'خطا در ویرایش فروش'], 400);
+    } 
+    
+
+    public function delete(Request $request)
+    {
+        if (!$request->id) {
+            return response()->json(['error' => 'هیچ آی دی برای فروش وارد نشده است.'], 400);
+        }
+        $item = Sell::where('id', $request->id)->get()->first(); 
+        if (!$item) {
+            return response()->json(['error' => 'چنین فروشی وجود ندارد.'], 400);
+        }
+        $res = $item->delete();
+
+        if($res)
+        {
+            return response()->json(['data' => ['message'=>'فروش با موفقیت حذف گردید.']], 200);
+        }
+        return response()->json(['error' => 'خطا در ویرایش فروش'], 400);
+    } 
 }

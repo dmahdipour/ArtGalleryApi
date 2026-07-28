@@ -33,6 +33,7 @@ class MemberResource extends JsonResource
             'instagram'=>$this->instagram,
             'linkedin'=>$this->linkedin,
             'status'=>$this->status,
+            'about'=>$this->about,
             'register_date'=>$dt,
         ];
     }

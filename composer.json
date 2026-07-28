@@ -11,6 +11,7 @@
         "althinect/filament-spatie-roles-permissions": "^3.3",
         "ariaieboy/filament-jalali": "^2.2",
         "filament/filament": "^4.0",
+        "intervention/image": "^4.2",
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^13.8",
         "laravel/sanctum": "^4.0",

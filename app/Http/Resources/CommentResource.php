@@ -4,9 +4,9 @@ namespace App\Http\Resources;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class CommentCollection extends ResourceCollection
+class CommentResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -22,6 +22,7 @@ class CommentCollection extends ResourceCollection
             'sender_contact'=>$this->sender_contact,
             'is_confirmed'=>$this->is_confirmed,
             'is_read'=>$this->is_read,
+            'replies'=>$this->replies,
         ];
     }
 }

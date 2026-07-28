@@ -18,10 +18,10 @@ class MemberController extends Controller
 {
     public function index()
     {
-        $members= Member::get()->latest(); 
+        $members= Member::latest()->get(); 
         if($members)   
         {
-            return response()->json(['data' => ['data' => MemberResource::collection($members)]], 200);
+            return response()->json(['data' => MemberResource::collection($members)], 200);
         }
         return response()->json(['error' => 'هیچ کاربری وجود ندارد.'], 400);
     }
@@ -33,7 +33,7 @@ class MemberController extends Controller
         $member = Member::where('id', $id)->get()->first(); 
         if($member)   
         {
-            return response()->json(['data' => ['data' => new MemberResource($member)]], 200);
+            return response()->json(['data' => new MemberResource($member)], 200);
         }
         return response()->json(['error' => 'چنین کاربری وجود ندارد.'], 400);
         
@@ -110,7 +110,7 @@ class MemberController extends Controller
     }
 
 
-    public function verificationEmail(Request $request)
+    public function verifyEmail(Request $request)
     {
         if(!$request->email){
             return response()->json(['error' => 'ایمیل وارد نشده است.'], 400);
@@ -186,26 +186,20 @@ class MemberController extends Controller
             return response()->json(['error' => 'ایمیل ویا نام کاربری وارد نشده است.'], 400);
         }
         else{
-            if ($request->email) {
-                $is_exist = Member::where('email', $request->email)->orwhere('user_name', $request->user_name)->first();
-                if (!$is_exist) {
-                    return response()->json(['error' => 'کاربری با این مشخصات یافت نشد.'], 400);
-                }
-                else if(Hash::check($request->password, $is_exist->password)){
-                    if (!$is_exist->status) {
-                        return response()->json(['error' => 'کاربر مسدود شده است.'], 400);
-                    } elseif (!$is_exist->is_email_verified){
-                        return response()->json(['error' => 'ایمیل کاربر هنوز تایید نشده است.'], 400);
-                    }
-                    else {
-                        $is_exist->tokens()->where('tokenable_id', $is_exist->id)->delete();
-                        $token = $is_exist->createToken('app-token')->plainTextToken;
-                        return response()->json(['token' => $token, 'data' => new MemberResource($is_exist)], 200);
-                    }
-                }
-                else{
-                    return response()->json(['error' => 'کاربری با این مشخصات یافت نشد.'], 400);
-                }
+            $is_exist = Member::where('email', $request->email)->orwhere('user_name', $request->user_name)->first();
+            if (!$is_exist) {
+                return response()->json(['error' => 'کاربری با این مشخصات یافت نشد.'], 400);
+            }
+            if(!$is_exist->status){
+                return response()->json(['error' => 'کاربر غیرفعال شده است. با مدیر سیستم تماس بگیرید.'], 400);
+            }
+            if (!$is_exist->is_email_verified){
+                return response()->json(['error' => 'ایمیل کاربر هنوز تایید نشده است.'], 400);
+            }
+            if(Hash::check($request->password, $is_exist->password)){
+                $is_exist->tokens()->where('tokenable_id', $is_exist->id)->delete();
+                $token = $is_exist->createToken('app-token')->plainTextToken;
+                return response()->json(['token' => $token, 'data' => new MemberResource($is_exist)], 200);
             }
         }
     }
@@ -213,8 +207,8 @@ class MemberController extends Controller
 
     public function setProfile(Request $request)
     {
-        if (!$request->email && !$request->user_name && !$request->hasFile('avatar')) {
-            return response()->json(['error' => 'هیچ اطلاعاتی برای آپدیت وارد نشده است.'], 400);
+        if (!$request->email && !$request->user_name) {
+            return response()->json(['error' => 'نام کاربری و ایمیل خالی است.'], 400);
         }
 
         $id = $request->user()->currentAccessToken()->tokenable_id;
@@ -222,22 +216,41 @@ class MemberController extends Controller
         if (!$is_exist) {
             return response()->json(['error' => 'کاربری با این مشخصات یافت نشد.'], 400);
         }
-        if ($request->email) {
-            $is_exist->update(['email' => $request->email]);
-        }
-        if ($request->user_name) {
-            $is_exist_username = MemberProfile::where('member_id', $id)->get()->first();
-            $is_exist_username->update(['user_name' => $request->user_name]);
-        }
+        
+        $is_exist->update($request->all());
         
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
             $imageName = $id . '.' . $image->getClientOriginalExtension();
             $url = $image->storeAs('avatars', $imageName, 'public');
-            $is_exist_username = MemberProfile::where('member_id', $id)->get()->first();
+            $is_exist_username = Member::where('id', $id)->get()->first();
             $is_exist_username->update(['avatar' => $url]);
         }
+
         $is_exist=Member::where('id', $id)->first();
         return response()->json(['data' => new MemberResource($is_exist)], 200);
+    }
+
+
+    public function deactiveUser(Request $request)
+    {
+        $id= $request->id;
+        if(!$request->id){
+            return response()->json(['error' => 'ای دی کاربر وارد نشده است.'], 400);
+        }
+        $is_exist=Member::where('id', $id)->first();
+        
+        if(!$is_exist){
+            return response()->json(['error' => 'چنین کاربری وجود ندارد.'], 400);
+        }
+        $res = $is_exist->update([
+            'status' => 0,
+        ]);
+
+        if($res)
+        {
+            return response()->json(['data' => ['message' => 'وضعیت کاربر به غیر فعال تغییر کرد']], 200);
+        }
+        return response()->json(['error' => 'خطا در غیرفعالسازی کاربری'], 400);
     }
 }

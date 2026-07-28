@@ -29,7 +29,10 @@ class MemberSeeder extends Seeder
             'website' => 'https://topon.ir',
             'password' => Hash::make('cilense'),
             'member_type' => 1,
+            'about' => 'علاقه مند به هنر',
+            'avatar'=>'images/avatars/1.png',
             'verification_code'=>1234,
+            'is_email_verified'=>1,
         ]);
     }
 }

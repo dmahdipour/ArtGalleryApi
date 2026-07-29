@@ -4,6 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Laravel\Sanctum\HasApiTokens;
@@ -39,6 +40,11 @@ class Member extends Model
         return $this->belongsTo(MemberType::class);
     }
 
+
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class, 'member_id');
+    }
     
     protected static function boot()
     {

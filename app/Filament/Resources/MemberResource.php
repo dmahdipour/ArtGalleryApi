@@ -12,6 +12,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
@@ -70,9 +71,11 @@ class MemberResource extends Resource
                     ->columnSpanFull(),
                 Toggle::make('status')
                     ->required(),
-                ImageColumn::make('avatar')
+                FileUpload::make('avatar')
+                    ->image()
                     ->disk('public'),
-                ImageColumn::make('signature')
+                FileUpload::make('signature')
+                    ->image()
                     ->disk('public'),
             ]);
     }
@@ -135,6 +138,14 @@ class MemberResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('projects_count')
+                    ->label('پروژه‌ها')
+                    ->counts('projects')
+                    ->url(fn ($record) => route('filament.dmy.resources.projects.index', [
+                        'filters[member_id][value]' => $record->id
+                    ]))
+                    ->color('primary')
+                    ->extraAttributes(['class' => 'underline hover:text-blue-600']),
             ])
             ->defaultSort('id', 'desc')
             ->filters([

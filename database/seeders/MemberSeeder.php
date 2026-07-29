@@ -35,5 +35,30 @@ class MemberSeeder extends Seeder
             'verification_code'=>1234,
             'is_email_verified'=>1,
         ]);
+
+
+
+        
+        Member::updateOrCreate([
+            'name' => 'Test',
+            'user_name' => 'test',
+            'birthday' => '1987/02/17',
+            'place' => 'تبریز',
+            'major' => 'کارشناسی ارشد مهندسی کامپیوتر',
+            'university' => 'نبی اکرم (ص) تبریز',
+            'activities' => 'طراحی , برنامه نویسی',
+            'phone' => '+989149001840',
+            'email'=>'test@gmail.com',
+            'instagram' => 'yilmazam',
+            'linkedin' => 'dmahdipour',
+            'website' => 'https://topon.ir',
+            'password' => Hash::make('cilense'),
+            'member_type_id' => 1,
+            'about' => 'علاقه مند به هنر',
+            'avatar'=>'images/avatars/1.png',
+            'signature'=>'images/signatures/1.png',
+            'verification_code'=>1234,
+            'is_email_verified'=>1,
+        ]);
     }
 }

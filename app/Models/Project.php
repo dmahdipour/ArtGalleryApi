@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model
 {
@@ -50,6 +51,11 @@ class Project extends Model
     public function style():BelongsTo
     {
         return $this->belongsTo(Style::class);
+    }
+
+    public function sells(): HasMany
+    {
+        return $this->hasMany(Sell::class, 'project_id');
     }
 
 

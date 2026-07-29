@@ -22,6 +22,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Tables\Filters\SelectFilter;
 
 class ProjectResource extends Resource
 {
@@ -118,9 +119,21 @@ class ProjectResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('sells_count')
+                    ->label('قیمت')
+                    ->counts('sells')
+                    ->url(fn ($record) => route('filament.dmy.resources.sells.index', [
+                        'filters[project_id][value]' => $record->id
+                    ]))
+                    ->color('primary')
+                    ->extraAttributes(['class' => 'underline hover:text-blue-600']),
             ])
             ->filters([
-                //
+                SelectFilter::make('member_id')
+                    ->label('کاربر')
+                    ->relationship('member', 'name')  // یا 'user_name'
+                    ->searchable()
+                    ->preload(),
             ])
             ->recordActions([
                 EditAction::make(),

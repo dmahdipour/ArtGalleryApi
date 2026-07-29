@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\Comments\Pages;
+namespace App\Filament\Resources\Styles\Pages;
 
-use App\Filament\Resources\CommentResource;
+use App\Filament\Resources\StyleResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ManageRecords;
 
-class ManageComments extends ManageRecords
+class ManageStyles extends ManageRecords
 {
-    protected static string $resource = CommentResource::class;
+    protected static string $resource = StyleResource::class;
 
     protected function getHeaderActions(): array
     {

@@ -230,7 +230,7 @@ class MemberController extends Controller
         if ($request->hasFile('signature')) {
             $signature = $request->file('signature');
             $signatureName = $id . '.' . $signature->getClientOriginalExtension();
-            $signatureUrl = $signature->storeAs('images/members/signatures', $signatureName, 'public');
+            $signatureUrl = $signature->storeAs('images/signatures', $signatureName, 'public');
             $is_exist->update(['avatar' => $url]);
         }
 

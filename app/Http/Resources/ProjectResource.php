@@ -28,12 +28,12 @@ class ProjectResource extends JsonResource
             'height'=>$this->height,
             'width'=>$this->width,
             'year'=>$this->year,
-            'image'=>$this->image,
-            'thumbnail'=>$this->thumbnail,
+            'image'=>env('APP_URL').'/storage/'.$this->image,
+            'thumbnail'=>env('APP_URL').'/storage/'.$this->thumbnail,
             'artist_describe'=>$this->artist_describe,
             'describe'=>$this->describe,
             'about'=>$this->about,
-            'signature'=>$this->signature,
+            'signature'=>env('APP_URL').'/storage/'.$this->signature,
             'theme'=>$this->theme,
         ];
     }

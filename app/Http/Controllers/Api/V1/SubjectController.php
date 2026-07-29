@@ -41,7 +41,7 @@ class SubjectController extends Controller
         if (!$request->id) {
             return response()->json(['error' => 'هیچ آی دی برای موضوع وارد نشده است.'], 400);
         }
-        if (!$request->name) {
+        if (!$request->name_fa) {
             return response()->json(['error' => 'هیچ نامی برای موضوع وارد نشده است.'], 400);
         }
         $item = Subject::where('id', $request->id)->get()->first(); 

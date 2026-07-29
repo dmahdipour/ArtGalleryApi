@@ -15,8 +15,8 @@ class ProjectSeeder extends Seeder
     {
         Project::create([
             'member_id'=>1,
-            'name_fa'=>'واقعی',
-            'name_en'=>'Realism',
+            'name_fa'=>'تست',
+            'name_en'=>'Test',
             'technique_id'=>1,
             'image'=>'images/projects/1.png',
             'thumbnail'=>'images/projects/thumbnails/1.png',

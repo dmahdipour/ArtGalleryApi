@@ -22,6 +22,7 @@ class MemberResource extends JsonResource
             'token'=>$this->token,
             'name'=>$this->name,
             'user_name'=>$this->user_name,
+            'member_type_id'=>$this->member_type_id,
             'avatar'=>env('APP_URL').'/storage/'.$this->avatar,
             'birthday'=>$this->birthday,
             'place'=>$this->place,
@@ -34,7 +35,7 @@ class MemberResource extends JsonResource
             'linkedin'=>$this->linkedin,
             'status'=>$this->status,
             'about'=>$this->about,
-            'signature'=>$this->signature,
+            'signature'=>env('APP_URL').'/storage/'.$this->signature,
             'register_date'=>$dt,
         ];
     }

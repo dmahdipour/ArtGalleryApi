@@ -2,79 +2,57 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\Comments\Pages\ManageComments;
-use App\Filament\Resources\CommentResource\Pages;
-use App\Filament\Resources\CommentResource\RelationManagers;
-use App\Models\Comment;
+use App\Filament\Resources\Styles\Pages\ManageStyles;
+use App\Filament\Resources\StyleResource\Pages;
+use App\Filament\Resources\StyleResource\RelationManagers;
+use App\Models\Style;
 use BackedEnum;
 use UnitEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-
-class CommentResource extends Resource
+class StyleResource extends Resource
 {
-    protected static ?string $model = Comment::class;
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeftRight;
+    protected static ?string $model = Style::class;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedAcademicCap;
     protected static string|UnitEnum|null $navigationGroup = 'پروژه';
-    protected static ?string $modelLabel = 'نظر';
-    protected static ?string $pluralModelLabel = 'نظرات';
-    protected static ?int $navigationSort = 29;
-
+    protected static ?string $modelLabel = 'سبک';
+    protected static ?string $pluralModelLabel = 'سبک ها';
+    protected static ?int $navigationSort = 22;
 
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
-                Select::make('parent_id')
-                    ->placeholder('بدون والد (کامنت اصلی)')
-                    ->relationship('parent', 'id'),
-                Select::make('project_id')
-                    ->relationship('project', 'name_fa')
+                TextInput::make('name_fa')
                     ->required(),
-                TextInput::make('name')
+                TextInput::make('name_en')
                     ->required(),
-                TextInput::make('contact')
-                    ->required(),
-                Textarea::make('content')
-                    ->required()
+                Textarea::make('description')
                     ->columnSpanFull(),
-                Toggle::make('is_published')
-                    ->required(),
-                Toggle::make('is_read')
-                    ->required(),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('پروژه')
             ->columns([
-                TextColumn::make('parent_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('project.name_fa')
+                TextColumn::make('name_fa')
                     ->searchable(),
-                TextColumn::make('name')
+                TextColumn::make('name_en')
                     ->searchable(),
-                TextColumn::make('contact')
+                TextColumn::make('description')
                     ->searchable(),
-                IconColumn::make('is_published')
-                    ->boolean(),
-                IconColumn::make('is_read')
-                    ->boolean(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -101,7 +79,7 @@ class CommentResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ManageComments::route('/'),
+            'index' => ManageStyles::route('/'),
         ];
     }
 }

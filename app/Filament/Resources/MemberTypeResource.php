@@ -2,42 +2,37 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\MemberTypeResource\Pages\ManageMemberTypes;
+use App\Filament\Resources\MemberTypes\Pages\ManageComments;
 use App\Filament\Resources\MemberTypeResource\Pages;
 use App\Filament\Resources\MemberTypeResource\RelationManagers;
 use App\Models\MemberType;
-use Filament\Resources\Resource;
-use Filament\Tables\Table;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Forms\Form;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\RichEditor;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
+use BackedEnum;
+use UnitEnum;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Schemas\Schema; 
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+
 
 class MemberTypeResource extends Resource
 {
     protected static ?string $model = MemberType::class;
-    public static function getNavigationIcon(): ?string
-    {
-        return 'heroicon-o-identification';
-    }
-    public static function getNavigationGroup(): ?string
-    {
-        return 'تلگرام';
-    }
-    protected static ?string $modelLabel = 'نوع اعضا';
-    protected static ?string $pluralModelLabel = 'نوع';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedIdentification;
+    protected static string|UnitEnum|null $navigationGroup = 'اعضا';
+    protected static ?string $modelLabel = 'نوع عضویت';
+    protected static ?string $pluralModelLabel = 'نوع اعضا';
+    protected static ?int $navigationSort = 2;
 
 
     public static function form(Schema $schema): Schema
@@ -59,6 +54,8 @@ class MemberTypeResource extends Resource
                 ImageColumn::make('thumbnail')
                     ->searchable(),
                 TextColumn::make('name')
+                    ->searchable(),
+                TextColumn::make('description')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

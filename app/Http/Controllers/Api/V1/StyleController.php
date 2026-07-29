@@ -41,7 +41,7 @@ class StyleController extends Controller
         if (!$request->id) {
             return response()->json(['error' => 'هیچ آی دی برای سبک وارد نشده است.'], 400);
         }
-        if (!$request->name) {
+        if (!$request->name_fa) {
             return response()->json(['error' => 'هیچ نامی برای سبک وارد نشده است.'], 400);
         }
         $item = Style::where('id', $request->id)->get()->first(); 

@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('linkedin')->nullable();
             $table->string('website')->nullable();
             $table->text('about')->nullable();
+            $table->string('signature')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

@@ -15,8 +15,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $items= Project::latest()->get(); 
-        // return $items;
+        $items = Project::latest()->get(); 
         if($items)   
         {
             return response()->json(['data' => ProjectResource::collection($items)], 200);
@@ -33,6 +32,10 @@ class ProjectController extends Controller
         $item = Project::where('id', $request->id)->get()->first(); 
         if($item)   
         {
+            $member = Member::where('id', $item->member_id)->get()->first();
+            if ($member->signature) {
+                $item['signature']=$member->signature;
+            }
             return response()->json(['data' => new ProjectResource($item)], 200);
         }
         return response()->json(['error' => 'چنین پروژه ای وجود ندارد.'], 400);

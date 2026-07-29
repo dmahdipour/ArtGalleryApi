@@ -31,6 +31,7 @@ class MemberSeeder extends Seeder
             'member_type' => 1,
             'about' => 'علاقه مند به هنر',
             'avatar'=>'images/avatars/1.png',
+            'signature'=>'images/members/signatures/1.png',
             'verification_code'=>1234,
             'is_email_verified'=>1,
         ]);

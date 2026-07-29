@@ -28,6 +28,7 @@ class Member extends Model
         'avatar',
         'status',
         'about',
+        'signature',
         'verification_code',
     ];
 
@@ -63,6 +64,7 @@ class Member extends Model
                 'avatar',
                 'status',
                 'about',
+                'signature',
             ])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();

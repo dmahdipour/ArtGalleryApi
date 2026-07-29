@@ -218,13 +218,20 @@ class MemberController extends Controller
         }
         
         $is_exist->update($request->all());
+        $is_exist = Member::where('id', $id)->get()->first();
         
         if ($request->hasFile('avatar')) {
             $image = $request->file('avatar');
             $imageName = $id . '.' . $image->getClientOriginalExtension();
             $url = $image->storeAs('avatars', $imageName, 'public');
-            $is_exist_username = Member::where('id', $id)->get()->first();
-            $is_exist_username->update(['avatar' => $url]);
+            $is_exist->update(['avatar' => $url]);
+        }
+
+        if ($request->hasFile('signature')) {
+            $signature = $request->file('signature');
+            $signatureName = $id . '.' . $signature->getClientOriginalExtension();
+            $signatureUrl = $signature->storeAs('images/members/signatures', $signatureName, 'public');
+            $is_exist->update(['avatar' => $url]);
         }
 
         $is_exist=Member::where('id', $id)->first();

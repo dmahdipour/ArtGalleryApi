@@ -34,6 +34,7 @@ class MemberResource extends JsonResource
             'linkedin'=>$this->linkedin,
             'status'=>$this->status,
             'about'=>$this->about,
+            'signature'=>$this->signature,
             'register_date'=>$dt,
         ];
     }

@@ -83,18 +83,14 @@ class ProjectController extends Controller
     {
         if (!$request->id) {
             return response()->json(['error' => 'هیچ آی دی برای پروژه وارد نشده است.'], 400);
-        }        
-        if (!$request->member_id) {
-            return response()->json(['error' => 'هیچ آی دی کاربری برای پروژه وارد نشده است.'], 400);
-        }
-        
-        $item = Project::where('id', $request->id)->get()->first(); 
-        if (!$item) {
-            return response()->json(['error' => 'چنین پروژه ای وجود ندارد.'], 400);
-        }
+        } 
         $id = $request->user()->currentAccessToken()->tokenable_id;
-        if ($request->member_id != $id) {
-            return response()->json(['error' => 'این مورد متعلق به شما نیست'], 400);
+
+        $item = Project::join('members', 'members.id', 'projects.member_id')
+            ->where('projects.id', $request->id)->where('members.id', $id)
+            ->get()->first(); 
+        if (!$item) {
+            return response()->json(['error' => 'چنین پروژه ای وجود ندارد ویا این پروژه متعلق به شما نیست.'], 400);
         }
 
         $data = $request->all();
@@ -121,7 +117,7 @@ class ProjectController extends Controller
         $res = $item->update($data);
         if($res)
         {
-            return response()->json(['data' => ['message' => 'پروژه با موفقیت ویرایش شد']], 200);
+            return response()->json(['data' => ['message' => 'پروژه با موفقیت ویرایش شد', 'data' => new ProjectResource($item)]], 200);
         }
         return response()->json(['error' => 'خطا در ویرایش پروژه'], 400);
     } 
@@ -131,15 +127,16 @@ class ProjectController extends Controller
     {
         if (!$request->id) {
             return response()->json(['error' => 'هیچ آی دی برای پروژه وارد نشده است.'], 400);
-        }
-        $item = Project::where('id', $request->id)->get()->first(); 
-        if (!$item) {
-            return response()->json(['error' => 'چنین پروژه ای وجود ندارد.'], 400);
-        }
+        } 
         $id = $request->user()->currentAccessToken()->tokenable_id;
-        if ($item->member_id != $id) {
-            return response()->json(['error' => 'این مورد متعلق به شما نیست'], 400);
+
+        $item = Project::join('members', 'members.id', 'projects.member_id')
+            ->where('projects.id', $request->id)->where('members.id', $id)
+            ->get()->first(); 
+        if (!$item) {
+            return response()->json(['error' => 'چنین پروژه ای وجود ندارد ویا این پروژه متعلق به شما نیست.'], 400);
         }
+
         $res = $item->delete();
 
         if($res)

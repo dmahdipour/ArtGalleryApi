@@ -17,7 +17,7 @@ class SellResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'project'=>$this->project->name,
+            'project'=>$this->project->name_fa,
             'price'=>$this->price,
             'count'=>$this->count,
             'location'=>$this->location,

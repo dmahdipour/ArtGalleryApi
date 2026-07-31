@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SellResource;
 use App\Models\Sell;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -50,16 +51,24 @@ class SellController extends Controller
         if (!$request->id) {
             return response()->json(['error' => 'هیچ آی دی برای فروش وارد نشده است.'], 400);
         }
+        $item = Sell::where('id', $request->id)->get()->first(); 
+        if (!$item) {
+            return response()->json(['error' => 'چنین فروشی وجود ندارد.'], 400);
+        }
         if (!$request->project_id) {
             return response()->json(['error' => 'هیچ آی دی پروژه ای برای فروش وارد نشده است.'], 400);
         }
         if (!$request->price) {
             return response()->json(['error' => 'هیچ قیمتی برای فروش وارد نشده است.'], 400);
         }
-        $item = Sell::where('id', $request->id)->get()->first(); 
-        if (!$item) {
-            return response()->json(['error' => 'چنین فروشی وجود ندارد.'], 400);
+        $id = $request->user()->currentAccessToken()->tokenable_id;
+        $project = Project::where('id', $item->project_id)->get()->first();
+        if ($project) {
+            if ($project->member_id != $id) {
+                return response()->json(['error' => 'این مورد متعلق به شما نیست'], 400);
+            }
         }
+
         $res = $item->update($request->all());
 
         if($res)
@@ -80,6 +89,14 @@ class SellController extends Controller
         if (!$item) {
             return response()->json(['error' => 'چنین فروشی وجود ندارد.'], 400);
         }
+        $id = $request->user()->currentAccessToken()->tokenable_id;
+        $project = Project::where('id', $item->project_id)->get()->first();
+        if ($project) {
+            if ($project->member_id != $id) {
+                return response()->json(['error' => 'این مورد متعلق به شما نیست'], 400);
+            }
+        }
+
         $res = $item->delete();
 
         if($res)

@@ -82,11 +82,19 @@ class ProjectController extends Controller
     public function update(Request $request)
     {
         if (!$request->id) {
-            return response()->json(['error' => 'هیچ آی دی برای تکنیک وارد نشده است.'], 400);
+            return response()->json(['error' => 'هیچ آی دی برای پروژه وارد نشده است.'], 400);
+        }        
+        if (!$request->member_id) {
+            return response()->json(['error' => 'هیچ آی دی کاربری برای پروژه وارد نشده است.'], 400);
         }
+        
         $item = Project::where('id', $request->id)->get()->first(); 
         if (!$item) {
             return response()->json(['error' => 'چنین پروژه ای وجود ندارد.'], 400);
+        }
+        $id = $request->user()->currentAccessToken()->tokenable_id;
+        if ($request->member_id != $id) {
+            return response()->json(['error' => 'این مورد متعلق به شما نیست'], 400);
         }
 
         $data = $request->all();
@@ -127,6 +135,10 @@ class ProjectController extends Controller
         $item = Project::where('id', $request->id)->get()->first(); 
         if (!$item) {
             return response()->json(['error' => 'چنین پروژه ای وجود ندارد.'], 400);
+        }
+        $id = $request->user()->currentAccessToken()->tokenable_id;
+        if ($item->member_id != $id) {
+            return response()->json(['error' => 'این مورد متعلق به شما نیست'], 400);
         }
         $res = $item->delete();
 

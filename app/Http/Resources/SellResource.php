@@ -6,7 +6,7 @@ use App\Models\Style;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StyleResource extends JsonResource
+class SellResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.

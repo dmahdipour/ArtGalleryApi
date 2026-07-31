@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\Sells\Pages\ManageSells;
+use App\Filament\Resources\SellResource\Pages\ManageSells;
 use App\Filament\Resources\SellResource\Pages;
 use App\Filament\Resources\SellResource\RelationManagers;
 use App\Models\Sell;

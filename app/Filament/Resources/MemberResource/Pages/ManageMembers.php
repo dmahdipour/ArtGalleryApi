@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Members\Pages;
+namespace App\Filament\Resources\MemberResource\Pages;
 
 use App\Filament\Resources\MemberResource;
 use Filament\Actions\CreateAction;

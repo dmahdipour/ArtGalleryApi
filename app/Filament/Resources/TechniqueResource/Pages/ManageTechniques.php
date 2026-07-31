@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Techniques\Pages;
+namespace App\Filament\Resources\TechniqueResource\Pages;
 
 use App\Filament\Resources\TechniqueResource;
 use Filament\Actions\CreateAction;

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\Styles\Pages\ManageStyles;
+use App\Filament\Resources\StyleResource\Pages\ManageStyles;
 use App\Filament\Resources\StyleResource\Pages;
 use App\Filament\Resources\StyleResource\RelationManagers;
 use App\Models\Style;

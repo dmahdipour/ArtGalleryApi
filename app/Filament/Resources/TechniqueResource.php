@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\Techniques\Pages\ManageTechniques;
+use App\Filament\Resources\TechniqueResource\Pages\ManageTechniques;
 use App\Filament\Resources\TechniqueResource\Pages;
 use App\Filament\Resources\TechniqueResource\RelationManagers;
 use App\Models\Technique;

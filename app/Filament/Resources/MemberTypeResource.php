@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MemberTypeResource\Pages\ManageMemberTypes;
-use App\Filament\Resources\MemberTypes\Pages\ManageComments;
 use App\Filament\Resources\MemberTypeResource\Pages;
 use App\Filament\Resources\MemberTypeResource\RelationManagers;
 use App\Models\MemberType;

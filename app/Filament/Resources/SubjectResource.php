@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\Subjects\Pages\ManageSubjects;
+use App\Filament\Resources\SubjectResource\Pages\ManageSubjects;
 use App\Filament\Resources\SubjectResource\Pages;
 use App\Filament\Resources\SubjectResource\RelationManagers;
 use App\Models\Subject;

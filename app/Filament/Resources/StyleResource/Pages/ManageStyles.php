@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Styles\Pages;
+namespace App\Filament\Resources\StyleResource\Pages;
 
 use App\Filament\Resources\StyleResource;
 use Filament\Actions\CreateAction;

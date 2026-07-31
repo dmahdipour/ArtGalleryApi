@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Sells\Pages;
+namespace App\Filament\Resources\SellResource\Pages;
 
 use App\Filament\Resources\SellResource;
 use Filament\Actions\CreateAction;

@@ -16,7 +16,8 @@ class ProjectResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'member'=>$this->member->name,
+            'member_fa'=>$this->member->name_fa,
+            'member_en'=>$this->member->name_en,
             'name_fa'=>$this->name_fa,
             'name_en'=>$this->name_en,
             'technique_fa'=>$this->technique->name_fa,
@@ -30,9 +31,10 @@ class ProjectResource extends JsonResource
             'year'=>$this->year,
             'image'=>env('APP_URL').'/storage/'.$this->image,
             'thumbnail'=>env('APP_URL').'/storage/'.$this->thumbnail,
-            'artist_describe'=>$this->artist_describe,
-            'describe'=>$this->describe,
-            'about'=>$this->about,
+            'artist_describe'=>$this->member_description,
+            'description'=>$this->description,
+            'about_project'=>$this->about_project,
+            'about_artist'=>$this->member->about,
             'signature'=>env('APP_URL').'/storage/'.$this->signature,
             'theme'=>$this->theme,
         ];

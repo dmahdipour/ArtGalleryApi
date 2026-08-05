@@ -15,8 +15,8 @@ class ProjectSeeder extends Seeder
     {
         Project::create([
             'member_id'=>1,
-            'name_fa'=>'تست',
-            'name_en'=>'Test',
+            'name_fa'=>'گل مریم',
+            'name_en'=>'Polianthes Tuberose',
             'technique_id'=>1,
             'image'=>'images/projects/1.png',
             'thumbnail'=>'images/projects/thumbnails/1.png',
@@ -32,7 +32,7 @@ class ProjectSeeder extends Seeder
             'about_project'=>'گل مریم (Polianthes Tuberose) از خوش عطرترین گل های جهان است و خاستگاه آن مکزیک است. عطر نافذ و ماندگار آن قرن هاست در فرهنگ های مختلف نماد پاکی، عشق، وقار و امید شناخته می شود و از ارزشمندترین گل ها در صنعت عطرسازی به شمار می آید.
 گل های این گیاه به صورت تدریجی از پایین به بالا شکوفا می شوند؛ ویژگی ای که آن را به نمادی از رشد، استمرار و تکامل تبدیل کرده است.',
             'signature'=>'images/projects/signatures/1.png',
-            'theme'=>'green',
+            'theme'=>'#102d22',
         ]);
     }
 }

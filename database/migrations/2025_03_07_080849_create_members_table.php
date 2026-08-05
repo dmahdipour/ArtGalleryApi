@@ -19,7 +19,8 @@ return new class extends Migration
             $table->boolean('is_email_verified')->default(false);
             $table->string('password');
             $table->foreignId('member_type_id')->references('id')->on('member_types')->onDelete('cascade')->default(2);
-            $table->string('name')->nullable();
+            $table->string('name_fa')->nullable();
+            $table->string('name_en')->nullable();
             $table->string('avatar')->nullable();
             $table->date('birthday')->nullable();
             $table->string('place')->nullable();

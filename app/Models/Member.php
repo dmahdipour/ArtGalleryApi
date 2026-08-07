@@ -14,6 +14,7 @@ class Member extends Model
     use LogsActivity, HasApiTokens;
 
     protected $fillable= [
+        'user_id',
         'member_type_id',
         'name',
         'user_name',
@@ -34,6 +35,11 @@ class Member extends Model
         'verification_code',
     ];
 
+
+    public function user():BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function memberType():BelongsTo
     {
@@ -62,6 +68,7 @@ class Member extends Model
     {
         return LogOptions::defaults()
             ->logOnly([
+                'user_id',
                 'member_type_id',
                 'name',
                 'user_name',

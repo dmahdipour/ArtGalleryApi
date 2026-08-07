@@ -38,6 +38,7 @@ class PageResource extends Resource
     }
     protected static ?string $modelLabel = 'صفحه';
     protected static ?string $pluralModelLabel = 'صفحه ها';
+    protected static ?int $navigationSort = 71;
 
 
     public static function form(Schema $schema): Schema

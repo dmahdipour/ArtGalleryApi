@@ -4,9 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Model;
-
 use Filament\Tables\Table;
-
 use Filament\Forms\Components\Field;
 use Filament\Forms\Components\Placeholder;
 use Filament\Tables\Columns\Column;

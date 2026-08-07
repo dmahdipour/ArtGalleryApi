@@ -37,6 +37,7 @@ class LinkResource extends Resource
     }
     protected static ?string $modelLabel = 'پیوند';
     protected static ?string $pluralModelLabel = 'پیوند ها';
+    protected static ?int $navigationSort = 74;
 
 
     public static function form(Schema $schema): Schema

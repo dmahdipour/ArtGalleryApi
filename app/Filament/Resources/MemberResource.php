@@ -6,6 +6,7 @@ use App\Filament\Resources\MemberResource\Pages\ManageMembers;
 use App\Filament\Resources\MemberResource\Pages;
 use App\Filament\Resources\MemberResource\RelationManagers;
 use App\Models\Member;
+use App\Models\User;
 use BackedEnum;
 use UnitEnum;
 use Filament\Actions\BulkActionGroup;
@@ -91,6 +92,8 @@ class MemberResource extends Resource
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('memberType.name')
+                    ->searchable(),
+                TextColumn::make('user.name')
                     ->searchable(),
                 TextColumn::make('email')
                     ->label('Email address')

@@ -7,22 +7,20 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Filament\Widgets\StatsOverviewWidget;
+use BackedEnum;
+use UnitEnum;
 use Filament\Schemas\Schema; 
+use Filament\Support\Icons\Heroicon;
 
 
 class ChangePassword extends Page
 {
-    public static function getNavigationIcon(): ?string
-    {
-        return 'heroicon-o-shield-check';
-    }
-    public static function getNavigationGroup(): ?string
-    {
-        return 'تنظیمات';
-    }
     protected string $view = 'filament.pages.change-password';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShieldCheck;
+    protected static string|UnitEnum|null $navigationGroup = 'کاربران';
     protected static ?string $navigationLabel = 'تغییر رمز';
     protected static ?string $title = 'تغییر رمز';
+    protected static ?int $navigationSort = 33;
 
 
     public $current_password;

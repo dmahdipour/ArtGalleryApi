@@ -38,6 +38,7 @@ class SettingResource extends Resource
     }
     protected static ?string $modelLabel = 'تنظیمات';
     protected static ?string $pluralModelLabel = 'تنظیمات';
+    protected static ?int $navigationSort = 51;
 
 
     public static function form(Schema $schema): Schema

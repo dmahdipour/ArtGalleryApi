@@ -63,7 +63,13 @@ class MemberController extends Controller
             return response()->json(['error' => 'رمز عبور وارد نشده است.'], 400);
         }
 
+        $user = User::create([
+            'email' => $request->email,
+            'name' => $request->user_name,
+            'password' => Hash::make($request->password),
+        ]);
         $member = Member::create([
+            'user_id' => $user->id,
             'email' => $request->email,
             'user_name' => $request->user_name,
             'password' => Hash::make($request->password),

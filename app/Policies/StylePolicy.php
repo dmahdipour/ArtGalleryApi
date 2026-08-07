@@ -3,25 +3,25 @@
 namespace App\Policies;
 
 use Illuminate\Auth\Access\Response;
-use App\Models\Reward;
+use App\Models\Style;
 use App\Models\User;
 
-class RewardPolicy
+class StylePolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->checkPermissionTo('view-any Reward');
+        return $user->checkPermissionTo('view-any Style');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Reward $reward): bool
+    public function view(User $user, Style $style): bool
     {
-        return $user->checkPermissionTo('view Reward');
+        return $user->checkPermissionTo('view Style');
     }
 
     /**
@@ -29,23 +29,23 @@ class RewardPolicy
      */
     public function create(User $user): bool
     {
-        return $user->checkPermissionTo('create Reward');
+        return $user->checkPermissionTo('create Style');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Reward $reward): bool
+    public function update(User $user, Style $style): bool
     {
-        return $user->checkPermissionTo('update Reward');
+        return $user->checkPermissionTo('update Style');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Reward $reward): bool
+    public function delete(User $user, Style $style): bool
     {
-        return $user->checkPermissionTo('delete Reward');
+        return $user->checkPermissionTo('delete Style');
     }
 
     /**
@@ -53,15 +53,15 @@ class RewardPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->checkPermissionTo('delete-any Reward');
+        return $user->checkPermissionTo('delete-any Style');
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Reward $reward): bool
+    public function restore(User $user, Style $style): bool
     {
-        return $user->checkPermissionTo('restore Reward');
+        return $user->checkPermissionTo('restore Style');
     }
 
     /**
@@ -69,15 +69,15 @@ class RewardPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->checkPermissionTo('restore-any Reward');
+        return $user->checkPermissionTo('restore-any Style');
     }
 
     /**
      * Determine whether the user can replicate the model.
      */
-    public function replicate(User $user, Reward $reward): bool
+    public function replicate(User $user, Style $style): bool
     {
-        return $user->checkPermissionTo('replicate Reward');
+        return $user->checkPermissionTo('replicate Style');
     }
 
     /**
@@ -85,15 +85,15 @@ class RewardPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->checkPermissionTo('reorder Reward');
+        return $user->checkPermissionTo('reorder Style');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Reward $reward): bool
+    public function forceDelete(User $user, Style $style): bool
     {
-        return $user->checkPermissionTo('force-delete Reward');
+        return $user->checkPermissionTo('force-delete Style');
     }
 
     /**
@@ -101,6 +101,6 @@ class RewardPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->checkPermissionTo('force-delete-any Reward');
+        return $user->checkPermissionTo('force-delete-any Style');
     }
 }

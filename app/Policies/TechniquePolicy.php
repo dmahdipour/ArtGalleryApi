@@ -3,25 +3,25 @@
 namespace App\Policies;
 
 use Illuminate\Auth\Access\Response;
-use App\Models\Media;
+use App\Models\Technique;
 use App\Models\User;
 
-class MediaPolicy
+class TechniquePolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->checkPermissionTo('view-any Media');
+        return $user->checkPermissionTo('view-any Technique');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Media $media): bool
+    public function view(User $user, Technique $technique): bool
     {
-        return $user->checkPermissionTo('view Media');
+        return $user->checkPermissionTo('view Technique');
     }
 
     /**
@@ -29,23 +29,23 @@ class MediaPolicy
      */
     public function create(User $user): bool
     {
-        return $user->checkPermissionTo('create Media');
+        return $user->checkPermissionTo('create Technique');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Media $media): bool
+    public function update(User $user, Technique $technique): bool
     {
-        return $user->checkPermissionTo('update Media');
+        return $user->checkPermissionTo('update Technique');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Media $media): bool
+    public function delete(User $user, Technique $technique): bool
     {
-        return $user->checkPermissionTo('delete Media');
+        return $user->checkPermissionTo('delete Technique');
     }
 
     /**
@@ -53,15 +53,15 @@ class MediaPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->checkPermissionTo('delete-any Media');
+        return $user->checkPermissionTo('delete-any Technique');
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Media $media): bool
+    public function restore(User $user, Technique $technique): bool
     {
-        return $user->checkPermissionTo('restore Media');
+        return $user->checkPermissionTo('restore Technique');
     }
 
     /**
@@ -69,15 +69,15 @@ class MediaPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->checkPermissionTo('restore-any Media');
+        return $user->checkPermissionTo('restore-any Technique');
     }
 
     /**
      * Determine whether the user can replicate the model.
      */
-    public function replicate(User $user, Media $media): bool
+    public function replicate(User $user, Technique $technique): bool
     {
-        return $user->checkPermissionTo('replicate Media');
+        return $user->checkPermissionTo('replicate Technique');
     }
 
     /**
@@ -85,15 +85,15 @@ class MediaPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->checkPermissionTo('reorder Media');
+        return $user->checkPermissionTo('reorder Technique');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Media $media): bool
+    public function forceDelete(User $user, Technique $technique): bool
     {
-        return $user->checkPermissionTo('force-delete Media');
+        return $user->checkPermissionTo('force-delete Technique');
     }
 
     /**
@@ -101,6 +101,6 @@ class MediaPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->checkPermissionTo('force-delete-any Media');
+        return $user->checkPermissionTo('force-delete-any Technique');
     }
 }

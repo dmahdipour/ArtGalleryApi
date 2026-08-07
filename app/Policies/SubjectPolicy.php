@@ -3,25 +3,25 @@
 namespace App\Policies;
 
 use Illuminate\Auth\Access\Response;
-use App\Models\Answer;
+use App\Models\Subject;
 use App\Models\User;
 
-class AnswerPolicy
+class SubjectPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->checkPermissionTo('view-any Answer');
+        return $user->checkPermissionTo('view-any Subject');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Answer $answer): bool
+    public function view(User $user, Subject $subject): bool
     {
-        return $user->checkPermissionTo('view Answer');
+        return $user->checkPermissionTo('view Subject');
     }
 
     /**
@@ -29,23 +29,23 @@ class AnswerPolicy
      */
     public function create(User $user): bool
     {
-        return $user->checkPermissionTo('create Answer');
+        return $user->checkPermissionTo('create Subject');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Answer $answer): bool
+    public function update(User $user, Subject $subject): bool
     {
-        return $user->checkPermissionTo('update Answer');
+        return $user->checkPermissionTo('update Subject');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Answer $answer): bool
+    public function delete(User $user, Subject $subject): bool
     {
-        return $user->checkPermissionTo('delete Answer');
+        return $user->checkPermissionTo('delete Subject');
     }
 
     /**
@@ -53,15 +53,15 @@ class AnswerPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->checkPermissionTo('delete-any Answer');
+        return $user->checkPermissionTo('delete-any Subject');
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Answer $answer): bool
+    public function restore(User $user, Subject $subject): bool
     {
-        return $user->checkPermissionTo('restore Answer');
+        return $user->checkPermissionTo('restore Subject');
     }
 
     /**
@@ -69,15 +69,15 @@ class AnswerPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->checkPermissionTo('restore-any Answer');
+        return $user->checkPermissionTo('restore-any Subject');
     }
 
     /**
      * Determine whether the user can replicate the model.
      */
-    public function replicate(User $user, Answer $answer): bool
+    public function replicate(User $user, Subject $subject): bool
     {
-        return $user->checkPermissionTo('replicate Answer');
+        return $user->checkPermissionTo('replicate Subject');
     }
 
     /**
@@ -85,15 +85,15 @@ class AnswerPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->checkPermissionTo('reorder Answer');
+        return $user->checkPermissionTo('reorder Subject');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Answer $answer): bool
+    public function forceDelete(User $user, Subject $subject): bool
     {
-        return $user->checkPermissionTo('force-delete Answer');
+        return $user->checkPermissionTo('force-delete Subject');
     }
 
     /**
@@ -101,6 +101,6 @@ class AnswerPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->checkPermissionTo('force-delete-any Answer');
+        return $user->checkPermissionTo('force-delete-any Subject');
     }
 }

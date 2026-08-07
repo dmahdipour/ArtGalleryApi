@@ -3,25 +3,25 @@
 namespace App\Policies;
 
 use Illuminate\Auth\Access\Response;
-use App\Models\Game;
+use App\Models\Sell;
 use App\Models\User;
 
-class GamePolicy
+class SellPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->checkPermissionTo('view-any Game');
+        return $user->checkPermissionTo('view-any Sell');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Game $game): bool
+    public function view(User $user, Sell $sell): bool
     {
-        return $user->checkPermissionTo('view Game');
+        return $user->checkPermissionTo('view Sell');
     }
 
     /**
@@ -29,23 +29,23 @@ class GamePolicy
      */
     public function create(User $user): bool
     {
-        return $user->checkPermissionTo('create Game');
+        return $user->checkPermissionTo('create Sell');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Game $game): bool
+    public function update(User $user, Sell $sell): bool
     {
-        return $user->checkPermissionTo('update Game');
+        return $user->checkPermissionTo('update Sell');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Game $game): bool
+    public function delete(User $user, Sell $sell): bool
     {
-        return $user->checkPermissionTo('delete Game');
+        return $user->checkPermissionTo('delete Sell');
     }
 
     /**
@@ -53,15 +53,15 @@ class GamePolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->checkPermissionTo('delete-any Game');
+        return $user->checkPermissionTo('delete-any Sell');
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Game $game): bool
+    public function restore(User $user, Sell $sell): bool
     {
-        return $user->checkPermissionTo('restore Game');
+        return $user->checkPermissionTo('restore Sell');
     }
 
     /**
@@ -69,15 +69,15 @@ class GamePolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->checkPermissionTo('restore-any Game');
+        return $user->checkPermissionTo('restore-any Sell');
     }
 
     /**
      * Determine whether the user can replicate the model.
      */
-    public function replicate(User $user, Game $game): bool
+    public function replicate(User $user, Sell $sell): bool
     {
-        return $user->checkPermissionTo('replicate Game');
+        return $user->checkPermissionTo('replicate Sell');
     }
 
     /**
@@ -85,15 +85,15 @@ class GamePolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->checkPermissionTo('reorder Game');
+        return $user->checkPermissionTo('reorder Sell');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Game $game): bool
+    public function forceDelete(User $user, Sell $sell): bool
     {
-        return $user->checkPermissionTo('force-delete Game');
+        return $user->checkPermissionTo('force-delete Sell');
     }
 
     /**
@@ -101,6 +101,6 @@ class GamePolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->checkPermissionTo('force-delete-any Game');
+        return $user->checkPermissionTo('force-delete-any Sell');
     }
 }

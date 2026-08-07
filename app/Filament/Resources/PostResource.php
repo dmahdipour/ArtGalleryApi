@@ -38,6 +38,7 @@ class PostResource extends Resource
     }
     protected static ?string $modelLabel = 'پست';
     protected static ?string $pluralModelLabel = 'پست ها';
+    protected static ?int $navigationSort = 72;
 
 
     public static function form(Schema $schema): Schema

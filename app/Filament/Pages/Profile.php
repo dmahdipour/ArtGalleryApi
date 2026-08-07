@@ -8,22 +8,20 @@ use Illuminate\Validation\Rules\Password;
 use Filament\Actions\Action;
 use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\TextInput;
+use BackedEnum;
+use UnitEnum;
 use Filament\Schemas\Schema; 
+use Filament\Support\Icons\Heroicon;
 
 
 class Profile extends Page
 {
-    public static function getNavigationIcon(): ?string
-    {
-        return 'heroicon-o-user-circle';
-    }
-    public static function getNavigationGroup(): ?string
-    {
-        return 'تنظیمات';
-    }
+    protected string $view = 'filament.pages.profile';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserCircle;
+    protected static string|UnitEnum|null $navigationGroup = 'کاربران';
     protected static ?string $navigationLabel = 'پروفایل';
     protected static ?string $title = 'پروفایل';
-    protected string $view = 'filament.pages.profile';
+    protected static ?int $navigationSort = 32;
 
 
     public $name;

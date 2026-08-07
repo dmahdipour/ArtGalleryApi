@@ -38,6 +38,7 @@ class VisitResource extends Resource
     }
     protected static ?string $modelLabel = 'بازدید';
     protected static ?string $pluralModelLabel = 'بازدیدها';
+    protected static ?int $navigationSort = 81;
 
 
     public static function form(Schema $schema): Schema

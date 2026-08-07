@@ -38,6 +38,7 @@ class PositionResource extends Resource
     }
     protected static ?string $modelLabel = 'موقعیت';
     protected static ?string $pluralModelLabel = 'موقعیت ها';
+    protected static ?int $navigationSort = 72;
 
 
     public static function form(Schema $schema): Schema

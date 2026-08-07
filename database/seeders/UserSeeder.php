@@ -15,7 +15,9 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $role = Role::firstOrCreate(['name'=>'Super Admin']);
+        Role::firstOrCreate(['name' => 'super_admin']); 
+        Role::firstOrCreate(['name' => 'public']);
+        Role::firstOrCreate(['name' => 'Owener']);
 
         $user = User::updateOrCreate([
             'name' => 'dmy',
@@ -25,7 +27,16 @@ class UserSeeder extends Seeder
             'is_active' => 1,
             'avatar' => '',
         ]);
-
         $user->assignRole(1);
+
+        $user1 = User::updateOrCreate([
+            'name' => 'test',
+            'email'=>'test@gmail.com',
+            'phone' => '09339981840',
+            'password' => Hash::make('cilense'),
+            'is_active' => 1,
+            'avatar' => '',
+        ]);
+        $user1->assignRole(2);
     }
 }

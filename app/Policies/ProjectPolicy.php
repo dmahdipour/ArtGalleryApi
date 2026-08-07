@@ -3,25 +3,25 @@
 namespace App\Policies;
 
 use Illuminate\Auth\Access\Response;
-use App\Models\MediaType;
+use App\Models\Project;
 use App\Models\User;
 
-class MediaTypePolicy
+class ProjectPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->checkPermissionTo('view-any MediaType');
+        return $user->checkPermissionTo('view-any Project');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, MediaType $mediatype): bool
+    public function view(User $user, Project $project): bool
     {
-        return $user->checkPermissionTo('view MediaType');
+        return $user->checkPermissionTo('view Project');
     }
 
     /**
@@ -29,23 +29,23 @@ class MediaTypePolicy
      */
     public function create(User $user): bool
     {
-        return $user->checkPermissionTo('create MediaType');
+        return $user->checkPermissionTo('create Project');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, MediaType $mediatype): bool
+    public function update(User $user, Project $project): bool
     {
-        return $user->checkPermissionTo('update MediaType');
+        return $user->checkPermissionTo('update Project');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, MediaType $mediatype): bool
+    public function delete(User $user, Project $project): bool
     {
-        return $user->checkPermissionTo('delete MediaType');
+        return $user->checkPermissionTo('delete Project');
     }
 
     /**
@@ -53,15 +53,15 @@ class MediaTypePolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->checkPermissionTo('delete-any MediaType');
+        return $user->checkPermissionTo('delete-any Project');
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, MediaType $mediatype): bool
+    public function restore(User $user, Project $project): bool
     {
-        return $user->checkPermissionTo('restore MediaType');
+        return $user->checkPermissionTo('restore Project');
     }
 
     /**
@@ -69,15 +69,15 @@ class MediaTypePolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->checkPermissionTo('restore-any MediaType');
+        return $user->checkPermissionTo('restore-any Project');
     }
 
     /**
      * Determine whether the user can replicate the model.
      */
-    public function replicate(User $user, MediaType $mediatype): bool
+    public function replicate(User $user, Project $project): bool
     {
-        return $user->checkPermissionTo('replicate MediaType');
+        return $user->checkPermissionTo('replicate Project');
     }
 
     /**
@@ -85,15 +85,15 @@ class MediaTypePolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->checkPermissionTo('reorder MediaType');
+        return $user->checkPermissionTo('reorder Project');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, MediaType $mediatype): bool
+    public function forceDelete(User $user, Project $project): bool
     {
-        return $user->checkPermissionTo('force-delete MediaType');
+        return $user->checkPermissionTo('force-delete Project');
     }
 
     /**
@@ -101,6 +101,6 @@ class MediaTypePolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->checkPermissionTo('force-delete-any MediaType');
+        return $user->checkPermissionTo('force-delete-any Project');
     }
 }

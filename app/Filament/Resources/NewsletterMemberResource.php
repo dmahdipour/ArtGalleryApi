@@ -38,6 +38,7 @@ class NewsletterMemberResource extends Resource
     }
     protected static ?string $modelLabel = 'عضو';
     protected static ?string $pluralModelLabel = 'اعضای خبرنامه';
+    protected static ?int $navigationSort = 61;
 
     
     public static function form(Schema $schema): Schema

@@ -16,7 +16,8 @@ class Member extends Model
     protected $fillable= [
         'user_id',
         'member_type_id',
-        'name',
+        'name_fa',
+        'name_en',
         'user_name',
         'birthday',
         'place',
@@ -70,7 +71,8 @@ class Member extends Model
             ->logOnly([
                 'user_id',
                 'member_type_id',
-                'name',
+                'name_fa',
+                'name_en',
                 'user_name',
                 'birthday',
                 'place',

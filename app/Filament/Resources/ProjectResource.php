@@ -39,7 +39,7 @@ class ProjectResource extends Resource
         return $schema
             ->components([
                 Select::make('member_id')
-                    ->relationship('member', 'name')
+                    ->relationship('member', 'name_fa')
                     ->required(),
                 TextInput::make('name_fa')
                     ->required(),
@@ -84,7 +84,7 @@ class ProjectResource extends Resource
             ->columns([
                 ImageColumn::make('thumbnail')
                     ->disk('public'),
-                TextColumn::make('member.name')
+                TextColumn::make('member.name_fa')
                     ->searchable(),
                 TextColumn::make('name_fa')
                     ->searchable(),
@@ -131,7 +131,7 @@ class ProjectResource extends Resource
             ->filters([
                 SelectFilter::make('member_id')
                     ->label('کاربر')
-                    ->relationship('member', 'name')  // یا 'user_name'
+                    ->relationship('member', 'name_fa')  // یا 'user_name'
                     ->searchable()
                     ->preload(),
             ])

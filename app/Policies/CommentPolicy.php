@@ -1,106 +1,75 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use Illuminate\Auth\Access\Response;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Comment;
-use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CommentPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    use HandlesAuthorization;
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('view-any Comment');
+        return $authUser->can('ViewAny:Comment');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Comment $comment): bool
+    public function view(AuthUser $authUser, Comment $comment): bool
     {
-        return $user->checkPermissionTo('view Comment');
+        return $authUser->can('View:Comment');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('create Comment');
+        return $authUser->can('Create:Comment');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Comment $comment): bool
+    public function update(AuthUser $authUser, Comment $comment): bool
     {
-        return $user->checkPermissionTo('update Comment');
+        return $authUser->can('Update:Comment');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Comment $comment): bool
+    public function delete(AuthUser $authUser, Comment $comment): bool
     {
-        return $user->checkPermissionTo('delete Comment');
+        return $authUser->can('Delete:Comment');
     }
 
-    /**
-     * Determine whether the user can delete any models.
-     */
-    public function deleteAny(User $user): bool
+    public function deleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('delete-any Comment');
+        return $authUser->can('DeleteAny:Comment');
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Comment $comment): bool
+    public function restore(AuthUser $authUser, Comment $comment): bool
     {
-        return $user->checkPermissionTo('restore Comment');
+        return $authUser->can('Restore:Comment');
     }
 
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
+    public function forceDelete(AuthUser $authUser, Comment $comment): bool
     {
-        return $user->checkPermissionTo('restore-any Comment');
+        return $authUser->can('ForceDelete:Comment');
     }
 
-    /**
-     * Determine whether the user can replicate the model.
-     */
-    public function replicate(User $user, Comment $comment): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('replicate Comment');
+        return $authUser->can('ForceDeleteAny:Comment');
     }
 
-    /**
-     * Determine whether the user can reorder the models.
-     */
-    public function reorder(User $user): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('reorder Comment');
+        return $authUser->can('RestoreAny:Comment');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Comment $comment): bool
+    public function replicate(AuthUser $authUser, Comment $comment): bool
     {
-        return $user->checkPermissionTo('force-delete Comment');
+        return $authUser->can('Replicate:Comment');
     }
 
-    /**
-     * Determine whether the user can permanently delete any models.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('force-delete-any Comment');
+        return $authUser->can('Reorder:Comment');
     }
+
 }

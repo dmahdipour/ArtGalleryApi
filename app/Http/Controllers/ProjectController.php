@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\Models\Project;
-use App\Http\Resources\ProjectResource;
 use App\Models\Member;
+use App\Http\Resources\ProjectResource;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -21,10 +21,10 @@ class ProjectController extends Controller
 
     public function info(Request $request)
     {
-        if (!$request->id) {
+        if (!$request->uuid) {
             return redirect()->route('projectIndex')->with('error', 'هیچ آی دی برای پروژه وارد نشده است.');
         }
-        $item = Project::where('id', $request->id)->get()->first();
+        $item = Project::where('uuid', $request->uuid)->get()->first();
         if($item)   
         {
             $member = Member::where('id', $item->member_id)->get()->first();

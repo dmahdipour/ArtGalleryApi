@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->foreignId('member_id')->references('id')->on('members')->onDelete('cascade');
             $table->string('name_fa');
             $table->string('name_en');

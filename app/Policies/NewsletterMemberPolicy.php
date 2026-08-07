@@ -1,106 +1,75 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use Illuminate\Auth\Access\Response;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\NewsletterMember;
-use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class NewsletterMemberPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    use HandlesAuthorization;
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('view-any NewsletterMember');
+        return $authUser->can('ViewAny:NewsletterMember');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, NewsletterMember $newslettermember): bool
+    public function view(AuthUser $authUser, NewsletterMember $newsletterMember): bool
     {
-        return $user->checkPermissionTo('view NewsletterMember');
+        return $authUser->can('View:NewsletterMember');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('create NewsletterMember');
+        return $authUser->can('Create:NewsletterMember');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, NewsletterMember $newslettermember): bool
+    public function update(AuthUser $authUser, NewsletterMember $newsletterMember): bool
     {
-        return $user->checkPermissionTo('update NewsletterMember');
+        return $authUser->can('Update:NewsletterMember');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, NewsletterMember $newslettermember): bool
+    public function delete(AuthUser $authUser, NewsletterMember $newsletterMember): bool
     {
-        return $user->checkPermissionTo('delete NewsletterMember');
+        return $authUser->can('Delete:NewsletterMember');
     }
 
-    /**
-     * Determine whether the user can delete any models.
-     */
-    public function deleteAny(User $user): bool
+    public function deleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('delete-any NewsletterMember');
+        return $authUser->can('DeleteAny:NewsletterMember');
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, NewsletterMember $newslettermember): bool
+    public function restore(AuthUser $authUser, NewsletterMember $newsletterMember): bool
     {
-        return $user->checkPermissionTo('restore NewsletterMember');
+        return $authUser->can('Restore:NewsletterMember');
     }
 
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
+    public function forceDelete(AuthUser $authUser, NewsletterMember $newsletterMember): bool
     {
-        return $user->checkPermissionTo('restore-any NewsletterMember');
+        return $authUser->can('ForceDelete:NewsletterMember');
     }
 
-    /**
-     * Determine whether the user can replicate the model.
-     */
-    public function replicate(User $user, NewsletterMember $newslettermember): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('replicate NewsletterMember');
+        return $authUser->can('ForceDeleteAny:NewsletterMember');
     }
 
-    /**
-     * Determine whether the user can reorder the models.
-     */
-    public function reorder(User $user): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('reorder NewsletterMember');
+        return $authUser->can('RestoreAny:NewsletterMember');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, NewsletterMember $newslettermember): bool
+    public function replicate(AuthUser $authUser, NewsletterMember $newsletterMember): bool
     {
-        return $user->checkPermissionTo('force-delete NewsletterMember');
+        return $authUser->can('Replicate:NewsletterMember');
     }
 
-    /**
-     * Determine whether the user can permanently delete any models.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('force-delete-any NewsletterMember');
+        return $authUser->can('Reorder:NewsletterMember');
     }
+
 }

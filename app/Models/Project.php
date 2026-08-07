@@ -7,12 +7,15 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+
 
 class Project extends Model
 {
-    use LogsActivity;
+    use LogsActivity, HasUuids;
 
     protected $fillable=[
+        'uuid',
         'member_id',
         'name_fa',
         'name_en',
@@ -32,6 +35,10 @@ class Project extends Model
     ];
 
 
+    public function uniqueIds(): array
+    {
+        return ['uuid'];
+    }
 
     public function member():BelongsTo
     {
@@ -62,7 +69,9 @@ class Project extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['member_id',
+            ->logOnly([
+                'uuid',
+                'member_id',
                 'name_fa',
                 'name_en',
                 'technique_id',
@@ -77,7 +86,7 @@ class Project extends Model
                 'description',
                 'about',
                 'signature',
-                'theme'
+                'theme',
             ])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();

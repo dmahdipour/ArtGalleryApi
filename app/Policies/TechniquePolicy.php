@@ -1,106 +1,75 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use Illuminate\Auth\Access\Response;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Technique;
-use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TechniquePolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    use HandlesAuthorization;
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('view-any Technique');
+        return $authUser->can('ViewAny:Technique');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Technique $technique): bool
+    public function view(AuthUser $authUser, Technique $technique): bool
     {
-        return $user->checkPermissionTo('view Technique');
+        return $authUser->can('View:Technique');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('create Technique');
+        return $authUser->can('Create:Technique');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Technique $technique): bool
+    public function update(AuthUser $authUser, Technique $technique): bool
     {
-        return $user->checkPermissionTo('update Technique');
+        return $authUser->can('Update:Technique');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Technique $technique): bool
+    public function delete(AuthUser $authUser, Technique $technique): bool
     {
-        return $user->checkPermissionTo('delete Technique');
+        return $authUser->can('Delete:Technique');
     }
 
-    /**
-     * Determine whether the user can delete any models.
-     */
-    public function deleteAny(User $user): bool
+    public function deleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('delete-any Technique');
+        return $authUser->can('DeleteAny:Technique');
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Technique $technique): bool
+    public function restore(AuthUser $authUser, Technique $technique): bool
     {
-        return $user->checkPermissionTo('restore Technique');
+        return $authUser->can('Restore:Technique');
     }
 
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
+    public function forceDelete(AuthUser $authUser, Technique $technique): bool
     {
-        return $user->checkPermissionTo('restore-any Technique');
+        return $authUser->can('ForceDelete:Technique');
     }
 
-    /**
-     * Determine whether the user can replicate the model.
-     */
-    public function replicate(User $user, Technique $technique): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('replicate Technique');
+        return $authUser->can('ForceDeleteAny:Technique');
     }
 
-    /**
-     * Determine whether the user can reorder the models.
-     */
-    public function reorder(User $user): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('reorder Technique');
+        return $authUser->can('RestoreAny:Technique');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Technique $technique): bool
+    public function replicate(AuthUser $authUser, Technique $technique): bool
     {
-        return $user->checkPermissionTo('force-delete Technique');
+        return $authUser->can('Replicate:Technique');
     }
 
-    /**
-     * Determine whether the user can permanently delete any models.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('force-delete-any Technique');
+        return $authUser->can('Reorder:Technique');
     }
+
 }

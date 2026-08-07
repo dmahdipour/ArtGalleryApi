@@ -1,106 +1,75 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use Illuminate\Auth\Access\Response;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Visit;
-use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class VisitPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    use HandlesAuthorization;
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('view-any Visit');
+        return $authUser->can('ViewAny:Visit');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Visit $visit): bool
+    public function view(AuthUser $authUser, Visit $visit): bool
     {
-        return $user->checkPermissionTo('view Visit');
+        return $authUser->can('View:Visit');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('create Visit');
+        return $authUser->can('Create:Visit');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Visit $visit): bool
+    public function update(AuthUser $authUser, Visit $visit): bool
     {
-        return $user->checkPermissionTo('update Visit');
+        return $authUser->can('Update:Visit');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Visit $visit): bool
+    public function delete(AuthUser $authUser, Visit $visit): bool
     {
-        return $user->checkPermissionTo('delete Visit');
+        return $authUser->can('Delete:Visit');
     }
 
-    /**
-     * Determine whether the user can delete any models.
-     */
-    public function deleteAny(User $user): bool
+    public function deleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('delete-any Visit');
+        return $authUser->can('DeleteAny:Visit');
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Visit $visit): bool
+    public function restore(AuthUser $authUser, Visit $visit): bool
     {
-        return $user->checkPermissionTo('restore Visit');
+        return $authUser->can('Restore:Visit');
     }
 
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
+    public function forceDelete(AuthUser $authUser, Visit $visit): bool
     {
-        return $user->checkPermissionTo('restore-any Visit');
+        return $authUser->can('ForceDelete:Visit');
     }
 
-    /**
-     * Determine whether the user can replicate the model.
-     */
-    public function replicate(User $user, Visit $visit): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('replicate Visit');
+        return $authUser->can('ForceDeleteAny:Visit');
     }
 
-    /**
-     * Determine whether the user can reorder the models.
-     */
-    public function reorder(User $user): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('reorder Visit');
+        return $authUser->can('RestoreAny:Visit');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Visit $visit): bool
+    public function replicate(AuthUser $authUser, Visit $visit): bool
     {
-        return $user->checkPermissionTo('force-delete Visit');
+        return $authUser->can('Replicate:Visit');
     }
 
-    /**
-     * Determine whether the user can permanently delete any models.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('force-delete-any Visit');
+        return $authUser->can('Reorder:Visit');
     }
+
 }

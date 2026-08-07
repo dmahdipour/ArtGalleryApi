@@ -1,106 +1,75 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use Illuminate\Auth\Access\Response;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Setting;
-use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SettingPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    use HandlesAuthorization;
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('view-any Setting');
+        return $authUser->can('ViewAny:Setting');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Setting $setting): bool
+    public function view(AuthUser $authUser, Setting $setting): bool
     {
-        return $user->checkPermissionTo('view Setting');
+        return $authUser->can('View:Setting');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('create Setting');
+        return $authUser->can('Create:Setting');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Setting $setting): bool
+    public function update(AuthUser $authUser, Setting $setting): bool
     {
-        return $user->checkPermissionTo('update Setting');
+        return $authUser->can('Update:Setting');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Setting $setting): bool
+    public function delete(AuthUser $authUser, Setting $setting): bool
     {
-        return $user->checkPermissionTo('delete Setting');
+        return $authUser->can('Delete:Setting');
     }
 
-    /**
-     * Determine whether the user can delete any models.
-     */
-    public function deleteAny(User $user): bool
+    public function deleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('delete-any Setting');
+        return $authUser->can('DeleteAny:Setting');
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Setting $setting): bool
+    public function restore(AuthUser $authUser, Setting $setting): bool
     {
-        return $user->checkPermissionTo('restore Setting');
+        return $authUser->can('Restore:Setting');
     }
 
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
+    public function forceDelete(AuthUser $authUser, Setting $setting): bool
     {
-        return $user->checkPermissionTo('restore-any Setting');
+        return $authUser->can('ForceDelete:Setting');
     }
 
-    /**
-     * Determine whether the user can replicate the model.
-     */
-    public function replicate(User $user, Setting $setting): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('replicate Setting');
+        return $authUser->can('ForceDeleteAny:Setting');
     }
 
-    /**
-     * Determine whether the user can reorder the models.
-     */
-    public function reorder(User $user): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('reorder Setting');
+        return $authUser->can('RestoreAny:Setting');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Setting $setting): bool
+    public function replicate(AuthUser $authUser, Setting $setting): bool
     {
-        return $user->checkPermissionTo('force-delete Setting');
+        return $authUser->can('Replicate:Setting');
     }
 
-    /**
-     * Determine whether the user can permanently delete any models.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('force-delete-any Setting');
+        return $authUser->can('Reorder:Setting');
     }
+
 }

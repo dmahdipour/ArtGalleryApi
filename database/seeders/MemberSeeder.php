@@ -15,6 +15,7 @@ class MemberSeeder extends Seeder
     public function run(): void
     {
         Member::updateOrCreate([
+            'user_id' => 1,
             'name_fa' => 'داریوش مهدی پور یقینی',
             'name_en' => 'Daryoush Mahdipour Yaghini',
             'user_name' => 'DMY',
@@ -41,6 +42,7 @@ class MemberSeeder extends Seeder
 
         
         Member::updateOrCreate([
+            'user_id' => 2,
             'name_fa' => 'تست',
             'name_en' => 'Test',
             'user_name' => 'test',

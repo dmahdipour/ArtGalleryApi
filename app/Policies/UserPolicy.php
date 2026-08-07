@@ -2,105 +2,71 @@
 
 namespace App\Policies;
 
-use Illuminate\Auth\Access\Response;
-
-use App\Models\User;
+use Illuminate\Foundation\Auth\User as AuthUser;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    use HandlesAuthorization;
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('view-any User');
+        return $authUser->can('ViewAny:User');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, User $model): bool
+    public function view(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('view User');
+        return $authUser->can('View:User');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('create User');
+        return $authUser->can('Create:User');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, User $model): bool
+    public function update(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('update User');
+        return $authUser->can('Update:User');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, User $model): bool
+    public function delete(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('delete User');
+        return $authUser->can('Delete:User');
     }
 
-    /**
-     * Determine whether the user can delete any models.
-     */
-    public function deleteAny(User $user): bool
+    public function deleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('delete-any User');
+        return $authUser->can('DeleteAny:User');
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, User $model): bool
+    public function restore(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('restore User');
+        return $authUser->can('Restore:User');
     }
 
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
+    public function forceDelete(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('restore-any User');
+        return $authUser->can('ForceDelete:User');
     }
 
-    /**
-     * Determine whether the user can replicate the model.
-     */
-    public function replicate(User $user, User $model): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('replicate User');
+        return $authUser->can('ForceDeleteAny:User');
     }
 
-    /**
-     * Determine whether the user can reorder the models.
-     */
-    public function reorder(User $user): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('reorder User');
+        return $authUser->can('RestoreAny:User');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, User $model): bool
+    public function replicate(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('force-delete User');
+        return $authUser->can('Replicate:User');
     }
 
-    /**
-     * Determine whether the user can permanently delete any models.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('force-delete-any User');
+        return $authUser->can('Reorder:User');
     }
+
 }

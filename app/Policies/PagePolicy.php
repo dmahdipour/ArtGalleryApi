@@ -1,106 +1,75 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use Illuminate\Auth\Access\Response;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Page;
-use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PagePolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    use HandlesAuthorization;
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('view-any Page');
+        return $authUser->can('ViewAny:Page');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Page $page): bool
+    public function view(AuthUser $authUser, Page $page): bool
     {
-        return $user->checkPermissionTo('view Page');
+        return $authUser->can('View:Page');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('create Page');
+        return $authUser->can('Create:Page');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Page $page): bool
+    public function update(AuthUser $authUser, Page $page): bool
     {
-        return $user->checkPermissionTo('update Page');
+        return $authUser->can('Update:Page');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Page $page): bool
+    public function delete(AuthUser $authUser, Page $page): bool
     {
-        return $user->checkPermissionTo('delete Page');
+        return $authUser->can('Delete:Page');
     }
 
-    /**
-     * Determine whether the user can delete any models.
-     */
-    public function deleteAny(User $user): bool
+    public function deleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('delete-any Page');
+        return $authUser->can('DeleteAny:Page');
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Page $page): bool
+    public function restore(AuthUser $authUser, Page $page): bool
     {
-        return $user->checkPermissionTo('restore Page');
+        return $authUser->can('Restore:Page');
     }
 
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
+    public function forceDelete(AuthUser $authUser, Page $page): bool
     {
-        return $user->checkPermissionTo('restore-any Page');
+        return $authUser->can('ForceDelete:Page');
     }
 
-    /**
-     * Determine whether the user can replicate the model.
-     */
-    public function replicate(User $user, Page $page): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('replicate Page');
+        return $authUser->can('ForceDeleteAny:Page');
     }
 
-    /**
-     * Determine whether the user can reorder the models.
-     */
-    public function reorder(User $user): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('reorder Page');
+        return $authUser->can('RestoreAny:Page');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Page $page): bool
+    public function replicate(AuthUser $authUser, Page $page): bool
     {
-        return $user->checkPermissionTo('force-delete Page');
+        return $authUser->can('Replicate:Page');
     }
 
-    /**
-     * Determine whether the user can permanently delete any models.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('force-delete-any Page');
+        return $authUser->can('Reorder:Page');
     }
+
 }

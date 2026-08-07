@@ -1,106 +1,75 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use Illuminate\Auth\Access\Response;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Sell;
-use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SellPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    use HandlesAuthorization;
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('view-any Sell');
+        return $authUser->can('ViewAny:Sell');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Sell $sell): bool
+    public function view(AuthUser $authUser, Sell $sell): bool
     {
-        return $user->checkPermissionTo('view Sell');
+        return $authUser->can('View:Sell');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('create Sell');
+        return $authUser->can('Create:Sell');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Sell $sell): bool
+    public function update(AuthUser $authUser, Sell $sell): bool
     {
-        return $user->checkPermissionTo('update Sell');
+        return $authUser->can('Update:Sell');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Sell $sell): bool
+    public function delete(AuthUser $authUser, Sell $sell): bool
     {
-        return $user->checkPermissionTo('delete Sell');
+        return $authUser->can('Delete:Sell');
     }
 
-    /**
-     * Determine whether the user can delete any models.
-     */
-    public function deleteAny(User $user): bool
+    public function deleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('delete-any Sell');
+        return $authUser->can('DeleteAny:Sell');
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Sell $sell): bool
+    public function restore(AuthUser $authUser, Sell $sell): bool
     {
-        return $user->checkPermissionTo('restore Sell');
+        return $authUser->can('Restore:Sell');
     }
 
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
+    public function forceDelete(AuthUser $authUser, Sell $sell): bool
     {
-        return $user->checkPermissionTo('restore-any Sell');
+        return $authUser->can('ForceDelete:Sell');
     }
 
-    /**
-     * Determine whether the user can replicate the model.
-     */
-    public function replicate(User $user, Sell $sell): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('replicate Sell');
+        return $authUser->can('ForceDeleteAny:Sell');
     }
 
-    /**
-     * Determine whether the user can reorder the models.
-     */
-    public function reorder(User $user): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('reorder Sell');
+        return $authUser->can('RestoreAny:Sell');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Sell $sell): bool
+    public function replicate(AuthUser $authUser, Sell $sell): bool
     {
-        return $user->checkPermissionTo('force-delete Sell');
+        return $authUser->can('Replicate:Sell');
     }
 
-    /**
-     * Determine whether the user can permanently delete any models.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('force-delete-any Sell');
+        return $authUser->can('Reorder:Sell');
     }
+
 }

@@ -1,106 +1,75 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use Illuminate\Auth\Access\Response;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Link;
-use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class LinkPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    use HandlesAuthorization;
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('view-any Link');
+        return $authUser->can('ViewAny:Link');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Link $link): bool
+    public function view(AuthUser $authUser, Link $link): bool
     {
-        return $user->checkPermissionTo('view Link');
+        return $authUser->can('View:Link');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('create Link');
+        return $authUser->can('Create:Link');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Link $link): bool
+    public function update(AuthUser $authUser, Link $link): bool
     {
-        return $user->checkPermissionTo('update Link');
+        return $authUser->can('Update:Link');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Link $link): bool
+    public function delete(AuthUser $authUser, Link $link): bool
     {
-        return $user->checkPermissionTo('delete Link');
+        return $authUser->can('Delete:Link');
     }
 
-    /**
-     * Determine whether the user can delete any models.
-     */
-    public function deleteAny(User $user): bool
+    public function deleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('delete-any Link');
+        return $authUser->can('DeleteAny:Link');
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Link $link): bool
+    public function restore(AuthUser $authUser, Link $link): bool
     {
-        return $user->checkPermissionTo('restore Link');
+        return $authUser->can('Restore:Link');
     }
 
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
+    public function forceDelete(AuthUser $authUser, Link $link): bool
     {
-        return $user->checkPermissionTo('restore-any Link');
+        return $authUser->can('ForceDelete:Link');
     }
 
-    /**
-     * Determine whether the user can replicate the model.
-     */
-    public function replicate(User $user, Link $link): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('replicate Link');
+        return $authUser->can('ForceDeleteAny:Link');
     }
 
-    /**
-     * Determine whether the user can reorder the models.
-     */
-    public function reorder(User $user): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('reorder Link');
+        return $authUser->can('RestoreAny:Link');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Link $link): bool
+    public function replicate(AuthUser $authUser, Link $link): bool
     {
-        return $user->checkPermissionTo('force-delete Link');
+        return $authUser->can('Replicate:Link');
     }
 
-    /**
-     * Determine whether the user can permanently delete any models.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('force-delete-any Link');
+        return $authUser->can('Reorder:Link');
     }
+
 }

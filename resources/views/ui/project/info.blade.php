@@ -1,4 +1,4 @@
-@extends('templates.ui')
+@extends('templates.project')
 @section('title', 'پروژه ی')
 
 @section('main-content')

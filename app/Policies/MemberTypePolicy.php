@@ -1,106 +1,75 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use Illuminate\Auth\Access\Response;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\MemberType;
-use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class MemberTypePolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    use HandlesAuthorization;
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('view-any MemberType');
+        return $authUser->can('ViewAny:MemberType');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, MemberType $membertype): bool
+    public function view(AuthUser $authUser, MemberType $memberType): bool
     {
-        return $user->checkPermissionTo('view MemberType');
+        return $authUser->can('View:MemberType');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('create MemberType');
+        return $authUser->can('Create:MemberType');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, MemberType $membertype): bool
+    public function update(AuthUser $authUser, MemberType $memberType): bool
     {
-        return $user->checkPermissionTo('update MemberType');
+        return $authUser->can('Update:MemberType');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, MemberType $membertype): bool
+    public function delete(AuthUser $authUser, MemberType $memberType): bool
     {
-        return $user->checkPermissionTo('delete MemberType');
+        return $authUser->can('Delete:MemberType');
     }
 
-    /**
-     * Determine whether the user can delete any models.
-     */
-    public function deleteAny(User $user): bool
+    public function deleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('delete-any MemberType');
+        return $authUser->can('DeleteAny:MemberType');
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, MemberType $membertype): bool
+    public function restore(AuthUser $authUser, MemberType $memberType): bool
     {
-        return $user->checkPermissionTo('restore MemberType');
+        return $authUser->can('Restore:MemberType');
     }
 
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
+    public function forceDelete(AuthUser $authUser, MemberType $memberType): bool
     {
-        return $user->checkPermissionTo('restore-any MemberType');
+        return $authUser->can('ForceDelete:MemberType');
     }
 
-    /**
-     * Determine whether the user can replicate the model.
-     */
-    public function replicate(User $user, MemberType $membertype): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('replicate MemberType');
+        return $authUser->can('ForceDeleteAny:MemberType');
     }
 
-    /**
-     * Determine whether the user can reorder the models.
-     */
-    public function reorder(User $user): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('reorder MemberType');
+        return $authUser->can('RestoreAny:MemberType');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, MemberType $membertype): bool
+    public function replicate(AuthUser $authUser, MemberType $memberType): bool
     {
-        return $user->checkPermissionTo('force-delete MemberType');
+        return $authUser->can('Replicate:MemberType');
     }
 
-    /**
-     * Determine whether the user can permanently delete any models.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('force-delete-any MemberType');
+        return $authUser->can('Reorder:MemberType');
     }
+
 }

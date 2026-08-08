@@ -3,8 +3,8 @@
 
 @section('main-content')
 <div dir="rtl" class="container min-h-screen mx-auto pt-10">
-    <div class="grid grid-cols-3 gap-4">
-        <div class="grid col-span-2 gap-4">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="grid lg:col-span-2 lg:order-1 order-2 gap-4">
             <div class="text-center">
                 <span class="text-gold text-4xl">✦</span>
                 <h1 class="font-nastaliq text-8xl text-green-950 leading-none mt-10">
@@ -26,7 +26,7 @@
                 <span class="text-gold text-1xl">✦</span>
             </div>
 
-            <div class="grid grid-cols-2 mx-10 mt-4 gap-10">
+            <div class="grid lg:grid-cols-2 mx-10 mt-4 gap-10">
                 <div>
                     <h3 class="font-bold text-xl text-green-950 mb-5">
                         <span class="text-[#cbb982]">✦</span> درباره {{$item->name_fa}} 
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-span-1">
+        <div class="lg:col-span-1 lg:order-2 order-1">
             <div class="bg-white shadow-xl relative">
                 <div class="absolute -left-24 top-32 text-[#cbb982] rotate-[-90deg] tracking-[5px] text-sm" >
                     {{$item->name_en}}
@@ -57,11 +57,11 @@
         </div>
     </div>
     <hr class="my-10 border-[#cbb982] mx-10" />
-    <div class="grid grid-cols-8 gap-10 mx-10 my-10">
-        <div class="col-span-1 flex items-center justify-center">
+    <div class="grid lg:grid-cols-8 gap-10 mx-10 my-10">
+        <div class="order-4 lg:order-1 col-span-1 flex items-center justify-center">
             <img src="/storage/{{$item->signature}}" />
         </div>
-        <div class="col-span-2">
+        <div class="order-1 lg:order-2 lg:col-span-2">
             <div>
                 <h4 class="font-bold text-green-950">
                     <span class="text-gold text-xl">✦</span> درباره هنرمند
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-span-3">
+        <div class="order-2 lg:order-3 lg:col-span-3">
             <h4 class="font-bold text-green-950">
                 <span class="text-gold text-xl">✦</span> مشخصات اثر 
             </h4>
@@ -182,7 +182,7 @@
                 </tr>
             </table>
         </div>
-        <div class="col-span-2 flex flex-col justify-between">
+        <div class="order-3 lg:order-4 lg:col-span-2 lg:flex lg:flex-col lg:justify-between">
             <div>
                 <h4 class="font-bold text-green-950 mb-5">
                     <span class="text-gold text-1xl">✦</span> اطلاعات فروش
@@ -208,7 +208,7 @@
                     </table>
                 </div>
             </div>
-            <div class="font-nastaliq text-3xl text-center text-gold leading-14">
+            <div class="font-nastaliq text-3xl text-center text-gold leading-14 pt-10">
                {{$item->theme}}
             </div>
         </div>

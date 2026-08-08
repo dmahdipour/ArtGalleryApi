@@ -2,3 +2,10 @@
 
 @source "../views";
 @source "../js";
+
+@theme {
+    --font-nastaliq: "IranNastaliq";
+    --font-yekan: "YekanBakh";
+
+    --color-gold: #8d7650;
+}

@@ -68,12 +68,15 @@ class ProjectResource extends Resource
                     ->columnSpanFull(),
                 FileUpload::make('image')
                     ->image()
+                    ->disk('public')
                     ->required(),
                 FileUpload::make('thumbnail')
                     ->image()
+                    ->disk('public')
                     ->default('images/projects/thumbnails/default.png'),
                 FileUpload::make('signature')
-                    ->image(),
+                    ->image()
+                    ->disk('public'),
                 TextInput::make('theme'),
             ]);
     }
@@ -119,9 +122,9 @@ class ProjectResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('sells_count')
+                TextColumn::make('sell_count')
                     ->label('قیمت')
-                    ->counts('sells')
+                    ->counts('sell')
                     ->url(fn ($record) => route('filament.dmy.resources.sells.index', [
                         'filters[project_id][value]' => $record->id
                     ]))

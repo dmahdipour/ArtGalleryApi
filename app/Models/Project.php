@@ -60,7 +60,7 @@ class Project extends Model
         return $this->belongsTo(Style::class);
     }
 
-    public function sells(): HasMany
+    public function sell(): HasMany
     {
         return $this->hasMany(Sell::class, 'project_id');
     }

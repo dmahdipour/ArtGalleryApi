@@ -24,15 +24,15 @@ class ProjectController extends Controller
         if (!$request->uuid) {
             return redirect()->route('projectIndex')->with('error', 'هیچ آی دی برای پروژه وارد نشده است.');
         }
-        $item = Project::where('uuid', $request->uuid)->get()->first();
+        $item = Project::where('uuid', $request->uuid)->first();
         if($item)   
         {
-            $member = Member::where('id', $item->member_id)->get()->first();
+            $member = Member::find($item->member_id);
             if ($member->signature) {
-                $item['signature']=$member->signature;
+                $item->signature = $member->signature;
             }
-            // return new ProjectResource($item);
-            return view('ui.project.info', compact(['item']));
+            // return $item;
+            return view('ui.project.info', ['item'=>$item]);
         }
         return redirect()->route('projectIndex')->with('error', 'چنین پروژه ای وجود ندارد.');        
     }

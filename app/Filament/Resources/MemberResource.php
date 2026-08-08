@@ -70,14 +70,14 @@ class MemberResource extends Resource
                     ->url(),
                 Textarea::make('about')
                     ->columnSpanFull(),
-                Toggle::make('status')
-                    ->required(),
                 FileUpload::make('avatar')
                     ->image()
                     ->disk('public'),
                 FileUpload::make('signature')
                     ->image()
                     ->disk('public'),
+                Toggle::make('status')
+                    ->required(),
             ]);
     }
 
@@ -86,7 +86,7 @@ class MemberResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('avatar')
-                    ->searchable(),
+                    ->disk('public'),
                 TextColumn::make('user_name')
                     ->searchable(),
                 TextColumn::make('name')

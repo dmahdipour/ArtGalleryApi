@@ -45,3 +45,11 @@
 	src: url('woff/YekanBakhFaNum-ExtraBlack.woff') format('woff'),   
 	url('woff2/YekanBakhFaNum-ExtraBlack.woff2') format('woff2');		 
 }
+
+@font-face {
+	font-family: IranNastaliq;
+	font-style: normal;
+	font-weight: normal;
+	src: url('woff/IranNastaliq-Web.woff') format('woff'),   
+	url('woff2/IranNastaliq-Web.woff2') format('woff2');		 
+}

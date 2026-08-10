@@ -5,17 +5,69 @@ namespace App\Http\Controllers;
 use DB;
 use App\Models\Project;
 use App\Models\Member;
-use App\Http\Resources\ProjectResource;
+use App\Models\Technique;
+use App\Models\Style;
+use App\Models\Subject;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
 
 class ProjectController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $items = Project::latest()->get();
-        return view('ui.project.index', compact(['items']));
+        $projects = Project::query()
+            ->with([
+                'technique',
+                'style',
+                'subject',
+            ])
+            ->when(
+                $request->filled('technique'),
+                fn ($query) =>
+                    $query->where('technique_id', $request->technique)
+            )
+            ->when(
+                $request->filled('style'),
+                fn ($query) =>
+                    $query->where('style_id', $request->style)
+            )
+            ->when(
+                $request->filled('subject'),
+                fn ($query) =>
+                    $query->where('subject_id', $request->subject)
+            )
+            ->when(
+                $request->get('sort') === 'oldest',
+                fn ($query) =>
+                    $query->oldest()
+            )
+            ->when(
+                $request->get('sort') !== 'oldest',
+                fn ($query) =>
+                    $query->latest()
+            )
+            ->paginate(12)
+            ->withQueryString();
+
+        $techniques = Technique::query()
+            ->orderBy('name_fa')
+            ->get();
+
+        $styles = Style::query()
+            ->orderBy('name_fa')
+            ->get();
+
+        $subjects = Subject::query()
+            ->orderBy('name_fa')
+            ->get();
+
+        return view('ui.project.index', compact(
+            'projects',
+            'techniques',
+            'styles',
+            'subjects'
+        ));
     }
 
 

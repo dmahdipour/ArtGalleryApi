@@ -88,4 +88,22 @@ class ProjectController extends Controller
         }
         return redirect()->route('projectIndex')->with('error', 'چنین پروژه ای وجود ندارد.');        
     }
+
+    public function tag(Request $request)
+    {
+        if (!$request->tag) {
+            return redirect()->route('projectIndex')->with('error', 'هیچ برچسبی برای پروژه وارد نشده است.');
+        }
+        // $item = Project::where('uuid', $request->uuid)->first();
+        // if($item)   
+        // {
+        //     $member = Member::find($item->member_id);
+        //     if ($member->signature) {
+        //         $item->signature = $member->signature;
+        //     }
+        //     // return $item;
+        //     return view('ui.project.info', ['item'=>$item]);
+        // }
+        // return redirect()->route('projectIndex')->with('error', 'چنین پروژه ای وجود ندارد.');        
+    }
 }

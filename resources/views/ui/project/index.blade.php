@@ -394,25 +394,25 @@
                         gap-2 text-xs text-[#85827a]"
                     >
                         @if($project->technique)
-                            <span>
-                                {{ $project->technique->name }}
-                            </span>
+                            <a href="{{ route('projectTag', 'technique') }}" title="تکنیک">
+                                {{ $project->technique->name_fa }}
+                            </a>
                         @endif
                         @if($project->style)
                             <span class="text-[#c5bba9]">
                                 |
                             </span>
-                            <span>
-                                {{ $project->style->name }}
-                            </span>
+                            <a href="{{ route('projectTag', 'style') }}" title="سبک">
+                                {{ $project->style->name_fa }}
+                            </a>
                         @endif
                         @if($project->subject)
                             <span class="text-[#c5bba9]">
                                 |
                             </span>
-                            <span>
-                                {{ $project->subject->name }}
-                            </span>
+                            <a href="{{ route('projectTag', 'sunject') }}" title="موضوع">
+                                {{ $project->subject->name_fa }}
+                            </a>
                         @endif
                     </div>
                 </div>

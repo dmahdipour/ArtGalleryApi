@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>@yield('title')</title>
-<!-- <link rel="stylesheet" href="{{url('fonts/font.css')}}">
-    <link rel="stylesheet" href="{{url('css/style.css')}}">   -->
+    <link rel="stylesheet" href="{{url('fonts/font.css')}}">
+    <link rel="stylesheet" href="{{url('css/style.css')}}">  
 </head>
 <body dir="rtl" class="font-YekanBakh-Regular bg-slate-50">
     <!--Header-->

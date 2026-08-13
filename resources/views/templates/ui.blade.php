@@ -17,7 +17,7 @@
                 <div class="flex h-[90px] items-center justify-between">
                     {{-- Logo --}}
                     <a
-                        href="{{ route('projectIndex') }}"
+                        href="{{ route('home') }}"
                         class="shrink-0"
                     >
                         <div class="text-[32px] font-serif tracking-[0.08em] text-[#17352a]">

@@ -1,5 +1,5 @@
 @extends('templates.ui')
-@section('title', 'پروژه ی')
+@section('title', 'تابلوهای کار شده در حوزه ی '.$tagValue)
 @section('describe','siteDescribe')
 
 @section('main-content')

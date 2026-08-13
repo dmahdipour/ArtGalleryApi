@@ -1,5 +1,5 @@
 @extends('templates.ui')
-@section('title', 'پروژه ی')
+@section('title', 'هنرمندان گالری')
 @section('describe','siteDescribe')
 
 @section('main-content')

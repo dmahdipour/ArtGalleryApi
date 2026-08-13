@@ -1,5 +1,5 @@
 @extends('templates.ui')
-@section('title', 'پروژه ی')
+@section('title', 'گالری ایران و جهان')
 @section('describe','siteDescribe')
 
 @section('main-content')

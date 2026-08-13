@@ -14,6 +14,7 @@ class MemberController extends Controller
     public function index(Request $request)
     {
         $members = Member::query()
+            ->where('status', 1)
             ->paginate(20)
             ->withQueryString();
 

@@ -30,39 +30,56 @@
 
                     {{-- Desktop Navigation --}}
                     <nav class="hidden items-center gap-10 lg:flex">
+
+                        {{-- خانه --}}
                         <a
                             href="{{ route('home') }}"
-                            class="relative py-3 text-sm text-[#b38c3f]
-                            after:absolute after:bottom-0 after:left-1/2
-                            after:h-[2px] after:w-10 after:-translate-x-1/2
-                            after:bg-[#c69b43]"
+                            class="relative py-3 text-sm transition
+                            {{ request()->routeIs('home')
+                                ? 'text-[#b38c3f] after:absolute after:bottom-0 after:left-1/2 after:h-[2px] after:w-10 after:-translate-x-1/2 after:bg-[#c69b43]'
+                                : 'text-[#17352a] hover:text-[#b38c3f]' }}"
                         >
                             خانه
                         </a>
+
+                        {{-- گالری آثار --}}
                         <a
                             href="{{ route('projectIndex') }}"
-                            class="py-3 text-sm transition hover:text-[#b38c3f]"
+                            class="relative py-3 text-sm transition
+                            {{ request()->routeIs('projectIndex', 'projectInfo', 'projectTag')
+                                ? 'text-[#b38c3f] after:absolute after:bottom-0 after:left-1/2 after:h-[2px] after:w-10 after:-translate-x-1/2 after:bg-[#c69b43]'
+                                : 'text-[#17352a] hover:text-[#b38c3f]' }}"
                         >
                             گالری آثار
                         </a>
+
+                        {{-- هنرمندان --}}
                         <a
                             href="{{ route('memberIndex') }}"
-                            class="py-3 text-sm transition hover:text-[#b38c3f]"
+                            class="relative py-3 text-sm transition
+                            {{ request()->routeIs('memberIndex', 'memberInfo')
+                                ? 'text-[#b38c3f] after:absolute after:bottom-0 after:left-1/2 after:h-[2px] after:w-10 after:-translate-x-1/2 after:bg-[#c69b43]'
+                                : 'text-[#17352a] hover:text-[#b38c3f]' }}"
                         >
                             هنرمندان
                         </a>
+
+                        {{-- درباره ما --}}
                         <a
                             href="#about"
-                            class="py-3 text-sm transition hover:text-[#b38c3f]"
+                            class="relative py-3 text-sm transition hover:text-[#b38c3f]"
                         >
                             درباره ما
                         </a>
+
+                        {{-- تماس با ما --}}
                         <a
                             href="#contact"
-                            class="py-3 text-sm transition hover:text-[#b38c3f]"
+                            class="relative py-3 text-sm transition hover:text-[#b38c3f]"
                         >
                             تماس با ما
                         </a>
+
                     </nav>
 
 

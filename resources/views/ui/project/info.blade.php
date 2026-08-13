@@ -3,7 +3,7 @@
 
 @section('main-content')
 <div dir="rtl" class="container min-h-screen mx-auto pt-10">
-    <a href="{{ route('projectIndex') }}"
+    <a href="{{ route('home') }}"
         class="mt-5 mr-2 inline-block text-sm
         text-[#aa8139] hover:underline">
         BACK </a> 

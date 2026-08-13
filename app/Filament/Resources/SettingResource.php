@@ -53,7 +53,8 @@ class SettingResource extends Resource
                 Textarea::make('value')
                     ->required()
                     ->columnSpanFull(),
-                FileUpload::make('file_path'),
+                FileUpload::make('file_path')
+                    ->disk('public'),
             ]);
     }
 
@@ -62,7 +63,7 @@ class SettingResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('file_path')
-                    ->searchable(),
+                    ->disk('public'),
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('created_at')

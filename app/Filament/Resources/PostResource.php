@@ -57,6 +57,7 @@ class PostResource extends Resource
                     ->columnSpanFull(),
                 FileUpload::make('thumbnail')
                     ->image()
+                    ->disk('public')
                     ->imageEditor(),
                 Toggle::make('is_published')
                     ->required(),
@@ -74,7 +75,8 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('thumbnail'),
+                ImageColumn::make('thumbnail')
+                    ->disk('public'),
                 TextColumn::make('title')
                     ->searchable(),
                 TextColumn::make('slug')

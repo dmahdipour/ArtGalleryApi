@@ -53,6 +53,7 @@ class PageResource extends Resource
                     ->maxLength(255),
                 FileUpload::make('thumbnail')
                     ->image()
+                    ->disk('public')
                     ->imageEditor()
                     ->default(null),
                 RichEditor::make('description')
@@ -70,7 +71,7 @@ class PageResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('thumbnail')
-                ->searchable(),
+                    ->disk('public'),
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('slug')

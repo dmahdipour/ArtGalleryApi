@@ -51,6 +51,7 @@ class UserResource extends Resource
                     ->maxLength(255),
                 FileUpload::make('avatar')
                     ->image()
+                    ->disk('public')
                     ->imageEditor()
                     ->default(null),
                 Toggle::make('is_active')
@@ -71,7 +72,7 @@ class UserResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('avatar')
-                    ->searchable(),
+                    ->disk('public'),
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('email')

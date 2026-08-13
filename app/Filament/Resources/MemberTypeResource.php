@@ -42,7 +42,8 @@ class MemberTypeResource extends Resource
                 TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                FileUpload::make('thumbnail'),
+                FileUpload::make('thumbnail')
+                    ->disk('public'),
                 Textarea::make('description')->columnSpanFull(),
             ]);
     }
@@ -52,7 +53,7 @@ class MemberTypeResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('thumbnail')
-                    ->searchable(),
+                    ->disk('public'),
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('description')

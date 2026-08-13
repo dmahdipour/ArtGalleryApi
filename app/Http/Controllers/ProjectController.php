@@ -96,6 +96,18 @@ class ProjectController extends Controller
         return redirect()->route('projectIndex')->with('error', 'چنین پروژه ای وجود ندارد.');        
     }
 
+    public function qr(Request $request)
+    {
+        if (!$request->uuid) {
+            return redirect()->route('projectIndex')->with('error', 'هیچ آی دی برای پروژه وارد نشده است.');
+        }
+        $item = Project::where('uuid', $request->uuid)->first();
+        if($item)   
+        {
+            return view('ui.project.qr', ['item'=>$item]);
+        }
+        return redirect()->route('projectIndex')->with('error', 'چنین پروژه ای وجود ندارد.');        
+    }
 
     public function tag(Request $request)
     {

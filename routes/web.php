@@ -10,6 +10,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('vis
 
 Route::get('/project/', [ProjectController::class, 'index'])->name('projectIndex')->middleware('visitlog');
 Route::get('/project/tag/{tag}/{id}', [ProjectController::class, 'tag'])->name('projectTag')->middleware('visitlog');
+Route::get('/project/qr/{uuid}', [ProjectController::class, 'qr'])->name('projectQr')->middleware('visitlog');
 Route::get('/project/{uuid}', [ProjectController::class, 'info'])->name('projectInfo')->middleware('visitlog');
 
 Route::get('/member/', [MemberController::class, 'index'])->name('memberIndex')->middleware('visitlog');

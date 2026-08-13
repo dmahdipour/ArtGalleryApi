@@ -55,7 +55,8 @@ class MemberResource extends Resource
                 Select::make('member_type_id')
                     ->relationship('memberType', 'name')
                     ->required(),
-                TextInput::make('name'),
+                TextInput::make('name_fa'),
+                TextInput::make('name_en'),
                 DatePicker::make('birthday')
                     ->jalali()->displayFormat('Y/m/d'),
                 TextInput::make('place'),
@@ -89,7 +90,7 @@ class MemberResource extends Resource
                     ->disk('public'),
                 TextColumn::make('user_name')
                     ->searchable(),
-                TextColumn::make('name')
+                TextColumn::make('name_fa')
                     ->searchable(),
                 TextColumn::make('memberType.name')
                     ->searchable(),

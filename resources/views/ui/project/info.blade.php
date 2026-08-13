@@ -3,6 +3,10 @@
 
 @section('main-content')
 <div dir="rtl" class="container min-h-screen mx-auto pt-10">
+    <a href="{{ route('projectIndex') }}"
+        class="mt-5 mr-2 inline-block text-sm
+        text-[#aa8139] hover:underline">
+        BACK </a> 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div class="grid lg:col-span-2 lg:order-1 order-2 gap-4">
             <div class="text-center">
@@ -51,8 +55,60 @@
                     {{$item->name_en}}
                 </div>
             </div>
-            <div class="border border-[#cbb982] pt-5 pr-5 flex justify-start">
-                <img src="/storage/{{$item->image}}" class="object-cover" />
+            <button
+                data-modal-target="image-modal"
+                data-modal-toggle="image-modal"
+                type="button"
+                class="cursor-zoom-in"
+            >
+                <img
+                    src="{{ asset('storage/' . $item->image) }}"
+                    alt="{{ $item->name_fa }}"
+                    class="max-w-full"
+                >
+            </button>
+            <div
+                id="image-modal"
+                tabindex="-1"
+                aria-hidden="true"
+                class="hidden fixed inset-0 z-50
+                    w-full h-full
+                    items-center justify-center
+                    overflow-y-auto overflow-x-hidden"
+            >
+                <div class="relative w-full max-w-5xl p-4">
+                    <div class="relative rounded-lg bg-white shadow">
+                        <div class="flex justify-end p-3">
+                            <button
+                                type="button"
+                                data-modal-hide="image-modal"
+                                class="rounded-lg p-2 text-gray-500
+                                    hover:bg-gray-100"
+                            >
+                                <svg
+                                    class="h-5 w-5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-center p-4">
+                            <img
+                                src="{{ asset('storage/' . $item->image) }}"
+                                alt="{{ $item->name_fa }}"
+                                class="max-h-[80vh] max-w-full object-contain"
+                            >
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

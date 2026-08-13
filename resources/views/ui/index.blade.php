@@ -7,6 +7,107 @@
     <div class="text-center p-3 text-sm"> {{ $message }} </div>
 @endif
 
+{{-- ======================== Slider ========================= --}}
+<section class="mx-auto max-w-[1500px] px-5 pt-5 sm:px-8">
+    <div
+        class="heroSwiper swiper relative min-h-[480px] overflow-hidden rounded-[20px] bg-[#e9e2d5]"
+    >
+        <div class="swiper-wrapper">
+            @foreach($sliders as $slider)
+                <div class="swiper-slide relative min-h-[480px]">
+                    {{-- Image --}}
+                    <img
+                        src="{{ asset('storage/' . $slider->thumbnail) }}"
+                        alt="{{ $slider->name }}"
+                        class="absolute inset-0 h-full w-full object-cover"
+                    >
+                    {{-- Overlay --}}
+                    <div
+                        class="absolute inset-0
+                        bg-gradient-to-l
+                        from-[#e7dfd1]/20
+                        via-[#eee8dd]/60
+                        to-[#f3eee5]"
+                    ></div>
+                    {{-- Content --}}
+                    <div
+                        class="relative z-10 flex min-h-[480px]
+                        flex-col justify-center
+                        px-8 py-16 sm:px-14 lg:px-20"
+                    >
+                        <h1
+                            class="text-4xl font-semibold leading-[1.7]
+                            text-[#17352a] sm:text-5xl lg:text-6xl"
+                        >
+                            {!! $slider->description !!}
+                        </h1>
+                        <p
+                            class="mt-6 text-sm leading-8 text-[#595b56] sm:text-base"
+                        >
+                            {!! $slider->text !!}
+                        </p>
+                    </div>
+                </div>
+            @endforeach
+
+        </div>
+        {{-- Next --}}
+        <button
+            type="button"
+            class="hero-next absolute right-5 top-1/2 z-30
+            flex h-11 w-11 -translate-y-1/2
+            items-center justify-center rounded-full
+            border border-white/60 bg-white/70
+            text-[#17352a] backdrop-blur-md
+            transition hover:bg-white"
+            aria-label="اسلاید بعدی"
+        >
+            <svg
+                class="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M9 18l6-6-6-6"
+                />
+            </svg>
+        </button>
+        {{-- Previous --}}
+        <button
+            type="button"
+            class="hero-prev absolute left-5 top-1/2 z-30
+            flex h-11 w-11 -translate-y-1/2
+            items-center justify-center rounded-full
+            border border-white/60 bg-white/70
+            text-[#17352a] backdrop-blur-md
+            transition hover:bg-white"
+            aria-label="اسلاید قبلی"
+        >
+            <svg
+                class="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M15 18l-6-6 6-6"
+                />
+            </svg>
+        </button>
+        {{-- Pagination --}}
+        <div
+            class="hero-pagination swiper-pagination !bottom-6"
+        ></div>
+    </div>
+</section>
+
 {{-- ======================= FILTERS ========================= --}}
 <section
     id="gallery"
@@ -18,13 +119,6 @@
             action="{{ route('projectIndex') }}"
             class="flex gap-3 overflow-x-auto py-4"
         >
-            @if(request()->filled('member'))
-                <input
-                    type="hidden"
-                    name="member"
-                    value="{{ request('member') }}"
-                >
-            @endif
             {{-- All --}}
             <a
                 href="{{ route('projectIndex') }}"
@@ -222,7 +316,7 @@
             </h2>
         </div>
         <div class="text-xs text-[#77746d]">
-            {{ $projects->total() }}
+            {{ $allProjects }}
             اثر
         </div>
     </div>
@@ -334,14 +428,153 @@
             </div>
         @endforelse
     </div>
-
-    {{-- Pagination --}}
-    @if($projects->hasPages())
-        <div class="mt-12">
-            {{ $projects->onEachSide(1)->links() }}
-        </div>
-    @endif
 </main>
+
+{{-- ===================== STATISTICS ========================= --}}
+<section class="mx-auto max-w-[1500px] px-5 pb-12 sm:px-8">
+    <div
+        class="grid grid-cols-2 overflow-hidden rounded-2xl
+        border border-[#e2ddd4] bg-white
+        md:grid-cols-4"
+    >
+        <div
+            class="flex items-center gap-4 border-b
+            border-[#ebe7df] p-6 md:border-b-0
+            md:border-l"
+        >
+            <div
+                class="flex h-12 w-12 shrink-0 items-center
+                justify-center rounded-full bg-[#f7f1e3]
+                text-[#b58b3d]"
+            >
+                <svg
+                    class="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-width="1.5"
+                        d="M7 3v4M17 3v4M4 9h16M5 5h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"
+                    />
+                </svg>
+            </div>
+            <div>
+                <div class="text-xl font-semibold">
+                    ۱۴۰۵
+                </div>
+                <div class="mt-1 text-xs text-[#888]">
+                    سال تأسیس گالری
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="flex items-center gap-4 border-b
+            border-[#ebe7df] p-6
+            md:border-b-0 md:border-l"
+        >
+            <div
+                class="flex h-12 w-12 shrink-0 items-center
+                justify-center rounded-full bg-[#f7f1e3]
+                text-[#b58b3d]"
+            >
+                <svg
+                    class="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-width="1.5"
+                        d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm7-1a4 4 0 1 0 0-8m4 19v-2a4 4 0 0 0-3-3.87"
+                    />
+                </svg>
+            </div>
+            <div>
+                <div class="text-xl font-semibold">
+                    {{ $allmembers}}
+                </div>
+                <div class="mt-1 text-xs text-[#888]">
+                    هنرمند
+                </div>
+            </div>
+        </div>
+
+
+        <div
+            class="flex items-center gap-4 border-l
+            border-[#ebe7df] p-6"
+        >
+            <div
+                class="flex h-12 w-12 shrink-0 items-center
+                justify-center rounded-full bg-[#f7f1e3]
+                text-[#b58b3d]"
+            >
+                <svg
+                    class="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-width="1.5"
+                        d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5Zm4 3h8M8 12h8M8 16h5"
+                    />
+                </svg>
+            </div>
+            <div>
+                <div class="text-xl font-semibold">
+                    {{ $allProjects }}+
+                </div>
+                <div class="mt-1 text-xs text-[#888]">
+                    اثر هنری
+                </div>
+            </div>
+        </div>
+
+
+        <div
+            class="flex items-center gap-4 p-6"
+        >
+            <div
+                class="flex h-12 w-12 shrink-0 items-center
+                justify-center rounded-full bg-[#f7f1e3]
+                text-[#b58b3d]"
+            >
+                <svg
+                    class="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="9"
+                        stroke-width="1.5"
+                    />
+                    <path
+                        stroke-linecap="round"
+                        stroke-width="1.5"
+                        d="M3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-6.5-3.5-9S9.5 5.5 12 3Z"
+                    />
+                </svg>
+            </div>
+            <div>
+                <div class="text-base font-semibold">
+                    سراسر جهان
+                </div>
+                <div class="mt-1 text-xs text-[#888]">
+                    ارسال آثار
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 @endsection
 
 @section('page-js')

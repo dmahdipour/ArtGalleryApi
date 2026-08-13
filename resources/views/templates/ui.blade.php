@@ -31,7 +31,7 @@
                     {{-- Desktop Navigation --}}
                     <nav class="hidden items-center gap-10 lg:flex">
                         <a
-                            href="{{ route('projectIndex') }}"
+                            href="{{ route('home') }}"
                             class="relative py-3 text-sm text-[#b38c3f]
                             after:absolute after:bottom-0 after:left-1/2
                             after:h-[2px] after:w-10 after:-translate-x-1/2
@@ -46,7 +46,7 @@
                             گالری آثار
                         </a>
                         <a
-                            href="#artists"
+                            href="{{ route('memberIndex') }}"
                             class="py-3 text-sm transition hover:text-[#b38c3f]"
                         >
                             هنرمندان

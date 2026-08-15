@@ -45,7 +45,7 @@
             >
                 {{-- Image --}}
                 <a
-                    href="{{ route('projectIndex',  ['member' => $member->id]) }}"
+                    href="{{ route('projectIndex',  ['member' => $member->uuid]) }}"
                     class="relative block overflow-hidden"
                 >
                     @if($member->avatar)

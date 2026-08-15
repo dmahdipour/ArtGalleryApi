@@ -27,7 +27,7 @@ class ProjectController extends Controller
             ->when(
                 $request->filled('member'),
                 fn ($query) =>
-                    $query->where('member_id', $request->member)
+                    $query->where('uuid', $request->member)
             )
             ->when(
                 $request->filled('technique'),

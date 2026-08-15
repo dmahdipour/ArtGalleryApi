@@ -13,23 +13,13 @@ class PageSeeder extends Seeder
      */
     public function run(): void
     {
-        Page::create(['name'=>'info',
-                      'slug'=>'info',
-                      'thumbnail'=>'',
-                      'description'=>'info',
-                      'text'=>'info',
-                      'status'=>true]);
-        Page::create(['name'=>'incomes',
-                      'slug'=>'incomes',
-                      'thumbnail'=>'',
-                      'description'=>'incomes',
-                      'text'=>'incomes',
-                      'status'=>true]);
-        Page::create(['name'=>'basicprinciple',
-                      'slug'=>'basicprinciple',
-                      'thumbnail'=>'',
-                      'description'=>'basicprinciple',
-                      'text'=>'basicprinciple',
-                      'status'=>true]);
+        Page::create([
+            'name'=>'slider',
+            'slug'=>'slider',
+            'thumbnail'=>'01M023MEAZ67J1RE4RKKZWGQQ5.jpg',
+            'description'=>'<p style="text-align: end;">هنر،<br>روایت نگاه است.</p>',
+            'text'=>'<p style="text-align: end;">مجموعه ای از آثار هنری معاصر و کلاسیک،<br>جایی برای کشف رنگُ فرم و احساس.</p>',
+            'status'=>true
+        ]);
     }
 }

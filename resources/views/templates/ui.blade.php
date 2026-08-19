@@ -20,11 +20,8 @@
                         href="{{ route('home') }}"
                         class="shrink-0"
                     >
-                        <div class="text-[32px] font-serif tracking-[0.08em] text-[#17352a]">
-                            DMY
-                        </div>
-                        <div class="-mt-1 text-center text-[9px] tracking-[0.45em] text-[#756b59]">
-                            GALLERY
+                        <div class="text-2xl font-bold tracking-[0.08em] text-[#17352a]">
+                            سمفونی رنگ
                         </div>
                     </a>
 
@@ -82,6 +79,49 @@
 
                     </nav>
 
+                    {{-- Mobile Navigation --}}
+                    <div id="mobileMenu"
+                        class="hidden border-b border-[#e3dfd5] bg-[#faf9f5] w-full absolute top-0 right-0 z-999 lg:hidden">
+                        <nav class="mx-auto max-w-[1500px] px-5 py-5 sm:px-8">
+                            <div class="flex flex-col gap-1">
+                                <a
+                                    href="{{ route('home') }}"
+                                    class="rounded-lg px-4 py-3 text-sm text-[#17352a]
+                                        transition hover:bg-[#f0ede5]"
+                                >
+                                    خانه
+                                </a>
+                                <a
+                                    href="{{ route('projectIndex') }}"
+                                    class="rounded-lg px-4 py-3 text-sm text-[#17352a]
+                                        transition hover:bg-[#f0ede5]"
+                                >
+                                    گالری آثار
+                                </a>
+                                <a
+                                    href="{{ route('memberIndex') }}"
+                                    class="rounded-lg px-4 py-3 text-sm text-[#17352a]
+                                        transition hover:bg-[#f0ede5]"
+                                >
+                                    هنرمندان
+                                </a>
+                                <a
+                                    href="#about"
+                                    class="rounded-lg px-4 py-3 text-sm text-[#17352a]
+                                        transition hover:bg-[#f0ede5]"
+                                >
+                                    درباره ما
+                                </a>
+                                <a
+                                    href="#contact"
+                                    class="rounded-lg px-4 py-3 text-sm text-[#17352a]
+                                        transition hover:bg-[#f0ede5]"
+                                >
+                                    تماس با ما
+                                </a>
+                            </div>
+                        </nav>
+                    </div>
 
                     {{-- Header Actions --}}
                     <div class="flex items-center gap-3">
@@ -119,10 +159,15 @@
 
                         {{-- Mobile menu --}}
                         <button
-                            class="flex h-10 w-10 items-center justify-center
+                            id="mobileMenuButton"
+                            type="button"
+                            class="flex h-10 w-10 items-center justify-center z-9999
                             rounded-full border border-[#ded8cb] bg-white lg:hidden"
+                            aria-controls="mobileMenu"
+                            aria-expanded="false"
                         >
                             <svg
+                                id="mobileMenuIcon"
                                 class="h-5 w-5"
                                 fill="none"
                                 stroke="currentColor"
@@ -130,6 +175,7 @@
                             >
                                 <path
                                     stroke-linecap="round"
+                                    stroke-linejoin="round"
                                     stroke-width="1.5"
                                     d="M4 7h16M4 12h16M4 17h16"
                                 />

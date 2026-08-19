@@ -35,17 +35,17 @@
                         flex-col justify-center
                         px-8 py-16 sm:px-14 lg:px-20"
                     >
-                        <h1
+                        <div
                             class="text-4xl font-semibold leading-[1.7]
                             text-[#17352a] sm:text-5xl lg:text-6xl"
                         >
                             {!! $slider->description !!}
-                        </h1>
-                        <p
+                        </div>
+                        <div
                             class="mt-6 text-sm leading-8 text-[#595b56] sm:text-base"
                         >
                             {!! $slider->text !!}
-                        </p>
+                        </div>
                     </div>
                 </div>
             @endforeach
@@ -579,5 +579,6 @@
 
 @section('page-js')
 <script>
+    
 </script>
 @endsection

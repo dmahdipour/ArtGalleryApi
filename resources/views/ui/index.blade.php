@@ -340,7 +340,7 @@
                     href="{{ route('projectInfo', $project->uuid) }}"
                     class="relative block overflow-hidden"
                 >
-                    @if($project->image)
+                    @if($project->thumbnail)
                         <img
                             src="{{ asset('storage/' . $project->image) }}"
                             alt="{{ $project->name_fa }}"

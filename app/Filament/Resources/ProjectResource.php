@@ -21,8 +21,10 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Table;
 use Filament\Tables\Filters\SelectFilter;
+
 
 class ProjectResource extends Resource
 {
@@ -78,6 +80,8 @@ class ProjectResource extends Resource
                     ->image()
                     ->disk('public'),
                 TextInput::make('theme'),
+                Toggle::make('status')
+                    ->required(),
             ]);
     }
 
@@ -107,6 +111,8 @@ class ProjectResource extends Resource
                     ->searchable(),
                 TextColumn::make('year')
                     ->searchable(),
+                IconColumn::make('status')
+                    ->boolean(),
                 TextColumn::make('description')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),

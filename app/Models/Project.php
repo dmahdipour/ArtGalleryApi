@@ -31,6 +31,7 @@ class Project extends Model
         'description',
         'about',
         'signature',
+        'status',
         'theme',
     ];
 
@@ -86,6 +87,7 @@ class Project extends Model
                 'description',
                 'about',
                 'signature',
+                'status',
                 'theme',
             ])
             ->logOnlyDirty()

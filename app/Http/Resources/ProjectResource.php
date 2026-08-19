@@ -36,6 +36,7 @@ class ProjectResource extends JsonResource
             'about_project'=>$this->about_project,
             'about_artist'=>$this->member->about,
             'signature'=>env('APP_URL').'/storage/'.$this->signature,
+            'status'=>$this->status,
             'theme'=>$this->theme,
         ];
     }

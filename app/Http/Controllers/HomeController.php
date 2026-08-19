@@ -66,8 +66,8 @@ class HomeController extends Controller
             ->orderBy('id')
             ->get();
         
-        $allProjects = Project::count();
-        $allmembers = Member::count();
+        $allProjects = Project::where('status', 1)->count();
+        $allmembers = Member::where('status', 1)->count();
 
         return view('ui.index', compact(
             'allProjects',

@@ -30,6 +30,7 @@ return new class extends Migration
             $table->text('about_project')->nullable();
             $table->string('signature')->nullable();
             $table->string('theme')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

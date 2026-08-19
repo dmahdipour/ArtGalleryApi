@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'name' => 'dmy',
             'email'=>'daruosh.mehdipour@gmail.com',
             'phone' => '09149001840',
-            'password' => Hash::make('cilense'),
+            'password' => Hash::make('cilense1365'),
             'is_active' => 1,
             'avatar' => '',
         ]);
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             'name' => 'test',
             'email'=>'test@gmail.com',
             'phone' => '09339981840',
-            'password' => Hash::make('cilense'),
+            'password' => Hash::make('cilense1365'),
             'is_active' => 1,
             'avatar' => '',
         ]);

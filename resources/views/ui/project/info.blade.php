@@ -244,24 +244,31 @@
                     <span class="text-gold text-1xl">✦</span> اطلاعات فروش
                 </h4>
                 <div class="text-xs text-gray-950 leading-8 mr-4 mt-4">
+                    @if($item->sell->isNotEmpty())
+                    @php
+                        $sell = $item->sell->first();
+                    @endphp
                     <table class="w-full">
                         <tr>
                             <td>قیمت پایه</td>
-                            <td class="pr-1">{{$item->sell[0]->price}}</td>
+                            <td class="pr-1">{{$sell->price}}</td>
                         </tr>
                         <tr>
                             <td>موجودی</td>
-                            <td class="pr-1">{{$item->sell[0]->count}}</td>
+                            <td class="pr-1">{{$sell->count}}</td>
                         </tr>
                         <tr>
                             <td>آدرس</td>
-                            <td class="pr-1">{{$item->sell[0]->address}}</td>
+                            <td class="pr-1">{{$sell->address}}</td>
                         </tr>
                         <tr>
                             <td>شماره تماس</td>
-                            <td class="pr-1">{{$item->sell[0]->phone}}</td>
+                            <td class="pr-1">{{$sell->phone}}</td>
                         </tr>
                     </table>
+                    @else
+                    <div> هیچ اطلاعات فروش در دسترس نیست. </div>
+                    @endif
                 </div>
             </div>
             <div class="font-nastaliq text-3xl text-center text-gold leading-14 pt-10">

@@ -72,10 +72,12 @@ class ProjectResource extends Resource
                 FileUpload::make('image')
                     ->image()
                     ->disk('public')
+                    ->imageEditor()
                     ->required(),
                 FileUpload::make('thumbnail')
                     ->image()
                     ->disk('public')
+                    ->imageEditor()
                     ->default('images/projects/thumbnails/default.png'),
                 FileUpload::make('signature')
                     ->image()

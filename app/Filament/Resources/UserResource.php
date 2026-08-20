@@ -47,7 +47,6 @@ class UserResource extends Resource
                     ->maxLength(255),
                 TextInput::make('phone')
                     ->tel()
-                    ->required()
                     ->maxLength(255),
                 FileUpload::make('avatar')
                     ->image()
@@ -57,10 +56,6 @@ class UserResource extends Resource
                 Toggle::make('is_active')
                     ->required(),
                 DateTimePicker::make('email_verified_at')->jalali(),
-                TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255),
                 Select::make('roles')
                     ->multiple()
                     ->relationship('roles', 'name'),

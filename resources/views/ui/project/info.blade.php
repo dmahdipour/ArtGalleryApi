@@ -200,7 +200,7 @@
                         ابعاد
                     </td>
                     <td class="p-3">
-                        {{$item->width}} x {{$item->height}}
+                        {{$item->height}}x{{$item->width}}
                     </td>
                 </tr>
                 <tr>

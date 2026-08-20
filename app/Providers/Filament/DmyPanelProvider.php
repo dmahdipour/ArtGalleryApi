@@ -6,6 +6,7 @@ use App\Filament\Pages\Profile;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use App\Filament\Pages\ChangePassword;
 use App\Filament\Widgets;
+use App\Filament\Pages\Auth\Register;
 
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -27,7 +28,6 @@ use Filament\FontProviders\LocalFontProvider;
 use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
 use Filament\Navigation\MenuItem;
-
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use AlizHarb\ActivityLog\ActivityLogPlugin;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -43,6 +43,8 @@ class DmyPanelProvider extends PanelProvider
             ->id('dmy')
             ->path('dmy')
             ->login()
+            ->registration()
+            ->emailVerification() 
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -50,6 +52,13 @@ class DmyPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Dashboard::class,
+                
+            ])
+            ->navigationItems([
+                NavigationItem::make('مشاهده وب سایت گالری')
+                    ->url('/')
+                    ->icon('heroicon-o-globe-alt')
+                    ->sort(1), // عدد ۱ یعنی بلافاصله بعد از داشبورد قرار بگیرد
             ])
             ->spa()
             ->widgets([
@@ -70,7 +79,7 @@ class DmyPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             /** Custom Configs */
-            ->brandName('مدیریت محتوا')
+            ->brandName('گالری سنفونی رنگ')
             ->sidebarCollapsibleOnDesktop()
             ->sidebarFullyCollapsibleOnDesktop()
             ->sidebarWidth('20rem')

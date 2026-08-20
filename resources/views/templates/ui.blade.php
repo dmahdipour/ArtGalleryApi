@@ -149,14 +149,24 @@
 
 
                         {{-- Login --}}
+                        @php
+                            $user = auth()->guard('web')->user();
+                        @endphp
+
+                        @if($user)
+                            <div>
+                                <p>
+                                    <a href="/dmy" class="text-blue-700">{{ $user->name }}</a>  خوش آمدید!</p>
+                            </div>
+                        @else
                         <a
-                            href="#"
+                            href="/dmy"
                             class="hidden rounded-full border border-[#c8a45b]
                             px-5 py-2.5 text-xs sm:block"
                         >
                             ورود / ثبت‌نام
                         </a>
-
+                        @endif
                         {{-- Mobile menu --}}
                         <button
                             id="mobileMenuButton"

@@ -55,7 +55,6 @@ class UserResource extends Resource
                     ->default(null),
                 Toggle::make('is_active')
                     ->required(),
-                DateTimePicker::make('email_verified_at')->jalali(),
                 Select::make('roles')
                     ->multiple()
                     ->relationship('roles', 'name'),

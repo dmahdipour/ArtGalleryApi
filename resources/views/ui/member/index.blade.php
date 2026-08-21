@@ -6,7 +6,7 @@
 @if ($message = Session::get('error'))
     <div class="text-center p-3 text-sm"> {{ $message }} </div>
 @endif
-{{-- ======================= MEMBERS ========================= --}}
+{{-- ======================= users ========================= --}}
 <main class="mx-auto max-w-[1500px] px-5 py-12 sm:px-8">
     <div class="mb-8 flex items-end justify-between">
         <div>
@@ -24,7 +24,7 @@
             </h2>
         </div>
         <div class="text-xs text-[#77746d]">
-            {{ $members->count() }}
+            {{ $users->count() }}
             هنرمند
         </div>
     </div>
@@ -36,7 +36,7 @@
         lg:grid-cols-3
         xl:grid-cols-4"
     >
-        @forelse($members as $member)
+        @forelse($users as $user)
             <article
                 class="group overflow-hidden rounded-2xl
                 border border-[#e7e1d6] bg-white
@@ -45,13 +45,13 @@
             >
                 {{-- Image --}}
                 <a
-                    href="{{ route('projectIndex',  ['member' => $member->uuid]) }}"
+                    href="{{ route('projectIndex',  ['user' => $user->uuid]) }}"
                     class="relative block overflow-hidden"
                 >
-                    @if($member->avatar)
+                    @if($user->avatar)
                         <img
-                            src="{{ asset('storage/' . $member->avatar) }}"
-                            alt="{{ $member->name_fa }}"
+                            src="{{ asset('storage/' . $user->avatar) }}"
+                            alt="{{ $user->name_fa }}"
                             loading="lazy"
                             class="aspect-[4/5] w-full
                             object-cover transition duration-700
@@ -83,16 +83,16 @@
                     {{-- Card Info --}}
                     <div class="p-5">
                         <h3 class="text-gold ">
-                            {{ $member->name_fa }}
+                            {{ $user->member->name_fa }}
                         </h3>
                         <h4 class="text-gold text-left">
-                            {{ $member->name_en }}
+                            {{ $user->member->name_en }}
                         </h4>
                         <hr class="border-gold" />
                         <h5
                             class="text-sm text-gray-500"
                         >
-                            {{ $member->activities }}
+                            {{ $user->member->activities }}
                         </h5>
                     </div>
                 </a>
@@ -118,9 +118,9 @@
     </div>
 
     {{-- Pagination --}}
-    @if($members->hasPages())
+    @if($users->hasPages())
         <div class="mt-12">
-            {{ $members->onEachSide(1)->links() }}
+            {{ $users->onEachSide(1)->links() }}
         </div>
     @endif
 </main>

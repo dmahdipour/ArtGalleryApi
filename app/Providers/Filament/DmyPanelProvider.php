@@ -55,8 +55,9 @@ class DmyPanelProvider extends PanelProvider
             ->navigationItems([
                 NavigationItem::make('مشاهده وب سایت گالری')
                     ->url('/')
+                    ->openUrlInNewTab()
                     ->icon('heroicon-o-globe-alt')
-                    ->sort(1), // عدد ۱ یعنی بلافاصله بعد از داشبورد قرار بگیرد
+                    ->sort(1), 
             ])
             ->spa()
             ->widgets([

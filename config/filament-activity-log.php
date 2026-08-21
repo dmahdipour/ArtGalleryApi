@@ -211,7 +211,7 @@ return [
     |
     */
     'permissions' => [
-        'enabled' => false,
+        'enabled' => true,
 
         /**
          * Custom invokable authorizer class for accessing the activity log.

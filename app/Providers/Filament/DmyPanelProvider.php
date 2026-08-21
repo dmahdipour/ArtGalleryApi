@@ -31,6 +31,7 @@ use Filament\Navigation\MenuItem;
 use AlizHarb\ActivityLog\ActivityLogPlugin;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Support\Facades\Auth;
 
 class DmyPanelProvider extends PanelProvider
 {
@@ -93,6 +94,7 @@ class DmyPanelProvider extends PanelProvider
                     ->label('لاگ')
                     ->pluralLabel('لاگ‌ها')
                     ->navigationGroup('سیستم'),
+
             ])
             ->navigationGroups([ 
                 NavigationGroup::make()

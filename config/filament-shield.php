@@ -120,7 +120,7 @@ return [
         'separator' => ':',
         'case' => 'pascal',
         'generate' => true,
-        'format_custom_permission_keys' => true,
+        'format_custom_permission_keys' => false,
     ],
 
     /*
@@ -252,7 +252,11 @@ return [
     |
     */
 
-    'custom_permissions' => [],
+    'custom_permissions' => [
+        'view_any_activity' => 'مشاهده لاگ‌ها',
+        'view_activity' => 'مشاهده جزئیات لاگ',
+        'delete_activity' => 'حذف لاگ',
+    ],
 
     /*
     |--------------------------------------------------------------------------

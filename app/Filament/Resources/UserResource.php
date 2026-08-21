@@ -52,6 +52,7 @@ class UserResource extends Resource
                     ->image()
                     ->disk('public')
                     ->imageEditor()
+                    ->directory('images/avatars')
                     ->default(null),
                 Toggle::make('is_active')
                     ->required(),

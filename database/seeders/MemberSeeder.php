@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Member;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class MemberSeeder extends Seeder
 {
@@ -14,57 +14,36 @@ class MemberSeeder extends Seeder
      */
     public function run(): void
     {
-        Member::updateOrCreate([
-            'uuid' => '3dfaf4a3-75d2-4bd2-995d-548fbe95f1d',
+        $user = User::find(1);
+        if (!$user) {
+            return;
+        }
+
+        $memberData = [
+            'uuid' => '3dfaf4a3-75d2-4bd2-995d-548fbe95f1d9', // ✅ 36 کاراکتر
             'user_id' => 1,
             'name_fa' => 'داریوش مهدی پور یقینی',
             'name_en' => 'Daryoush Mahdipour Yaghini',
-            'user_name' => 'DMY',
-            'birthday' => '1987/02/17',
+            'birthday' => '1987-02-17', 
             'place' => 'تبریز',
             'major' => 'کارشناسی ارشد مهندسی کامپیوتر',
             'university' => 'نبی اکرم (ص) تبریز',
             'activities' => 'طراحی , برنامه نویسی',
             'phone' => '+989149001840',
-            'email'=>'daruosh.mehdipour@gmail.com',
             'instagram' => 'yilmazam',
             'linkedin' => 'dmahdipour',
             'website' => 'https://topon.ir',
-            'password' => Hash::make('cilense'),
-            'member_type_id' => 1,
+            'member_type_id' => 1, 
             'about' => 'علاقه مند به هنر',
-            'avatar'=>'images/avatars/1.png',
-            'signature'=>'images/signatures/1.png',
-            'verification_code'=>1234,
-            'is_email_verified'=>1,
-        ]);
+            'signature' => 'images/signatures/1.png',
+            'verification_code' => 1234,
+            'is_email_verified' => 1, 
+        ];
 
-
-
-        
-        Member::updateOrCreate([
-            'uuid' => '3dfaf4a3-75d2-4bd2-995d-548fbe95f1e',
-            'user_id' => 2,
-            'name_fa' => 'تست',
-            'name_en' => 'Test',
-            'user_name' => 'test',
-            'birthday' => '1987/02/17',
-            'place' => 'تبریز',
-            'major' => 'کارشناسی ارشد مهندسی کامپیوتر',
-            'university' => 'نبی اکرم (ص) تبریز',
-            'activities' => 'طراحی , برنامه نویسی',
-            'phone' => '+989149001840',
-            'email'=>'test@gmail.com',
-            'instagram' => 'yilmazam',
-            'linkedin' => 'dmahdipour',
-            'website' => 'https://topon.ir',
-            'password' => Hash::make('cilense'),
-            'member_type_id' => 1,
-            'about' => 'علاقه مند به هنر',
-            'avatar'=>'images/avatars/1.png',
-            'signature'=>'images/signatures/1.png',
-            'verification_code'=>1234,
-            'is_email_verified'=>1,
-        ]);
+        // بروزرسانی یا ایجاد
+        $member = Member::updateOrCreate(
+            ['user_id' => 1], // شرط پیدا کردن
+            $memberData // داده‌های جدید
+        );
     }
 }

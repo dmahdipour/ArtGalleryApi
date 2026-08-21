@@ -62,7 +62,7 @@
                 class="cursor-zoom-in"
             >
                 <img
-                    src="{{ asset('storage/' . $item->image) }}"
+                    src="{{ asset('storage/' . $item->thumbnail) }}"
                     alt="{{ $item->name_fa }}"
                     class="max-w-full"
                 >
@@ -115,7 +115,9 @@
     <hr class="my-10 border-[#cbb982] mx-10" />
     <div class="grid lg:grid-cols-8 gap-10 mx-10 my-10">
         <div class="order-4 lg:order-1 col-span-1 flex items-center justify-center">
-            <img src="/storage/{{$item->signature}}" />
+            <a href="{{ route('projectQr', $item->uuid) }}">
+                <img src="/storage/{{$item->signature}}" />
+            </a>    
         </div>
         <div class="order-1 lg:order-2 lg:col-span-2">
             <div>

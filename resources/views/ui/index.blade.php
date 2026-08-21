@@ -495,7 +495,7 @@
             </div>
             <div>
                 <div class="text-xl font-semibold">
-                    {{ $allmembers}}
+                    {{ $allUsers}}
                 </div>
                 <div class="mt-1 text-xs text-[#888]">
                     هنرمند

@@ -28,11 +28,9 @@ use Filament\FontProviders\LocalFontProvider;
 use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
 use Filament\Navigation\MenuItem;
-use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use AlizHarb\ActivityLog\ActivityLogPlugin;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
-
 
 class DmyPanelProvider extends PanelProvider
 {
@@ -90,7 +88,6 @@ class DmyPanelProvider extends PanelProvider
             )
             ->plugins([
                 FilamentShieldPlugin::make(),
-                FilamentSpatieRolesPermissionsPlugin::make(),
                 ActivityLogPlugin::make()
                     ->label('لاگ')
                     ->pluralLabel('لاگ‌ها')
@@ -99,8 +96,6 @@ class DmyPanelProvider extends PanelProvider
             ->navigationGroups([ 
                 NavigationGroup::make()
                     ->label('کاربران'),
-                NavigationGroup::make()
-                    ->label('نقش‌ها و دسترسی‌ها'),
                 NavigationGroup::make()
                     ->label('تنظیمات'),
                 NavigationGroup::make()

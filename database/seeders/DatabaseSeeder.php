@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
     {
         /* Craete system admin user*/
         $this->call([
-            UserSeeder::class,
             MemberTypeSeeder::class,
+            UserSeeder::class,
             MemberSeeder::class,
             PositionSeeder::class,
             PageSeeder::class,

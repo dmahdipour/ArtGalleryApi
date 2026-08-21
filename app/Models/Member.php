@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Str;
 
 class Member extends Model
 {
-    use LogsActivity, HasApiTokens;
+    use LogsActivity, HasRoles, HasApiTokens;
 
     protected $fillable= [
         'uuid',
@@ -19,19 +21,15 @@ class Member extends Model
         'member_type_id',
         'name_fa',
         'name_en',
-        'user_name',
         'birthday',
         'place',
         'major',
         'university',
         'activities',
-        'email',
         'phone',
         'instagram',
         'linkedin',
         'website',
-        'avatar',
-        'status',
         'about',
         'signature',
         'verification_code',
@@ -80,21 +78,18 @@ class Member extends Model
                 'member_type_id',
                 'name_fa',
                 'name_en',
-                'user_name',
                 'birthday',
                 'place',
                 'major',
                 'university',
                 'activities',
-                'email',
                 'phone',
                 'instagram',
                 'linkedin',
                 'website',
-                'avatar',
-                'status',
                 'about',
                 'signature',
+                'verification_code',
             ])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();

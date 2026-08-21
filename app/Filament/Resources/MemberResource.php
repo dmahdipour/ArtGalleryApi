@@ -18,6 +18,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -26,6 +27,8 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class MemberResource extends Resource
 {
@@ -41,12 +44,6 @@ class MemberResource extends Resource
     {
         return $schema
             ->components([
-                TextInput::make('email')
-                    ->label('Email address')
-                    ->email()
-                    ->required(),
-                TextInput::make('user_name')
-                    ->required(),
                 TextInput::make('verification_code')
                     ->required()
                     ->numeric(),
@@ -55,30 +52,36 @@ class MemberResource extends Resource
                 Select::make('member_type_id')
                     ->relationship('memberType', 'name')
                     ->required(),
-                TextInput::make('name_fa'),
-                TextInput::make('name_en'),
+                TextInput::make('name_fa')
+                    ->label('نام و نام خانوادگی'),
+                TextInput::make('name_en')
+                    ->label('نام و نام خانوادگی به انگلیسی'),
                 DatePicker::make('birthday')
+                    ->label('تاریخ تولد')
                     ->jalali()->displayFormat('Y/m/d'),
-                TextInput::make('place'),
-                TextInput::make('major'),
-                TextInput::make('university'),
-                TextInput::make('activities'),
+                TextInput::make('place')
+                    ->label('محل تولد'),
+                TextInput::make('major')
+                    ->label('رشته تحصیلی'),
+                TextInput::make('university')
+                    ->label('دانشگاه'),
+                TextInput::make('activities')
+                    ->label('فعالیت ها'),
                 TextInput::make('phone')
+                    ->label('شماره تماس')
                     ->tel(),
                 TextInput::make('instagram'),
                 TextInput::make('linkedin'),
                 TextInput::make('website')
                     ->url(),
                 Textarea::make('about')
+                    ->label('در مورد هنرمند')
                     ->columnSpanFull(),
-                FileUpload::make('avatar')
-                    ->image()
-                    ->disk('public'),
                 FileUpload::make('signature')
+                    ->label('امضای کاری')
                     ->image()
-                    ->disk('public'),
-                Toggle::make('status')
-                    ->required(),
+                    ->disk('public')
+                    ->directory('images/signatures'),
             ]);
     }
 
@@ -86,33 +89,42 @@ class MemberResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('avatar')
+                ImageColumn::make('user.avatar')
                     ->disk('public'),
-                TextColumn::make('user_name')
-                    ->searchable(),
                 TextColumn::make('name_fa')
+                    ->label('نام و نام خانوادگی')
+                    ->searchable(),
+                TextColumn::make('name_en')
+                    ->label('نام و نام خانوادگی به انگلیسی')
                     ->searchable(),
                 TextColumn::make('memberType.name')
+                    ->label('نوع کاربری')
                     ->searchable(),
                 TextColumn::make('user.name')
+                    ->label('نام کاربری')
                     ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email address')
+                TextColumn::make('user.email')
+                    ->label('ایمیل')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('birthday')
+                    ->label('تاریخ تولد')
                     ->jalaliDate()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('place')
+                    ->label('محل تولد')
                     ->searchable(),
                 TextColumn::make('major')
+                    ->label('رشته تحصیلی')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('university')
+                    ->label('دانشگاه')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('activities')
+                    ->label('فعالیت ها')
                     ->searchable(),
                 TextColumn::make('verification_code')
                     ->numeric()
@@ -121,6 +133,7 @@ class MemberResource extends Resource
                 IconColumn::make('is_email_verified')
                     ->boolean(),
                 TextColumn::make('phone')
+                    ->label('شماره تماس')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('instagram')
@@ -132,7 +145,8 @@ class MemberResource extends Resource
                 TextColumn::make('website')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                IconColumn::make('status')
+                IconColumn::make('user.is_active')
+                    ->label('فعال')
                     ->boolean(),
                 TextColumn::make('created_at')
                     ->dateTime()

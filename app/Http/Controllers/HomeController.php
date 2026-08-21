@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use App\Models\Page;
 use App\Models\Project;
-use App\Models\Member;
+use App\Models\User;
 use App\Models\Technique;
 use App\Models\Style;
 use App\Models\Subject;
@@ -67,11 +67,11 @@ class HomeController extends Controller
             ->get();
         
         $allProjects = Project::where('status', 1)->count();
-        $allmembers = Member::where('status', 1)->count();
+        $allUsers = User::where('is_active', 1)->count();
 
         return view('ui.index', compact(
             'allProjects',
-            'allmembers',
+            'allUsers',
             'projects',
             'sliders',
             'techniques',

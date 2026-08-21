@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,6 +11,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -66,4 +67,21 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->avatar;
     }
 
+    public function member()
+    {
+        return $this->hasOne(Member::class);
+    }
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            if (!$user->hasRole(2)) {
+                $user->assignRole(2);
+            }
+            $user->member()->create([
+                'uuid' => Str::uuid(),
+                'member_type_id' => 2,
+            ]);
+        });
+    }
 }

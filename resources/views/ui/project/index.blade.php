@@ -246,9 +246,9 @@
                     href="{{ route('projectInfo', $project->uuid) }}"
                     class="relative block overflow-hidden"
                 >
-                    @if($project->image)
+                    @if($project->thumbnail)
                         <img
-                            src="{{ asset('storage/' . $project->image) }}"
+                            src="{{ asset('storage/' . $project->thumbnail) }}"
                             alt="{{ $project->name_fa }}"
                             loading="lazy"
                             class="aspect-[4/5] w-full

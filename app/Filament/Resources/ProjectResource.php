@@ -15,6 +15,7 @@ use Filament\Actions\EditAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
@@ -25,6 +26,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Table;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 
 class ProjectResource extends Resource
@@ -41,49 +44,67 @@ class ProjectResource extends Resource
     {
         return $schema
             ->components([
-                Select::make('member_id')
-                    ->relationship('member', 'name_fa')
+                Hidden::make('member_id')
                     ->required(),
                 TextInput::make('name_fa')
+                    ->label('نام فارسی اثر')
                     ->required(),
                 TextInput::make('name_en')
+                    ->label('نام انگلیسی اثر')
                     ->required(),
                 Select::make('technique_id')
+                    ->label('تکنیک')
                     ->relationship('technique', 'name_fa')
                     ->required(),
                 Select::make('style_id')
+                    ->label('سبک')
                     ->relationship('style', 'name_fa')
                     ->required(),
                 Select::make('subject_id')
+                    ->label('موضوع')
                     ->relationship('subject', 'name_fa')
                     ->required(),
                 TextInput::make('height')
+                    ->label('طول')
                     ->required(),
                 TextInput::make('width')
+                    ->label('عرض')
                     ->required(),
                 TextInput::make('year')
+                    ->label('سال')
                     ->required(),
                 Textarea::make('member_description')
+                    ->label('توصیف هنرمند در مورد اثر')
                     ->columnSpanFull(),
                 Textarea::make('description')
+                    ->label('توضیح یک سطری')
                     ->columnSpanFull(),
                 Textarea::make('about_project')
+                    ->label('در مورد موضوع اثر')
                     ->columnSpanFull(),
                 FileUpload::make('image')
+                    ->label('تصویر')
                     ->image()
                     ->disk('public')
+                    ->directory('images/projects')
                     ->imageEditor()
                     ->required(),
                 FileUpload::make('thumbnail')
+                    ->label('تصویر کوچک')
                     ->image()
                     ->disk('public')
+                    ->directory('images/projects/thumbnails')
                     ->imageEditor()
                     ->default('images/projects/thumbnails/default.png'),
                 FileUpload::make('signature')
+                    ->label('امضای خاص اثر')
                     ->image()
-                    ->disk('public'),
-                TextInput::make('theme'),
+                    ->disk('public')
+                    ->directory('images/signatures'),
+                TextInput::make('theme')
+                    ->label('جمله حکیمانه'),
                 Toggle::make('status')
+                    ->label('نمایش اثر')
                     ->required(),
             ]);
     }
@@ -93,35 +114,49 @@ class ProjectResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('thumbnail')
+                    ->label('تصویر')
                     ->disk('public'),
                 TextColumn::make('member.name_fa')
+                    ->label('نام فارسی هنرمند')
                     ->searchable(),
                 TextColumn::make('name_fa')
+                    ->label('نام فارسی اثر')
                     ->searchable(),
                 TextColumn::make('name_en')
+                    ->label('نام انگلیسی اثر')
                     ->searchable(),
                 TextColumn::make('technique.name_fa')
+                    ->label('تکنیک')
                     ->searchable(),
                 TextColumn::make('style.name_fa')
+                    ->label('سبک')
                     ->searchable(),
                 TextColumn::make('subject.name_fa')
+                    ->label('موضوع')
                     ->searchable(),
                 // ImageColumn::make('image')
                 //     ->disk('public'),
                 TextColumn::make('height')
+                    ->label('طول')
                     ->searchable(),
                 TextColumn::make('width')
+                    ->label('عرض')
                     ->searchable(),
                 TextColumn::make('year')
+                    ->label('سال')
                     ->searchable(),
                 IconColumn::make('status')
+                    ->label('نمایش')
                     ->boolean(),
                 TextColumn::make('description')
+                    ->label('توضیح یک سطری')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('signature')
+                    ->label('امضای خاص اثر')
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('theme')
+                    ->label('جمله حکیمانه')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -143,7 +178,7 @@ class ProjectResource extends Resource
             ->filters([
                 SelectFilter::make('member_id')
                     ->label('کاربر')
-                    ->relationship('member', 'name_fa')  // یا 'user_name'
+                    // ->relationship('member', 'name_fa')
                     ->searchable()
                     ->preload(),
             ])
@@ -156,6 +191,15 @@ class ProjectResource extends Resource
                     DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $userInfo = Auth::user();
+        if ($userInfo->hasRole(1)) {
+            return parent::getEloquentQuery();
+        }
+        return parent::getEloquentQuery()->where('member_id', $userInfo->id);
     }
 
     public static function getPages(): array

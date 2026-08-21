@@ -15,15 +15,11 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('email')->unique();
-            $table->string('user_name')->unique();
-            $table->integer('verification_code');
+            $table->integer('verification_code')->nullable();
             $table->boolean('is_email_verified')->default(false);
-            $table->string('password');
             $table->foreignId('member_type_id')->references('id')->on('member_types')->onDelete('cascade')->default(2);
             $table->string('name_fa')->nullable();
             $table->string('name_en')->nullable();
-            $table->string('avatar')->nullable();
             $table->date('birthday')->nullable();
             $table->string('place')->nullable();
             $table->string('major')->nullable();
@@ -35,7 +31,6 @@ return new class extends Migration
             $table->string('website')->nullable();
             $table->text('about')->nullable();
             $table->string('signature')->nullable();
-            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

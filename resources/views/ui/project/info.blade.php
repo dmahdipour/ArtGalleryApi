@@ -50,22 +50,25 @@
             </div>
         </div>
         <div class="lg:col-span-1 lg:order-2 order-1">
-            <div class="bg-white shadow-xl relative">
-                <div class="absolute -left-24 top-32 text-[#cbb982] rotate-[-90deg] tracking-[5px] text-sm" >
-                    {{$item->name_en}}
-                </div>
-            </div>
             <button
                 data-modal-target="image-modal"
                 data-modal-toggle="image-modal"
                 type="button"
-                class="cursor-zoom-in"
+                class="relative cursor-zoom-in"
             >
                 <img
                     src="{{ asset('storage/' . $item->thumbnail) }}"
                     alt="{{ $item->name_fa }}"
                     class="max-w-full"
                 >
+
+                <div
+                    class="absolute left-0 top-0 -translate-x-full
+                        rotate-[-90deg] origin-top-right text-[#cbb982]
+                        tracking-[5px] text-sm whitespace-nowrap"
+                >
+                    {{ $item->name_en }}
+                </div>
             </button>
             <div
                 id="image-modal"
@@ -137,7 +140,7 @@
                     </svg>
                 </div>
                 <div>
-                    {{$item->member->email}}
+                    {{$item->member->user->email}}
                     <svg class="size-4 text-gold inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m3.5 5.5 7.893 6.036a1 1 0 0 0 1.214 0L20.5 5.5M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/>
                     </svg>

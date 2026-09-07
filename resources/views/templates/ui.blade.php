@@ -27,8 +27,6 @@
 
                     {{-- Desktop Navigation --}}
                     <nav class="hidden items-center gap-10 lg:flex">
-
-                        {{-- خانه --}}
                         <a
                             href="{{ route('home') }}"
                             class="relative py-3 text-sm transition
@@ -38,8 +36,6 @@
                         >
                             خانه
                         </a>
-
-                        {{-- گالری آثار --}}
                         <a
                             href="{{ route('projectIndex') }}"
                             class="relative py-3 text-sm transition
@@ -49,8 +45,6 @@
                         >
                             گالری آثار
                         </a>
-
-                        {{-- هنرمندان --}}
                         <a
                             href="{{ route('memberIndex') }}"
                             class="relative py-3 text-sm transition
@@ -60,16 +54,12 @@
                         >
                             هنرمندان
                         </a>
-
-                        {{-- درباره ما --}}
                         <a
                             href="#about"
                             class="relative py-3 text-sm transition hover:text-[#b38c3f]"
                         >
                             درباره ما
                         </a>
-
-                        {{-- تماس با ما --}}
                         <a
                             href="#contact"
                             class="relative py-3 text-sm transition hover:text-[#b38c3f]"
@@ -84,6 +74,27 @@
                         class="hidden border-b border-[#e3dfd5] bg-[#faf9f5] w-full absolute top-0 right-0 z-999 lg:hidden">
                         <nav class="mx-auto max-w-[1500px] px-5 py-5 sm:px-8">
                             <div class="flex flex-col gap-1">
+                                @php
+                                    $user = auth()->guard('web')->user();
+                                @endphp
+
+                                @if($user)
+                                    <div>
+                                        <p>
+                                            <a href="{{ route('home') }}/dmy" class="text-blue-700">{{ $user->name }}</a>
+                                            خوش آمدید!
+                                        </p>
+                                    </div>
+                                @else
+                                <a
+                                    href="{{ route('home') }}/dmy"
+                                    class="rounded-lg px-4 py-3 text-sm text-[#17352a]
+                                        transition hover:bg-[#f0ede5]"
+                                >
+                                    ورود / ثبت نام
+                                </a>
+                                @endif
+
                                 <a
                                     href="{{ route('home') }}"
                                     class="rounded-lg px-4 py-3 text-sm text-[#17352a]
@@ -126,7 +137,7 @@
                     {{-- Header Actions --}}
                     <div class="flex items-center gap-3">
                         {{-- Search --}}
-                        <button
+                        <!-- <button
                             type="button"
                             class="hidden h-11 w-11 items-center justify-center rounded-full
                             border border-[#ded8cb] bg-white transition
@@ -145,7 +156,7 @@
                                     d="m21 21-4.35-4.35m2.1-5.4a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"
                                 />
                             </svg>
-                        </button>
+                        </button> -->
 
 
                         {{-- Login --}}
@@ -154,18 +165,20 @@
                         @endphp
 
                         @if($user)
-                            <div>
+                            <div class="hidden sm:block">
                                 <p>
-                                    <a href="/dmy" class="text-blue-700">{{ $user->name }}</a>  خوش آمدید!</p>
+                                    <a href="{{ route('home') }}/dmy" class="text-blue-700">{{ $user->name }}</a>
+                                    خوش آمدید!
+                                </p>
                             </div>
                         @else
-                        <a
-                            href="/dmy"
-                            class="hidden rounded-full border border-[#c8a45b]
-                            px-5 py-2.5 text-xs sm:block"
-                        >
-                            ورود / ثبت‌نام
-                        </a>
+                            <a
+                                href="/dmy"
+                                class="hidden rounded-full border border-[#c8a45b]
+                                px-5 py-2.5 text-xs sm:block"
+                            >
+                                ورود / ثبت‌نام
+                            </a>
                         @endif
                         {{-- Mobile menu --}}
                         <button

@@ -47,18 +47,30 @@ class HomeController extends Controller
                 $request->get('sort') !== 'oldest',
                 fn ($query) =>
                     $query->latest()
-            );
+            )
+            ->take(12)->get();
 
         $techniques = Technique::query()
+            ->whereIn('id', Project::query()
+                ->whereNotNull('technique_id')
+                ->select('technique_id')
+            )
             ->orderBy('name_fa')
             ->get();
 
-        $styles = $projects
-            ->select('id', 'name_fa', 'name_en')
+        $styles = Style::query()
+            ->whereIn('id', Project::query()
+                ->whereNotNull('style_id')
+                ->select('style_id')
+            )
             ->orderBy('name_fa')
             ->get();
 
         $subjects = Subject::query()
+            ->whereIn('id', Project::query()
+                ->whereNotNull('subject_id')
+                ->select('subject_id')
+            )
             ->orderBy('name_fa')
             ->get();
 
@@ -66,7 +78,6 @@ class HomeController extends Controller
             ->orderBy('id')
             ->get();
         
-        $projects=$projects->take(12)->get();
         $allProjects = Project::where('status', 1)->count();
         $allUsers = User::where('is_active', 1)->count();
 

@@ -379,7 +379,8 @@
                         class="text-lg font-semibold
                         text-[#24352d]"
                     >
-                        {{ $project->name_fa }}
+                        {{ $project->name_fa }} 
+                        <span class="text-sm text-gold">({{ $project->member->name_fa }})</span>
                     </h3>
                     <div
                         class="mt-3 flex flex-wrap items-center

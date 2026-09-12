@@ -58,14 +58,26 @@ class ProjectController extends Controller
             ->withQueryString();
 
         $techniques = Technique::query()
+            ->whereIn('id', Project::query()
+                ->whereNotNull('technique_id')
+                ->select('technique_id')
+            )
             ->orderBy('name_fa')
             ->get();
 
         $styles = Style::query()
+            ->whereIn('id', Project::query()
+                ->whereNotNull('style_id')
+                ->select('style_id')
+            )
             ->orderBy('name_fa')
             ->get();
 
         $subjects = Subject::query()
+            ->whereIn('id', Project::query()
+                ->whereNotNull('subject_id')
+                ->select('subject_id')
+            )
             ->orderBy('name_fa')
             ->get();
 

@@ -45,6 +45,7 @@ class ProjectResource extends Resource
         return $schema
             ->components([
                 Hidden::make('member_id')
+                    ->default(fn () => Auth::id())
                     ->required(),
                 TextInput::make('name_fa')
                     ->label('نام فارسی اثر')
@@ -55,14 +56,20 @@ class ProjectResource extends Resource
                 Select::make('technique_id')
                     ->label('تکنیک')
                     ->relationship('technique', 'name_fa')
+                    ->preload()
+                    ->searchable()
                     ->required(),
                 Select::make('style_id')
                     ->label('سبک')
                     ->relationship('style', 'name_fa')
+                    ->preload()
+                    ->searchable()
                     ->required(),
                 Select::make('subject_id')
                     ->label('موضوع')
                     ->relationship('subject', 'name_fa')
+                    ->preload()
+                    ->searchable()
                     ->required(),
                 TextInput::make('height')
                     ->label('طول')

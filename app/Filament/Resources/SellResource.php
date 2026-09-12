@@ -98,6 +98,15 @@ class SellResource extends Resource
             ]);
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        $userInfo = Auth::user();
+        if ($userInfo->hasRole(1)) {
+            return parent::getEloquentQuery();
+        }
+        return parent::getEloquentQuery()->where('member_id', $userInfo->id);
+    }
+
     public static function getPages(): array
     {
         return [

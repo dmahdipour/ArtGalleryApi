@@ -38,7 +38,16 @@ class SellResource extends Resource
         return $schema
             ->components([
                 Select::make('project_id')
-                    ->relationship('project', 'name_fa')
+                    ->relationship(
+                        name: 'project',
+                        titleAttribute: 'name_fa',
+                        modifyQueryUsing: fn (Builder $query) => 
+                            Auth::user()->hasRole(1) 
+                                ? $query 
+                                : $query->where('member_id', Auth::id())
+                    )
+                    ->preload()
+                    ->searchable()
                     ->required(),
                 TextInput::make('price')
                     ->required(),

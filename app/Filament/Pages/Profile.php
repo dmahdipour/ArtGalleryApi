@@ -180,9 +180,9 @@ class Profile extends Page implements HasForms
         // ✅ بروزرسانی آواتار - اصلاح شده
         if (isset($data['signature'])) {
             if (is_array($data['signature']) && count($data['signature']) > 0) {
-                $user->signature = $data['signature'][0];
+                $member->signature = $data['signature'][0];
             } elseif (is_string($data['signature'])) {
-                $user->signature = $data['signature'];
+                $member->signature = $data['signature'];
             }
         }
         $member->save();

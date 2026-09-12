@@ -32,9 +32,9 @@
     {{-- Cards --}}
     <div
         class="grid grid-cols-1 gap-6
-        sm:grid-cols-2
-        lg:grid-cols-3
-        xl:grid-cols-4"
+        sm:grid-cols-3
+        lg:grid-cols-4
+        xl:grid-cols-6"
     >
         @forelse($users as $user)
             <article
@@ -69,28 +69,29 @@
                     @endif
                     {{-- Hover --}}
                     <div
-                        class="absolute inset-x-0 bottom-25
+                        class="absolute inset-x-0 bottom-22
                         translate-y-full bg-gradient-to-t
-                        from-black/70 to-transparent p-5 pt-16
+                        from-black/80 to-transparent p-5 pt-16
                         text-white transition duration-500
-                        group-hover:translate-y-0"
+                        group-hover:translate-y-0
+                        text-center"
                     >
                         <span class="text-xs text-[#e1c37e]">
-                            مشاهده اثار
+                            مشاهده آثار
                         </span>
                     </div>
 
                     {{-- Card Info --}}
-                    <div class="p-5">
-                        <h3 class="text-gold ">
+                    <div class="py-5 px-1">
+                        <h3 class="text-gold text-sm">
                             {{ $user->member->name_fa }}
                         </h3>
-                        <h4 class="text-gold text-left">
+                        <h4 class="text-gold text-sm text-left">
                             {{ $user->member->name_en }}
                         </h4>
                         <hr class="border-gold" />
                         <h5
-                            class="text-sm text-gray-500"
+                            class="text-xs text-gray-500"
                         >
                             {{ $user->member->activities }}
                         </h5>

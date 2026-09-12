@@ -104,7 +104,7 @@ class SellResource extends Resource
     {
         $userInfo = Auth::user();
         if ($userInfo->hasRole(1)) {
-            //return parent::getEloquentQuery();
+            return parent::getEloquentQuery();
         }
         return parent::getEloquentQuery()->join('projects', 'projects.id', 'sells.project_id')->where('projects.member_id', $userInfo->id);
     }

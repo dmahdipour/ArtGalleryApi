@@ -45,9 +45,6 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
-                TextInput::make('phone')
-                    ->tel()
-                    ->maxLength(255),
                 FileUpload::make('avatar')
                     ->image()
                     ->disk('public')

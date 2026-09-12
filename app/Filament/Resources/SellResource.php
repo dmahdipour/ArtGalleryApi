@@ -103,10 +103,15 @@ class SellResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         $userInfo = Auth::user();
+        
         if ($userInfo->hasRole(1)) {
             return parent::getEloquentQuery();
         }
-        return parent::getEloquentQuery()->join('projects', 'projects.id', 'sells.project_id')->where('projects.member_id', $userInfo->id);
+        
+        return parent::getEloquentQuery()
+            ->select('sells.*')
+            ->join('projects', 'projects.id', '=', 'sells.project_id')
+            ->where('projects.member_id', $userInfo->id);
     }
 
     public static function getPages(): array

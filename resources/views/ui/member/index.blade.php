@@ -1,5 +1,5 @@
 @extends('templates.ui')
-@section('title', 'هنرمندان گالری')
+@section('title', 'سمفونی رنگ (هنرمندان)')
 @section('describe','siteDescribe')
 
 @section('main-content')
@@ -14,7 +14,6 @@
                 class="text-[10px] tracking-[0.3em]
                 text-[#ad873d]"
             >
-                ARTISTS
             </span>
             <h2
                 class="mt-2 text-2xl font-semibold

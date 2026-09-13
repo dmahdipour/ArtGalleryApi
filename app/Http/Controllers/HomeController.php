@@ -48,11 +48,13 @@ class HomeController extends Controller
                 fn ($query) =>
                     $query->latest()
             )
-            ->take(12)->get();
+            ->where('projects.status', 1)
+            ->take(16)->get();
 
         $techniques = Technique::query()
             ->whereIn('id', Project::query()
                 ->whereNotNull('technique_id')
+                ->where('projects.status', 1)
                 ->select('technique_id')
             )
             ->orderBy('name_fa')
@@ -61,6 +63,7 @@ class HomeController extends Controller
         $styles = Style::query()
             ->whereIn('id', Project::query()
                 ->whereNotNull('style_id')
+                ->where('projects.status', 1)
                 ->select('style_id')
             )
             ->orderBy('name_fa')
@@ -69,6 +72,7 @@ class HomeController extends Controller
         $subjects = Subject::query()
             ->whereIn('id', Project::query()
                 ->whereNotNull('subject_id')
+                ->where('projects.status', 1)
                 ->select('subject_id')
             )
             ->orderBy('name_fa')

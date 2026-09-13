@@ -53,12 +53,14 @@ class ProjectController extends Controller
                 fn ($query) =>
                     $query->latest()
             )
+            ->where('projects.status', 1)
             ->paginate(20)
             ->withQueryString();
 
         $techniques = Technique::query()
             ->whereIn('id', Project::query()
                 ->whereNotNull('technique_id')
+                ->where('projects.status', 1)
                 ->select('technique_id')
             )
             ->orderBy('name_fa')
@@ -67,6 +69,7 @@ class ProjectController extends Controller
         $styles = Style::query()
             ->whereIn('id', Project::query()
                 ->whereNotNull('style_id')
+                ->where('projects.status', 1)
                 ->select('style_id')
             )
             ->orderBy('name_fa')
@@ -75,6 +78,7 @@ class ProjectController extends Controller
         $subjects = Subject::query()
             ->whereIn('id', Project::query()
                 ->whereNotNull('subject_id')
+                ->where('projects.status', 1)
                 ->select('subject_id')
             )
             ->orderBy('name_fa')
@@ -94,7 +98,7 @@ class ProjectController extends Controller
         if (!$request->uuid) {
             return redirect()->route('projectIndex')->with('error', 'هیچ آی دی برای پروژه وارد نشده است.');
         }
-        $item = Project::where('uuid', $request->uuid)->first();
+        $item = Project::where('uuid', $request->uuid)->where('status', 1)->first();
         if($item)   
         {
             $member = Member::find($item->member_id);
@@ -113,7 +117,7 @@ class ProjectController extends Controller
         if (!$request->uuid) {
             return redirect()->route('projectIndex')->with('error', 'هیچ آی دی برای پروژه وارد نشده است.');
         }
-        $item = Project::where('uuid', $request->uuid)->first();
+        $item = Project::where('uuid', $request->uuid)->where('status', 1)->first();
         if($item)   
         {
             return view('ui.project.qr', ['item'=>$item]);
@@ -169,12 +173,14 @@ class ProjectController extends Controller
                 fn ($query) =>
                     $query->latest()
             )
-            ->paginate(12)
+            ->where('projects.status', 1)
+            ->paginate(16)
             ->withQueryString();
 
         $techniques = Technique::query()
             ->whereIn('id', Project::query()
                 ->whereNotNull('technique_id')
+                ->where('projects.status', 1)
                 ->select('technique_id')
             )
             ->orderBy('name_fa')
@@ -183,6 +189,7 @@ class ProjectController extends Controller
         $styles = Style::query()
             ->whereIn('id', Project::query()
                 ->whereNotNull('style_id')
+                ->where('projects.status', 1)
                 ->select('style_id')
             )
             ->orderBy('name_fa')
@@ -191,6 +198,7 @@ class ProjectController extends Controller
         $subjects = Subject::query()
             ->whereIn('id', Project::query()
                 ->whereNotNull('subject_id')
+                ->where('projects.status', 1)
                 ->select('subject_id')
             )
             ->orderBy('name_fa')

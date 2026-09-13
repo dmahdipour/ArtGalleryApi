@@ -15,6 +15,13 @@ class MemberController extends Controller
     {
         $users = User::query()
             ->where('is_active', 1)
+            ->with('member')
+            ->withCount([
+                'member as projects_count' => function ($query) {
+                    $query->withCount('projects');
+                },
+            ])
+            ->orderByDesc('projects_count')
             ->paginate(20)
             ->withQueryString();
 

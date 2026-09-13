@@ -218,7 +218,10 @@
                 class="mt-2 text-2xl font-semibold
                 text-[#17352a] sm:text-3xl"
             >
-                مجموعه آثار
+                مجموعه آثار 
+                @if(request('member'))
+                <span class="text-sm text-gold">{{$projects[0]->member->name_fa}}</span>
+                @endif
             </h2>
         </div>
         <div class="text-xs text-[#77746d]">

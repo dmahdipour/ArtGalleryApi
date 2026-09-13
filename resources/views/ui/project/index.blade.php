@@ -219,7 +219,7 @@
                 text-[#17352a] sm:text-3xl"
             >
                 مجموعه آثار 
-                @if(request('member' && $projects->isNotEmpty() && $projects[0]->member !== null))
+                @if(request('member') && $projects->isNotEmpty() && $projects[0]->member !== null)
                 <span class="text-sm text-gold">{{$projects[0]->member->name_fa}}</span>
                 @endif
             </h2>

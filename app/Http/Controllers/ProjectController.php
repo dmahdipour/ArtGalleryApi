@@ -26,18 +26,17 @@ class ProjectController extends Controller
             ])
             ->when(
                 $request->filled('member'),
-                fn ($query) =>
-                    $query->where('uuid', $request->member)
+                fn ($query) => $query->whereHas('member',
+                    fn ($q) => $q->where('uuid', $request->member)
+                )
             )
             ->when(
                 $request->filled('technique'),
-                fn ($query) =>
-                    $query->where('technique_id', $request->technique)
+                fn ($query) => $query->where('technique_id', $request->technique)
             )
             ->when(
                 $request->filled('style'),
-                fn ($query) =>
-                    $query->where('style_id', $request->style)
+                fn ($query) => $query->where('style_id', $request->style)
             )
             ->when(
                 $request->filled('subject'),
@@ -108,6 +107,7 @@ class ProjectController extends Controller
         return redirect()->route('projectIndex')->with('error', 'چنین پروژه ای وجود ندارد.');        
     }
 
+
     public function qr(Request $request)
     {
         if (!$request->uuid) {
@@ -120,6 +120,7 @@ class ProjectController extends Controller
         }
         return redirect()->route('projectIndex')->with('error', 'چنین پروژه ای وجود ندارد.');        
     }
+
 
     public function tag(Request $request)
     {
@@ -172,14 +173,26 @@ class ProjectController extends Controller
             ->withQueryString();
 
         $techniques = Technique::query()
+            ->whereIn('id', Project::query()
+                ->whereNotNull('technique_id')
+                ->select('technique_id')
+            )
             ->orderBy('name_fa')
             ->get();
 
         $styles = Style::query()
+            ->whereIn('id', Project::query()
+                ->whereNotNull('style_id')
+                ->select('style_id')
+            )
             ->orderBy('name_fa')
             ->get();
 
         $subjects = Subject::query()
+            ->whereIn('id', Project::query()
+                ->whereNotNull('subject_id')
+                ->select('subject_id')
+            )
             ->orderBy('name_fa')
             ->get();
         

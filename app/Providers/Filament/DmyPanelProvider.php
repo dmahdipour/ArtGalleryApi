@@ -44,6 +44,7 @@ class DmyPanelProvider extends PanelProvider
             ->login()
             ->registration()
             ->emailVerification() 
+            ->viteTheme('resources/css/filament/dmy/theme.css')
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -63,6 +64,7 @@ class DmyPanelProvider extends PanelProvider
             ->spa()
             ->widgets([
                 Widgets\StatsOverview::class,
+                Widgets\UserMessages::class,
             ])
             ->middleware([
                 EncryptCookies::class,

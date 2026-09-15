@@ -1,106 +1,75 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use Illuminate\Auth\Access\Response;
+use Illuminate\Foundation\Auth\User as AuthUser;
 use App\Models\Message;
-use App\Models\User;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class MessagePolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    use HandlesAuthorization;
+    
+    public function viewAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('view-any Message');
+        return $authUser->can('ViewAny:Message');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
-    public function view(User $user, Message $message): bool
+    public function view(AuthUser $authUser, Message $message): bool
     {
-        return $user->checkPermissionTo('view Message');
+        return $authUser->can('View:Message');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
-    public function create(User $user): bool
+    public function create(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('create Message');
+        return $authUser->can('Create:Message');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
-    public function update(User $user, Message $message): bool
+    public function update(AuthUser $authUser, Message $message): bool
     {
-        return $user->checkPermissionTo('update Message');
+        return $authUser->can('Update:Message');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
-    public function delete(User $user, Message $message): bool
+    public function delete(AuthUser $authUser, Message $message): bool
     {
-        return $user->checkPermissionTo('delete Message');
+        return $authUser->can('Delete:Message');
     }
 
-    /**
-     * Determine whether the user can delete any models.
-     */
-    public function deleteAny(User $user): bool
+    public function deleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('delete-any Message');
+        return $authUser->can('DeleteAny:Message');
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Message $message): bool
+    public function restore(AuthUser $authUser, Message $message): bool
     {
-        return $user->checkPermissionTo('restore Message');
+        return $authUser->can('Restore:Message');
     }
 
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
+    public function forceDelete(AuthUser $authUser, Message $message): bool
     {
-        return $user->checkPermissionTo('restore-any Message');
+        return $authUser->can('ForceDelete:Message');
     }
 
-    /**
-     * Determine whether the user can replicate the model.
-     */
-    public function replicate(User $user, Message $message): bool
+    public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('replicate Message');
+        return $authUser->can('ForceDeleteAny:Message');
     }
 
-    /**
-     * Determine whether the user can reorder the models.
-     */
-    public function reorder(User $user): bool
+    public function restoreAny(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('reorder Message');
+        return $authUser->can('RestoreAny:Message');
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Message $message): bool
+    public function replicate(AuthUser $authUser, Message $message): bool
     {
-        return $user->checkPermissionTo('force-delete Message');
+        return $authUser->can('Replicate:Message');
     }
 
-    /**
-     * Determine whether the user can permanently delete any models.
-     */
-    public function forceDeleteAny(User $user): bool
+    public function reorder(AuthUser $authUser): bool
     {
-        return $user->checkPermissionTo('force-delete-any Message');
+        return $authUser->can('Reorder:Message');
     }
+
 }

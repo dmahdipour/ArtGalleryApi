@@ -13,6 +13,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -70,6 +71,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function member()
     {
         return $this->hasOne(Member::class);
+    }
+    
+    public function messageReads(): HasMany
+    {
+        return $this->hasMany(MessageRead::class);
     }
 
     protected static function booted()

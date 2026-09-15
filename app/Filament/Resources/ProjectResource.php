@@ -204,9 +204,9 @@ class ProjectResource extends Resource
     {
         $userInfo = Auth::user();
         if ($userInfo->hasRole(1)) {
-            return parent::getEloquentQuery();
+            return parent::getEloquentQuery()->orderByDesc('created_at');
         }
-        return parent::getEloquentQuery()->where('member_id', $userInfo->id);
+        return parent::getEloquentQuery()->where('member_id', $userInfo->id)->orderByDesc('created_at');
     }
 
     public static function getPages(): array

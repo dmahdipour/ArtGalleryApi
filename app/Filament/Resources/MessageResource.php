@@ -33,10 +33,10 @@ class MessageResource extends Resource
 {
     protected static ?string $model = Message::class;
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedMegaphone;
-    protected static string|UnitEnum|null $navigationGroup = 'اعضا';
+    protected static string|UnitEnum|null $navigationGroup = 'آموزش';
     protected static ?string $modelLabel = 'پیام';
     protected static ?string $pluralModelLabel = 'پیام‌ها';
-    protected static ?int $navigationSort = 9;
+    protected static ?int $navigationSort = 6;
 
 
     public static function form(Schema $schema): Schema

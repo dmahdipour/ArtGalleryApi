@@ -85,7 +85,7 @@
                                     wire:loading.remove
                                     wire:target="markAsRead({{ $message->id }})"
                                 >
-                                    خواندم
+                                    دیگر نمایش نده!
                                 </span>
 
                                 <span

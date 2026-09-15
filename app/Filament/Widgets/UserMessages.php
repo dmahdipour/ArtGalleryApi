@@ -7,14 +7,16 @@ use App\Models\MessageRead;
 use Filament\Widgets\Widget;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 
 class UserMessages extends Widget
 {
+    use HasWidgetShield;
+
     protected string $view = 'filament.widgets.user-messages';
-
     protected int|string|array $columnSpan = 'full';
-
     public Collection $messages;
+    
 
     public function mount(): void
     {

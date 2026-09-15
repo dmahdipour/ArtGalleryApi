@@ -4,6 +4,7 @@
 @source '../../../../resources/views/filament/**/*';
 
 
+
 /* Login Page */
 .fi-simple-main-ctn{
     @apply justify-start bg-orange-600 
@@ -17,21 +18,31 @@
         @apply w-full;
     }
     & .fi-logo, h1, .fi-fo-field-wrp-label span, .fi-fo-field-label span{
-        @apply text-white;
+        @apply text-white text-lg;
     }
 }
 
+.fi-simple-header-heading{
+    @apply !text-3xl;
+}
+.fi-simple-header-subheading{
+    @apply text-lg text-yellow-200;
+}
+
 .fi-logo {
-    width: 220px;
-    min-height: 120px;
+    @apply w-[220px] text-center !text-red-300 font-bold !text-2xl flex flex-col items-center;
+}
 
-    background-image: url('/images/logo.png');
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: 100px auto;
+.fi-logo::before {
+    content: "";
+    @apply block w-[120px] h-[80px] mb-2 shrink-0 bg-[url('/images/logo.png')]
+        bg-no-repeat bg-center bg-contain rounded-full;
+}
 
-    padding-top: 105px;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 700;
+.fi-link-label{
+    @apply text-yellow-300 !text-lg;
+}
+
+.fi-ac-btn-action > span{
+    @apply text-lg;
 }

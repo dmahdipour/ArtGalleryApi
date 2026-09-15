@@ -263,10 +263,10 @@ return [
         'enabled' => true,
         'dashboard' => true,
         'widgets' => [
-            ActivityChartWidget::class,
-            LatestActivityWidget::class,
-            ActivityHeatmapWidget::class,
-            ActivityStatsWidget::class,
+            // ActivityChartWidget::class,
+            // LatestActivityWidget::class,
+            // ActivityHeatmapWidget::class,
+            // ActivityStatsWidget::class,
         ],
 
         /**

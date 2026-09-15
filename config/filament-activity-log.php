@@ -3,10 +3,10 @@
 declare(strict_types=1);
 use AlizHarb\ActivityLog\Pages\UserActivitiesPage;
 use AlizHarb\ActivityLog\Resources\ActivityLogs\ActivityLogResource;
-use AlizHarb\ActivityLog\Widgets\ActivityChartWidget;
-use AlizHarb\ActivityLog\Widgets\ActivityHeatmapWidget;
-use AlizHarb\ActivityLog\Widgets\ActivityStatsWidget;
-use AlizHarb\ActivityLog\Widgets\LatestActivityWidget;
+use App\Filament\Widgets\ActivityChart;
+use App\Filament\Widgets\ActivityHeatmap;
+use App\Filament\Widgets\ActivityStats;
+use App\Filament\Widgets\LatestActivity;
 
 return [
     /*
@@ -263,10 +263,10 @@ return [
         'enabled' => true,
         'dashboard' => true,
         'widgets' => [
-            // ActivityChartWidget::class,
-            // LatestActivityWidget::class,
-            // ActivityHeatmapWidget::class,
-            // ActivityStatsWidget::class,
+            ActivityChart::class,
+            LatestActivity::class,
+            ActivityHeatmap::class,
+            ActivityStats::class,
         ],
 
         /**

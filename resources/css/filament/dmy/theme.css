@@ -35,7 +35,7 @@
 
 .fi-logo::before {
     content: "";
-    @apply block w-[120px] h-[80px] mb-2 shrink-0 bg-[url('/images/logo.png')]
+    @apply block w-40 h-40 mb-2 shrink-0 bg-[url('/images/logo.png')]
         bg-no-repeat bg-center bg-contain rounded-full;
 }
 
@@ -45,4 +45,8 @@
 
 .fi-ac-btn-action > span{
     @apply text-lg;
+}
+
+.fi-sc-text{
+    @apply text-white;
 }

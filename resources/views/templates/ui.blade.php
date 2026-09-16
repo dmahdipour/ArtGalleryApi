@@ -18,11 +18,12 @@
                     {{-- Logo --}}
                     <a
                         href="{{ route('home') }}"
-                        class="shrink-0"
+                        class="shrink-0 flex items-center"
                     >
-                        <div class="text-2xl font-bold tracking-[0.08em] text-[#17352a]">
+                        <img src="/images/logo.png" class="w-16 h-16" />
+                        <span class="text-lg font-bold tracking-[0.08em] text-[#17352a] mr-1">
                             سمفونی رنگ
-                        </div>
+                        </span>
                     </a>
 
                     {{-- Desktop Navigation --}}
@@ -220,18 +221,19 @@
     >
         <div
             class="mx-auto flex max-w-[1500px]
-            flex-col justify-between gap-5 px-5 py-8
+            flex-col justify-between gap-5 px-5 py-2
             sm:flex-row sm:px-8"
         >
-            <div>
-                <div class="font-serif text-xl tracking-widest">
-                    DMY
-                </div>
-                <div class="mt-1 text-[9px] tracking-[0.4em] text-[#c8a766]">
-                    ART GALLERY
-                </div>
-            </div>
-            <div class="text-xs text-white/50">
+            <a
+                href="{{ route('home') }}"
+                class="shrink-0 flex items-center"
+            >
+                <img src="/images/logo.png" class="w-12 h-12" />
+                <span class="text-lg font-bold tracking-[0.08em] mr-1">
+                    سمفونی رنگ
+                </span>
+            </a>
+            <div class="text-xs text-white/50 flex items-center">
                 © {{ date('Y') }} تمام حقوق مادی و معنوی وب سایت محفوظ است.
             </div>
         </div>

@@ -54,6 +54,7 @@ class ProjectController extends Controller
                     $query->latest()
             )
             ->where('projects.status', 1)
+            ->orderBy('projects.year')
             ->paginate(20)
             ->withQueryString();
 
@@ -174,6 +175,7 @@ class ProjectController extends Controller
                     $query->latest()
             )
             ->where('projects.status', 1)
+            ->orderBy('projects.year')
             ->paginate(16)
             ->withQueryString();
 

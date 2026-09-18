@@ -49,6 +49,7 @@ class HomeController extends Controller
                     $query->latest()
             )
             ->where('projects.status', 1)
+            ->orderBy('projects.year')
             ->take(16)->get();
 
         $techniques = Technique::query()

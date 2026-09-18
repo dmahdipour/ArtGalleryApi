@@ -29,3 +29,11 @@
     opacity: 1;
     background: #b58a3e;
 }
+
+.color {
+    color: var(--color);
+}
+
+.dark .color {
+    color: var(--dark-color);
+}

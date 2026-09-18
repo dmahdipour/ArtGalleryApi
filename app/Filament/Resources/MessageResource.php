@@ -48,7 +48,6 @@ class MessageResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
-
                 RichEditor::make('body')
                     ->label('متن پیام')
                     ->required()
@@ -68,7 +67,6 @@ class MessageResource extends Resource
                         '#000000' => 'مشکی',
                     ])
                     ->customTextColors(),
-
                 Select::make('type')
                     ->label('نوع پیام')
                     ->options([

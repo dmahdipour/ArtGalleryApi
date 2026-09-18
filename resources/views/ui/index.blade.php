@@ -25,9 +25,9 @@
                     <div
                         class="absolute inset-0
                         bg-gradient-to-l
-                        from-[#e7dfd1]/20
+                        from-[#f3eee5]
                         via-[#eee8dd]/60
-                        to-[#f3eee5]"
+                        to-[#e7dfd1]/20"
                     ></div>
                     {{-- Content --}}
                     <div
@@ -37,12 +37,12 @@
                     >
                         <div
                             class="text-4xl font-semibold leading-[1.7]
-                            text-[#17352a] sm:text-5xl lg:text-6xl"
+                            sm:text-5xl lg:text-6xl [-webkit-text-stroke:0.3px_#b58a3e]"
                         >
                             {!! $slider->description !!}
                         </div>
                         <div
-                            class="mt-6 text-sm leading-8 text-[#595b56] sm:text-base"
+                            class="mt-6 text-lg leading-8 sm:text-md [-webkit-text-stroke:0.1px_#b58a3e]"
                         >
                             {!! $slider->text !!}
                         </div>

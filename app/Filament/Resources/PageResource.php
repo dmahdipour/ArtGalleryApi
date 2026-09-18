@@ -24,6 +24,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Schemas\Schema; 
+use Filament\Forms\Components\RichEditor\TextColor;
 
 class PageResource extends Resource
 {
@@ -57,10 +58,42 @@ class PageResource extends Resource
                     ->imageEditor()
                     ->default(null),
                 RichEditor::make('description')
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->toolbarButtons([
+                        ['bold', 'italic', 'underline', 'strike', 'link', 'textColor'],
+                        ['bulletList', 'orderedList', 'blockquote'],
+                        ['undo', 'redo'],
+                    ])
+                    ->textColors([
+                        '#b58a3e' => 'طلایی',
+                        '#ef4444' => 'قرمز',
+                        '#10b981' => 'سبز',
+                        '#0ea5e9' => 'آبی',
+                        '#8b5cf6' => 'بنفش',
+                        '#f59e0b' => 'نارنجی',
+                        '#000000' => 'مشکی',
+
+                        ...TextColor::getDefaults(),
+                    ])
+                    ->customTextColors(),
                 RichEditor::make('text')
                     ->required()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->toolbarButtons([
+                        ['bold', 'italic', 'underline', 'strike', 'link', 'textColor'],
+                        ['bulletList', 'orderedList', 'blockquote'],
+                        ['undo', 'redo'],
+                    ])
+                    ->textColors([
+                        '#b58a3e' => 'طلایی',
+                        '#ef4444' => 'قرمز',
+                        '#10b981' => 'سبز',
+                        '#0ea5e9' => 'آبی',
+                        '#8b5cf6' => 'بنفش',
+                        '#f59e0b' => 'نارنجی',
+                        '#000000' => 'مشکی',
+                    ])
+                    ->customTextColors(),
                 Toggle::make('status')
                     ->required(),
             ]);

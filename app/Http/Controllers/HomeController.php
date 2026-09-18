@@ -79,7 +79,8 @@ class HomeController extends Controller
             ->get();
 
         $sliders = Page::where('name', 'like', 'slider%')
-            ->orderBy('id')
+            ->where('status', 1)
+            ->orderBy('id', 'desc')
             ->get();
         
         $allProjects = Project::where('status', 1)->count();

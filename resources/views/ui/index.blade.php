@@ -380,7 +380,7 @@
                     >
                         {{ $project->name_fa }} 
                         <span class="text-sm text-gold">({{ $project->member->name_fa }})</span>
-                        <span>-$project->year</span>
+                        <span>-{{$project->year}}</span>
                     </h3>
                     <div
                         class="mt-3 flex flex-wrap items-center

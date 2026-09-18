@@ -60,9 +60,10 @@ class PageResource extends Resource
                 RichEditor::make('description')
                     ->columnSpanFull()
                     ->toolbarButtons([
-                        ['bold', 'italic', 'underline', 'strike', 'link', 'textColor'],
-                        ['bulletList', 'orderedList', 'blockquote'],
-                        ['undo', 'redo'],
+                        [ 'bold', 'italic', 'underline', 'strike', 'link', 'textColor', ],
+                        [ 'alignStart',  'alignCenter', 'alignEnd', 'alignJustify', ],
+                        [ 'bulletList', 'orderedList',  'blockquote', ],
+                        [ 'undo', 'redo', ],
                     ])
                     ->textColors([
                         '#b58a3e' => 'طلایی',
@@ -72,7 +73,6 @@ class PageResource extends Resource
                         '#8b5cf6' => 'بنفش',
                         '#f59e0b' => 'نارنجی',
                         '#000000' => 'مشکی',
-
                         ...TextColor::getDefaults(),
                     ])
                     ->customTextColors(),
@@ -80,9 +80,10 @@ class PageResource extends Resource
                     ->required()
                     ->columnSpanFull()
                     ->toolbarButtons([
-                        ['bold', 'italic', 'underline', 'strike', 'link', 'textColor'],
-                        ['bulletList', 'orderedList', 'blockquote'],
-                        ['undo', 'redo'],
+                        [ 'bold', 'italic', 'underline', 'strike', 'link', 'textColor', ],
+                        [ 'alignStart',  'alignCenter', 'alignEnd', 'alignJustify', ],
+                        [ 'bulletList', 'orderedList',  'blockquote', ],
+                        [ 'undo', 'redo', ],
                     ])
                     ->textColors([
                         '#b58a3e' => 'طلایی',
@@ -92,6 +93,7 @@ class PageResource extends Resource
                         '#8b5cf6' => 'بنفش',
                         '#f59e0b' => 'نارنجی',
                         '#000000' => 'مشکی',
+                        ...TextColor::getDefaults(),
                     ])
                     ->customTextColors(),
                 Toggle::make('status')

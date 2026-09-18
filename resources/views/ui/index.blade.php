@@ -23,11 +23,7 @@
                     >
                     {{-- Overlay --}}
                     <div
-                        class="absolute inset-0
-                        bg-gradient-to-l
-                        from-[#f3eee5]
-                        via-[#eee8dd]/60
-                        to-[#e7dfd1]/20"
+                        class="absolute inset-0"
                     ></div>
                     {{-- Content --}}
                     <div

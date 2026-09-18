@@ -31,9 +31,9 @@
     {{-- Cards --}}
     <div
         class="grid grid-cols-1 gap-6
-        sm:grid-cols-3
+        sm:grid-cols-2
         lg:grid-cols-4
-        xl:grid-cols-6"
+        xl:grid-cols-4"
     >
         @forelse($users as $user)
             <article

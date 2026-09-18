@@ -50,6 +50,18 @@
             bg-no-repeat bg-center bg-contain rounded-full;
     }
 }
+.fi-sidebar-header-logo-ctn a{
+    @apply w-10 h-10;
+    & .fi-logo {
+        @apply w-full mx-auto mt-8 text-center !text-red-300 font-bold !text-sm flex flex-col items-center;
+    }
+    & .fi-logo::before {
+    content: "";
+    @apply block !w-16 !h-16 p-2 shrink-0 bg-[url('/images/logo.png')]
+            bg-no-repeat bg-center bg-contain rounded-full;
+    }
+}
+
 
 .fi-link-label{
     @apply text-yellow-300 !text-lg;

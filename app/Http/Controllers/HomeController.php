@@ -38,18 +38,17 @@ class HomeController extends Controller
                 fn ($query) =>
                     $query->where('subject_id', $request->subject)
             )
+            ->where('projects.status', 1)
             ->when(
                 $request->get('sort') === 'oldest',
                 fn ($query) =>
-                    $query->oldest()
+                    $query->orderBy('projects.year', 'asc')
             )
             ->when(
                 $request->get('sort') !== 'oldest',
                 fn ($query) =>
-                    $query->latest()
+                    $query->orderBy('projects.year', 'desc')
             )
-            ->where('projects.status', 1)
-            ->orderBy('projects.year')
             ->take(16)->get();
 
         $techniques = Technique::query()

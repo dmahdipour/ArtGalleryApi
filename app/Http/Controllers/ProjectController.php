@@ -43,18 +43,17 @@ class ProjectController extends Controller
                 fn ($query) =>
                     $query->where('subject_id', $request->subject)
             )
+            ->where('projects.status', 1)
             ->when(
                 $request->get('sort') === 'oldest',
                 fn ($query) =>
-                    $query->oldest()
+                    $query->orderBy('projects.year', 'asc')
             )
             ->when(
                 $request->get('sort') !== 'oldest',
                 fn ($query) =>
-                    $query->latest()
+                    $query->orderBy('projects.year', 'desc')
             )
-            ->where('projects.status', 1)
-            ->orderBy('projects.year')
             ->paginate(20)
             ->withQueryString();
 
@@ -164,18 +163,17 @@ class ProjectController extends Controller
                 $request->get('tag') === 'subject',
                 fn ($query) => $query->where('subject_id', $request->id)
             )
+            ->where('projects.status', 1)
             ->when(
                 $request->get('sort') === 'oldest',
                 fn ($query) =>
-                    $query->oldest()
+                    $query->orderBy('projects.year', 'asc')
             )
             ->when(
                 $request->get('sort') !== 'oldest',
                 fn ($query) =>
-                    $query->latest()
+                    $query->orderBy('projects.year', 'desc')
             )
-            ->where('projects.status', 1)
-            ->orderBy('projects.year')
             ->paginate(16)
             ->withQueryString();
 

@@ -20,7 +20,7 @@ class ChangePassword extends Page
     protected static string|UnitEnum|null $navigationGroup = 'کاربران';
     protected static ?string $navigationLabel = 'تغییر رمز';
     protected static ?string $title = 'تغییر رمز';
-    protected static ?int $navigationSort = 33;
+    protected static ?int $navigationSort = 5;
 
 
     public $current_password;

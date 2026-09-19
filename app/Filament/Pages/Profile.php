@@ -30,7 +30,7 @@ class Profile extends Page implements HasForms
     protected static string|UnitEnum|null $navigationGroup = 'کاربران';
     protected static ?string $navigationLabel = 'پروفایل';
     protected static ?string $title = 'پروفایل';
-    protected static ?int $navigationSort = 32;
+    protected static ?int $navigationSort = 4;
 
     public ?array $data = [];
 

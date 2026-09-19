@@ -29,10 +29,10 @@ class MemberTypeResource extends Resource
 {
     protected static ?string $model = MemberType::class;
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedIdentification;
-    protected static string|UnitEnum|null $navigationGroup = 'اعضا';
+    protected static string|UnitEnum|null $navigationGroup = 'کاربران';
     protected static ?string $modelLabel = 'نوع عضویت';
     protected static ?string $pluralModelLabel = 'نوع اعضا';
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
 
     public static function form(Schema $schema): Schema

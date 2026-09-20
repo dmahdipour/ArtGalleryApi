@@ -116,13 +116,10 @@
             </div>
         @endforelse
     </div>
-
-    {{-- Pagination --}}
-    @if($users->hasPages())
-        <div class="mt-12">
-            {{ $users->onEachSide(1)->links() }}
-        </div>
-    @endif
+    <!-- Pagination -->
+    <div class="mt-12">
+        {{ $users->links() }}
+    </div>
 </main>
 @endsection
 

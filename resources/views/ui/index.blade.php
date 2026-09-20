@@ -344,6 +344,10 @@
             </div>
         @endforelse
     </div>
+    <!-- Pagination -->
+    <div class="mt-12">
+        {{ $projects->links() }}
+    </div>
 </main>
 
 {{-- ===================== STATISTICS ========================= --}}

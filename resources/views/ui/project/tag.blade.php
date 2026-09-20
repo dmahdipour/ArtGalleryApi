@@ -58,13 +58,10 @@
             </div>
         @endforelse
     </div>
-
-    {{-- Pagination --}}
-    @if($projects->hasPages())
-        <div class="mt-12">
-            {{ $projects->onEachSide(1)->links() }}
-        </div>
-    @endif
+    <!-- Pagination -->
+    <div class="mt-12">
+        {{ $projects->links() }}
+    </div>
 </main>
 @endsection
 

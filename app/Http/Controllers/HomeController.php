@@ -49,7 +49,7 @@ class HomeController extends Controller
                 fn ($query) =>
                     $query->orderBy('projects.year', 'desc')
             )
-            ->take(16)->get();
+            ->paginate(20);
 
         $techniques = Technique::query()
             ->whereIn('id', Project::query()

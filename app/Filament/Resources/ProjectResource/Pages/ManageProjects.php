@@ -5,6 +5,8 @@ namespace App\Filament\Resources\ProjectResource\Pages;
 use App\Filament\Resources\ProjectResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ManageRecords;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ManageProjects extends ManageRecords
 {
@@ -32,6 +34,36 @@ class ManageProjects extends ManageRecords
     {
         $project = $this->record;
 
+        if (! $project->image) {
+            return;
+        }
+
+        $sourcePath = Storage::disk('public')->path($project->image);
+
+        if (! file_exists($sourcePath)) {
+            return;
+        }
+
+        $image = Image::read($sourcePath);
+
+        $image->scale(
+            width: (int) ($image->width() * 0.1),
+        );
+
+        $thumbnailPath = 'images/projects/thumbnails/' . basename($project->image);
+
+        Storage::disk('public')->put(
+            $thumbnailPath,
+            $image->encode()
+        );
+
+        $project->updateQuietly([
+            'thumbnail' => $thumbnailPath,
+        ]);
+    }
+
+    public static function generateThumbnail(Project $project): void
+    {
         if (! $project->image) {
             return;
         }

@@ -184,7 +184,10 @@ class ProjectResource extends Resource
                     ->preload(),
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->after(function ($record) {
+                        ProjectResource::generateThumbnail($record);
+                    }),
                 DeleteAction::make(),
             ])
             ->toolbarActions([

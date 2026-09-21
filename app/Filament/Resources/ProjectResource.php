@@ -81,14 +81,14 @@ class ProjectResource extends Resource
                     ->preload()
                     ->searchable()
                     ->required(),
+                TextInput::make('year')
+                    ->label('سال')
+                    ->required(),
                 TextInput::make('height')
                     ->label('طول')
                     ->required(),
                 TextInput::make('width')
                     ->label('عرض')
-                    ->required(),
-                TextInput::make('year')
-                    ->label('سال')
                     ->required(),
                 Textarea::make('member_description')
                     ->label('توصیف هنرمند در مورد اثر')
@@ -202,7 +202,7 @@ class ProjectResource extends Resource
 
     public static function generateThumbnail(Project $project): void
     {
-        if (empty($project->image)) {
+        if (! $project->image) {
             return;
         }
 
@@ -216,9 +216,9 @@ class ProjectResource extends Resource
 
         $image = Image::read($sourcePath);
 
-        $width = max(1, (int) round($image->width() * 0.1));
-
-        $image->scale(width: $width);
+        $image->scale(
+            width: (int) round($image->width() * 0.1),
+        );
 
         $thumbnailPath = 'images/projects/thumbnails/' . basename($project->image);
 

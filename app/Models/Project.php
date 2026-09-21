@@ -107,7 +107,7 @@ class Project extends Model
             $image = Image::read($source);
 
             $image->scale(
-                width: (int) ($image->width() / 4),
+                width: (int) ($image->width() / 8),
             );
 
             $thumbnailPath = 'images/projects/thumbnails/' .

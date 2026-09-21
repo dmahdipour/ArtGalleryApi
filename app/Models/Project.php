@@ -8,6 +8,8 @@ use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 
 class Project extends Model
@@ -107,7 +109,7 @@ class Project extends Model
             $image = Image::read($source);
 
             $image->scale(
-                width: (int) ($image->width() / 8),
+                width: (int) ($image->width() / 10),
             );
 
             $thumbnailPath = 'images/projects/thumbnails/' .

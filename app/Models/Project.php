@@ -93,4 +93,34 @@ class Project extends Model
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }
+
+    
+    protected static function booted(): void
+    {
+        static::saved(function (Project $project) {
+            if (! $project->wasChanged('image') || ! $project->image) {
+                return;
+            }
+
+            $source = Storage::disk('public')->path($project->image);
+
+            $image = Image::read($source);
+
+            $image->scale(
+                width: (int) ($image->width() / 4),
+            );
+
+            $thumbnailPath = 'images/projects/thumbnails/' .
+                basename($project->image);
+
+            Storage::disk('public')->put(
+                $thumbnailPath,
+                $image->encode()
+            );
+
+            $project->updateQuietly([
+                'thumbnail' => $thumbnailPath,
+            ]);
+        });
+    }
 }

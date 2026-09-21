@@ -47,6 +47,14 @@ class ProjectResource extends Resource
                 Hidden::make('member_id')
                     ->default(fn () => Auth::id())
                     ->required(),
+                FileUpload::make('image')
+                    ->label('تصویر')
+                    ->image()
+                    ->disk('public')
+                    ->directory('images/projects')
+                    ->imageEditor()
+                    ->required()
+                    ->columnSpanFull(),
                 TextInput::make('name_fa')
                     ->label('نام فارسی اثر')
                     ->required(),
@@ -89,20 +97,6 @@ class ProjectResource extends Resource
                 Textarea::make('about_project')
                     ->label('در مورد موضوع اثر')
                     ->columnSpanFull(),
-                FileUpload::make('image')
-                    ->label('تصویر')
-                    ->image()
-                    ->disk('public')
-                    ->directory('images/projects')
-                    ->imageEditor()
-                    ->required(),
-                FileUpload::make('thumbnail')
-                    ->label('تصویر کوچک')
-                    ->image()
-                    ->disk('public')
-                    ->directory('images/projects/thumbnails')
-                    ->imageEditor()
-                    ->default('images/projects/thumbnails/default.png'),
                 FileUpload::make('signature')
                     ->label('امضای خاص اثر')
                     ->image()

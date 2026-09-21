@@ -28,6 +28,8 @@ use Filament\Tables\Table;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Laravel\Facades\Image;
 
 
 class ProjectResource extends Resource
@@ -186,8 +188,9 @@ class ProjectResource extends Resource
             ->recordActions([
                 EditAction::make()
                     ->after(function ($record) {
-                        ProjectResource::generateThumbnail($record);
+                        self::generateThumbnail($record);
                     }),
+
                 DeleteAction::make(),
             ])
             ->toolbarActions([
@@ -195,6 +198,36 @@ class ProjectResource extends Resource
                     DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function generateThumbnail(Project $project): void
+    {
+        if (! $project->image) {
+            return;
+        }
+
+        $sourcePath = Storage::disk('public')->path($project->image);
+
+        if (! file_exists($sourcePath)) {
+            return;
+        }
+
+        $image = Image::read($sourcePath);
+
+        $image->scale(
+            width: (int) ($image->width() * 0.1),
+        );
+
+        $thumbnailPath = 'images/projects/thumbnails/' . basename($project->image);
+
+        Storage::disk('public')->put(
+            $thumbnailPath,
+            $image->encode()
+        );
+
+        $project->updateQuietly([
+            'thumbnail' => $thumbnailPath,
+        ]);
     }
 
     public static function getEloquentQuery(): Builder

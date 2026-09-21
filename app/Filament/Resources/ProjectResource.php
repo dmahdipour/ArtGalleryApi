@@ -202,25 +202,27 @@ class ProjectResource extends Resource
 
     public static function generateThumbnail(Project $project): void
     {
-        if (! $project->image) {
+        if (empty($project->image)) {
             return;
         }
 
-        $sourcePath = Storage::disk('public')->path($project->image);
+        $disk = Storage::disk('public');
 
-        if (! file_exists($sourcePath)) {
+        $sourcePath = $disk->path($project->image);
+
+        if (! is_file($sourcePath)) {
             return;
         }
 
         $image = Image::read($sourcePath);
 
-        $image->scale(
-            width: (int) ($image->width() * 0.1),
-        );
+        $width = max(1, (int) round($image->width() * 0.1));
+
+        $image->scale(width: $width);
 
         $thumbnailPath = 'images/projects/thumbnails/' . basename($project->image);
 
-        Storage::disk('public')->put(
+        $disk->put(
             $thumbnailPath,
             $image->encode()
         );

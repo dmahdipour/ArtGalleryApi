@@ -49,6 +49,7 @@
                 </div>
             </div>
         </div>
+        <!-- IMAGE MODAL -->
         <div class="lg:col-span-1 lg:order-2 order-1">
             <button
                 data-modal-target="image-modal"
@@ -70,6 +71,8 @@
                     {{ $item->name_en }}
                 </div>
             </button>
+
+            <!-- Fullscreen Image Modal -->
             <div
                 id="image-modal"
                 tabindex="-1"
@@ -77,40 +80,41 @@
                 class="hidden fixed inset-0 z-50
                     w-full h-full
                     items-center justify-center
-                    overflow-y-auto overflow-x-hidden"
+                    bg-black/90"
             >
-                <div class="relative w-full max-w-5xl p-4">
-                    <div class="relative rounded-lg bg-white shadow">
-                        <div class="flex justify-end p-3">
-                            <button
-                                type="button"
-                                data-modal-hide="image-modal"
-                                class="rounded-lg p-2 text-gray-500
-                                    hover:bg-gray-100"
-                            >
-                                <svg
-                                    class="h-5 w-5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="flex items-center justify-center p-4">
-                            <img
-                                src="{{ asset('storage/' . $item->image) }}"
-                                alt="{{ $item->name_fa }}"
-                                class="max-h-[80vh] max-w-full object-contain"
-                            >
-                        </div>
-                    </div>
+                <!-- Close -->
+                <button
+                    type="button"
+                    data-modal-hide="image-modal"
+                    class="absolute top-5 right-5 z-10
+                        rounded-full p-3
+                        text-white/80
+                        hover:bg-white/10
+                        hover:text-white
+                        transition"
+                >
+                    <svg
+                        class="h-7 w-7"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"
+                        />
+                    </svg>
+                </button>
+
+                <!-- Image -->
+                <div class="flex h-full w-full items-center justify-center p-4 md:p-8">
+                    <img
+                        src="{{ asset('storage/' . $item->image) }}"
+                        alt="{{ $item->name_fa }}"
+                        class="max-h-full max-w-full object-contain"
+                    >
                 </div>
             </div>
         </div>

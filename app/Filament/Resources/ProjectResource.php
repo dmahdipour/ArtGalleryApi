@@ -223,7 +223,7 @@ class ProjectResource extends Resource
         $image = $manager->decodePath($sourcePath);
 
         $image->scale(
-            width: (int) round($image->width() * 0.1),
+            width: (int) round($image->width() * 0.3),
         );
 
         $thumbnailPath = 'images/projects/thumbnails/' . basename($project->image);

@@ -16,4 +16,47 @@ class ManageProjects extends ManageRecords
             CreateAction::make(),
         ];
     }
+    
+
+    protected function afterCreate(): void
+    {
+        $this->createThumbnail();
+    }
+
+    protected function afterSave(): void
+    {
+        $this->createThumbnail();
+    }
+
+    protected function createThumbnail(): void
+    {
+        $project = $this->record;
+
+        if (! $project->image) {
+            return;
+        }
+
+        $sourcePath = Storage::disk('public')->path($project->image);
+
+        if (! file_exists($sourcePath)) {
+            return;
+        }
+
+        $image = Image::read($sourcePath);
+
+        $image->scale(
+            width: (int) ($image->width() * 0.1),
+        );
+
+        $thumbnailPath = 'images/projects/thumbnails/' . basename($project->image);
+
+        Storage::disk('public')->put(
+            $thumbnailPath,
+            $image->encode()
+        );
+
+        $project->updateQuietly([
+            'thumbnail' => $thumbnailPath,
+        ]);
+    }
 }

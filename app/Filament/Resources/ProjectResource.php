@@ -29,7 +29,8 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Laravel\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 
 class ProjectResource extends Resource
@@ -200,6 +201,7 @@ class ProjectResource extends Resource
             ]);
     }
 
+
     public static function generateThumbnail(Project $project): void
     {
         if (! $project->image) {
@@ -214,7 +216,11 @@ class ProjectResource extends Resource
             return;
         }
 
-        $image = Image::read($sourcePath);
+        $manager = new ImageManager(
+            new Driver()
+        );
+
+        $image = $manager->decodePath($sourcePath);
 
         $image->scale(
             width: (int) round($image->width() * 0.1),

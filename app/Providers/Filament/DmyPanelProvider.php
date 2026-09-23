@@ -42,7 +42,7 @@ class DmyPanelProvider extends PanelProvider
             ->id('dmy')
             ->path('dmy')
             ->login()
-            ->registration()
+            ->registration(Register::class)
             ->emailVerification() 
             ->viteTheme('resources/css/filament/dmy/theme.css')
             ->colors([

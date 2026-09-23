@@ -16,7 +16,7 @@ class MemberController extends Controller
     public function index(Request $request)
     {
         $users = User::query()
-            ->where('users.is_active', 1)
+            ->where('users.is_active', 1)->whereNotNull('users.email_verified_at')
             ->with([
                 'member' => function ($query) {
                     $query->withCount([

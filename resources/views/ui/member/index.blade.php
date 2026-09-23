@@ -36,7 +36,6 @@
         xl:grid-cols-4"
     >
         @forelse($users as $user)
-            @if($user->member->name_fa)
             <article
                 class="group overflow-hidden rounded-2xl
                 border border-[#e7e1d6] bg-white
@@ -98,7 +97,6 @@
                     </div>
                 </a>
             </article>
-            @endif
         @empty
             <div
                 class="col-span-full rounded-2xl

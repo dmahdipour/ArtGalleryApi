@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
@@ -17,24 +16,10 @@ class Project extends Model
     use LogsActivity, HasUuids;
 
     protected $fillable=[
-        'uuid',
-        'member_id',
-        'name_fa',
-        'name_en',
-        'technique_id',
-        'image',
-        'thumbnail',
-        'height',
-        'width',
-        'year',
-        'subject_id',
-        'style_id',
-        'artist_description',
-        'description',
-        'about',
-        'signature',
-        'status',
-        'theme',
+        'uuid', 'member_id', 'name_fa', 'name_en', 'technique_id', 'style_id', 'subject_id',
+        'image', 'thumbnail', 'height', 'width', 'year', 'artist_description', 'description',
+        'about', 'signature', 'status', 'theme',
+        'price', 'available', 'location', 'address', 'phone', 'sell_description'
     ];
 
 
@@ -63,34 +48,16 @@ class Project extends Model
         return $this->belongsTo(Style::class);
     }
 
-    public function sell(): HasMany
-    {
-        return $this->hasMany(Sell::class, 'project_id');
-    }
 
 
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
             ->logOnly([
-                'uuid',
-                'member_id',
-                'name_fa',
-                'name_en',
-                'technique_id',
-                'image',
-                'thumbnail',
-                'height',
-                'width',
-                'year',
-                'subject_id',
-                'style_id',
-                'member_description',
-                'description',
-                'about',
-                'signature',
-                'status',
-                'theme',
+                'uuid', 'member_id', 'name_fa', 'name_en', 'technique_id', 'style_id', 'subject_id',
+                'image', 'thumbnail', 'height', 'width', 'year', 'artist_description', 'description',
+                'about', 'signature', 'status', 'theme',
+                'price', 'available', 'location', 'address', 'phone', 'sell_description'
             ])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();

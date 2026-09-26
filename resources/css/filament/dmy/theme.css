@@ -74,3 +74,36 @@
 .fi-sc-text{
     @apply text-white;
 }
+
+/* Tabs */
+.project-tabs {
+    border-radius: 12px;
+}
+
+.project-tabs .fi-tabs {
+    background: #f8f5ef;
+    border-radius: 12px;
+    padding: 6px;
+}
+
+.project-tabs .fi-tabs-item {
+    font-weight: 600;
+    color: #6b6257;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.project-tabs .fi-tabs-item:hover {
+    color: #8d7650;
+    background: #eee8dd;
+}
+
+.project-tabs .fi-tabs-item[aria-selected="true"] {
+    color: #ffffff;
+    background: #8d7650;
+    box-shadow: 0 2px 6px rgba(141, 118, 80, 0.25);
+}
+
+.project-tabs .fi-tabs-item-icon {
+    color: inherit;
+}

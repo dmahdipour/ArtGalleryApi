@@ -18,6 +18,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -47,69 +49,107 @@ class ProjectResource extends Resource
     {
         return $schema
             ->components([
-                Hidden::make('member_id')
-                    ->default(fn () => Auth::id())
-                    ->required(),
-                FileUpload::make('image')
-                    ->label('تصویر')
-                    ->image()
-                    ->disk('public')
-                    ->directory('images/projects')
-                    ->imageEditor()
-                    ->required()
+                Tabs::make('project-tabs')
+                    ->tabs([
+                        Tab::make('اطلاعات اصلی')
+                            ->icon('heroicon-o-information-circle')
+                            ->schema([
+                                Hidden::make('member_id')
+                                    ->default(fn () => Auth::id())
+                                    ->required(),
+                                FileUpload::make('image')
+                                    ->label('تصویر')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('images/projects')
+                                    ->imageEditor()
+                                    ->required()
+                                    ->columnSpanFull(),
+                                TextInput::make('name_fa')
+                                    ->label('نام فارسی اثر')
+                                    ->required(),
+                                TextInput::make('name_en')
+                                    ->label('نام انگلیسی اثر')
+                                    ->required(),
+                                Select::make('technique_id')
+                                    ->label('تکنیک')
+                                    ->relationship('technique', 'name_fa')
+                                    ->preload()
+                                    ->searchable()
+                                    ->required(),
+                                Select::make('style_id')
+                                    ->label('سبک')
+                                    ->relationship('style', 'name_fa')
+                                    ->preload()
+                                    ->searchable()
+                                    ->required(),
+                                Select::make('subject_id')
+                                    ->label('موضوع')
+                                    ->relationship('subject', 'name_fa')
+                                    ->preload()
+                                    ->searchable()
+                                    ->required(),
+                                TextInput::make('year')
+                                    ->label('سال')
+                                    ->required(),
+                                TextInput::make('height')
+                                    ->label('طول')
+                                    ->required(),
+                                TextInput::make('width')
+                                    ->label('عرض')
+                                    ->required(),
+                                Toggle::make('status')
+                                    ->label('نمایش اثر')
+                                    ->required(),
+                            ])
+                            ->columns(2),
+                        Tab::make('تکمیلی')
+                            ->icon('heroicon-o-document-text')
+                            ->schema([
+                                Textarea::make('member_description')
+                                    ->label('بیانیه ویا توصیف هنرمند از اثر')
+                                    ->columnSpanFull(),
+                                Textarea::make('description')
+                                    ->label('توصیف یک سطری (زیر اسم انگلیسی هنرمند)')
+                                    ->columnSpanFull(),
+                                Textarea::make('about_project')
+                                    ->label('در مورد موضوع اثر')
+                                    ->columnSpanFull(),
+                                FileUpload::make('signature')
+                                    ->label('امضای خاص اثر')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('images/signatures'),
+                                TextInput::make('theme')
+                                    ->label('جمله حکیمانه'),
+                            ])
+                            ->columns(2),
+                        Tab::make('فروش')
+                            ->icon('heroicon-o-shopping-bag')
+                            ->schema([
+                                TextInput::make('price')
+                                    ->label('قیمت')
+                                    ->numeric(),
+                                TextInput::make('location')
+                                    ->label('محل'),
+                                TextInput::make('address')
+                                    ->label('آدرس'),
+                                TextInput::make('phone')
+                                    ->label('تلفن')
+                                    ->tel(),
+                                TextInput::make('sell_description')
+                                    ->label('توضیحات فروش')
+                                    ->columnSpanFull(),
+                                Toggle::make('available')
+                                    
+                                    ->label('موجود'),
+                            ])
+                            ->columns(2),
+                    ])
+                    ->extraAttributes([
+                        'class' => 'project-tabs',
+                    ])
                     ->columnSpanFull(),
-                TextInput::make('name_fa')
-                    ->label('نام فارسی اثر')
-                    ->required(),
-                TextInput::make('name_en')
-                    ->label('نام انگلیسی اثر')
-                    ->required(),
-                Select::make('technique_id')
-                    ->label('تکنیک')
-                    ->relationship('technique', 'name_fa')
-                    ->preload()
-                    ->searchable()
-                    ->required(),
-                Select::make('style_id')
-                    ->label('سبک')
-                    ->relationship('style', 'name_fa')
-                    ->preload()
-                    ->searchable()
-                    ->required(),
-                Select::make('subject_id')
-                    ->label('موضوع')
-                    ->relationship('subject', 'name_fa')
-                    ->preload()
-                    ->searchable()
-                    ->required(),
-                TextInput::make('year')
-                    ->label('سال')
-                    ->required(),
-                TextInput::make('height')
-                    ->label('طول')
-                    ->required(),
-                TextInput::make('width')
-                    ->label('عرض')
-                    ->required(),
-                Textarea::make('member_description')
-                    ->label('توصیف هنرمند در مورد اثر')
-                    ->columnSpanFull(),
-                Textarea::make('description')
-                    ->label('توضیح یک سطری')
-                    ->columnSpanFull(),
-                Textarea::make('about_project')
-                    ->label('در مورد موضوع اثر')
-                    ->columnSpanFull(),
-                FileUpload::make('signature')
-                    ->label('امضای خاص اثر')
-                    ->image()
-                    ->disk('public')
-                    ->directory('images/signatures'),
-                TextInput::make('theme')
-                    ->label('جمله حکیمانه'),
-                Toggle::make('status')
-                    ->label('نمایش اثر')
-                    ->required(),
             ]);
     }
 
@@ -138,8 +178,6 @@ class ProjectResource extends Resource
                 TextColumn::make('subject.name_fa')
                     ->label('موضوع')
                     ->searchable(),
-                // ImageColumn::make('image')
-                //     ->disk('public'),
                 TextColumn::make('height')
                     ->label('طول')
                     ->searchable(),
@@ -149,9 +187,6 @@ class ProjectResource extends Resource
                 TextColumn::make('year')
                     ->label('سال')
                     ->searchable(),
-                IconColumn::make('status')
-                    ->label('نمایش')
-                    ->boolean(),
                 TextColumn::make('description')
                     ->label('توضیح یک سطری')
                     ->searchable()
@@ -170,14 +205,6 @@ class ProjectResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('sell_count')
-                    ->label('قیمت')
-                    ->counts('sell')
-                    ->url(fn ($record) => route('filament.dmy.resources.sells.index', [
-                        'filters[project_id][value]' => $record->id
-                    ]))
-                    ->color('primary')
-                    ->extraAttributes(['class' => 'underline hover:text-blue-600']),
             ])
             ->filters([
                 SelectFilter::make('member_id')

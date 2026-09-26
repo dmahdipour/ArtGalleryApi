@@ -24,7 +24,6 @@ class DatabaseSeeder extends Seeder
             SubjectSeeder::class,
             StyleSeeder::class,
             ProjectSeeder::class,
-            SellSeeder::class,
             CommentSeeder::class,
         ]);
     }

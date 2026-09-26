@@ -35,6 +35,12 @@ class ProjectSeeder extends Seeder
             'signature'=>'images/projects/signatures/1.png',
             'status' => true,
             'theme'=>' طبیعت، پیش از آنکه دیده شود، باید احساس شود.',
+            'price'=>'3 میلیون تومان',
+            'available'=>true,
+            'location'=>'',
+            'address'=>'تبریز-گالری شاهد',
+            'phone'=>'+989149001840',
+            'sell_description'=>'', 
         ]);
     }
 }

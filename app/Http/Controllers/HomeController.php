@@ -84,7 +84,7 @@ class HomeController extends Controller
             ->get();
         
         $allProjects = Project::where('status', 1)->count();
-        $allUsers = User::where('is_active', 1)->count();
+        $allUsers = User::where('is_active', 1)->whereNotNull('email_verified_at')->count();
 
         return view('ui.index', compact(
             'allProjects',

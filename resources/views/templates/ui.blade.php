@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="{{url('fonts/font.css')}}">
     <link rel="stylesheet" href="{{url('css/style.css')}}">  
 </head>
-<body dir="rtl" class="font-YekanBakh-Regular bg-slate-50">
+<body dir="rtl" class="font-YekanBakh-Regular bg-slate-50 ">
     <!--Header-->
     <div class="min-h-screen bg-[#f7f5ef]">
-        <header class="border-b border-[#e3dfd5] bg-[#faf9f5]">
+        <header class="sticky top-0 z-50 border-b border-[#e3dfd5] bg-[#faf9f5]/95 backdrop-blur-sm">
             <div class="mx-auto max-w-[1500px] px-5 sm:px-8">
                 <div class="flex h-[90px] items-center justify-between">
                     {{-- Logo --}}

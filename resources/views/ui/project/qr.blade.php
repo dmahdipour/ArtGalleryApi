@@ -1,5 +1,5 @@
 @extends('templates.project')
-@section('title', $item->name_fa)
+@section('title', $title)
 
 @section('main-content')
 <div dir="rtl" class="container min-h-screen mx-auto pt-10">

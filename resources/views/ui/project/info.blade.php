@@ -1,5 +1,5 @@
 @extends('templates.project')
-@section('title', $item->name_fa)
+@section('title', $title)
 
 @section('main-content')
 <div dir="rtl" class="container min-h-screen mx-auto pt-10">
@@ -11,7 +11,7 @@
         <div class="grid lg:col-span-2 lg:order-1 order-2 gap-4">
             <div class="text-center">
                 <span class="text-gold text-4xl">✦</span>
-                <h1 class="font-nastaliq text-8xl text-green-950 leading-none mt-10">
+                <h1 class="font-nastaliq text-6xl md:text-8xl text-green-950 leading-none mt-10">
                     {{$item->name_fa}}
                 </h1>
                 <p class="text-gold text-lg font-bold m-10">

@@ -1,12 +1,3 @@
-@extends('templates.ui')
-@section('title', 'تابلوهای کار شده در حوزه ی '.$title)
-
-@section('main-content')
-@if ($message = Session::get('error'))
-    <div class="text-center p-3 text-sm"> {{ $message }} </div>
-@endif
-
-{{-- ======================= GALLERY ========================= --}}
 <main class="mx-auto max-w-[1500px] px-5 py-12 sm:px-8">
     <div class="mb-8 flex items-end justify-between">
         <div>
@@ -14,17 +5,16 @@
                 class="text-[10px] tracking-[0.3em]
                 text-[#ad873d]"
             >
-                {{$tagName}}
             </span>
-            <span
+            <h2
                 class="mt-2 text-2xl font-semibold
                 text-[#17352a] sm:text-3xl"
             >
-                {{$tagValue}}
-            </span>
+                مجموعه آثار
+            </h2>
         </div>
         <div class="text-xs text-[#77746d]">
-            {{ $projects->count() }}
+            {{ $allProjects }}
             اثر
         </div>
     </div>
@@ -62,9 +52,3 @@
         {{ $projects->links() }}
     </div>
 </main>
-@endsection
-
-@section('page-js')
-<script>
-</script>
-@endsection

@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Member;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -35,8 +36,13 @@ class MemberController extends Controller
             ->paginate(20)
             ->withQueryString();
 
+        
+        $site_title = Setting::where('name', 'site-title')->first()->value ?? 'سمفونی رنگ';
+        $site_describe = Setting::where('name', 'site-describe')->first()->value ?? 'گالری تابلوهای ایران و جهان';
+        $title = 'هنرمندان '.$site_title.' ('.$site_describe.')';
         return view('ui.member.index', compact(
             'users',
+            'title'
         ));
     }
 }

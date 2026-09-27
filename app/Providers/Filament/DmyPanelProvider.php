@@ -7,14 +7,12 @@ use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use App\Filament\Pages\ChangePassword;
 use App\Filament\Widgets;
 use App\Filament\Pages\Auth\Register;
-
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -32,6 +30,7 @@ use AlizHarb\ActivityLog\ActivityLogPlugin;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Setting;
 
 class DmyPanelProvider extends PanelProvider
 {
@@ -81,7 +80,7 @@ class DmyPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             /** Custom Configs */
-            ->brandName('گالری سنفونی رنگ')
+            ->brandName(Setting::where('name', 'site-title')->first()->value ?? 'سمفونی رنگ')
             ->sidebarCollapsibleOnDesktop()
             ->sidebarFullyCollapsibleOnDesktop()
             ->sidebarWidth('20rem')

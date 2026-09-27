@@ -1,5 +1,5 @@
 @extends('templates.ui')
-@section('title', 'سمفونی رنگ (گالری تابلوهای ایران و جهان)')
+@section('title', 'سمفونی رنگ (تابلوها)')
 @section('describe','siteDescribe')
 
 @section('main-content')

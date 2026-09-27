@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Technique;
 use App\Models\Style;
 use App\Models\Subject;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -86,6 +87,10 @@ class HomeController extends Controller
         $allProjects = Project::where('status', 1)->count();
         $allUsers = User::where('is_active', 1)->whereNotNull('email_verified_at')->count();
 
+        $site_title = Setting::where('name', 'site-title')->first()->value ?? 'سمفونی رنگ';
+        $site_describe = Setting::where('name', 'site-describe')->first()->value ?? 'گالری تابلوهای ایران و جهان';
+        $title = $site_title.' ('.$site_describe.')';
+
         return view('ui.index', compact(
             'allProjects',
             'allUsers',
@@ -93,7 +98,8 @@ class HomeController extends Controller
             'sliders',
             'techniques',
             'styles',
-            'subjects'
+            'subjects',
+            'title'
         ));
     }
 }

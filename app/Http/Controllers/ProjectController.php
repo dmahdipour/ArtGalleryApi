@@ -9,6 +9,7 @@ use App\Models\Member;
 use App\Models\Technique;
 use App\Models\Style;
 use App\Models\Subject;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
@@ -84,11 +85,17 @@ class ProjectController extends Controller
             ->orderBy('name_fa')
             ->get();
 
+        
+        $site_title = Setting::where('name', 'site-title')->first()->value ?? 'سمفونی رنگ';
+        $site_describe = Setting::where('name', 'site-describe')->first()->value ?? 'گالری تابلوهای ایران و جهان';
+        $title = 'تابلوهای '.$site_title.' ('.$site_describe.')';
+
         return view('ui.project.index', compact(
             'projects',
             'techniques',
             'styles',
-            'subjects'
+            'subjects',
+            'title'
         ));
     }
 
@@ -105,8 +112,15 @@ class ProjectController extends Controller
             if ($member->signature) {
                 $item->signature = $member->signature;
             }
-            
-            return view('ui.project.info', ['item'=>$item]);
+
+            $site_title = Setting::where('name', 'site-title')->first()->value ?? 'سمفونی رنگ';
+            $site_describe = Setting::where('name', 'site-describe')->first()->value ?? 'گالری تابلوهای ایران و جهان';
+            $title = 'تابلوی '.$item->name_fa.' ('.$site_title.')';
+
+            return view('ui.project.info', compact(
+                'item',
+                'title'
+            ));
         }
         return redirect()->route('projectIndex')->with('error', 'چنین پروژه ای وجود ندارد.');        
     }
@@ -120,7 +134,14 @@ class ProjectController extends Controller
         $item = Project::where('uuid', $request->uuid)->where('status', 1)->first();
         if($item)   
         {
-            return view('ui.project.qr', ['item'=>$item]);
+            $site_title = Setting::where('name', 'site-title')->first()->value ?? 'سمفونی رنگ';
+            $site_describe = Setting::where('name', 'site-describe')->first()->value ?? 'گالری تابلوهای ایران و جهان';
+            $title = 'qr code تابلوی '.$item->name_fa.' ('.$site_title.')';
+
+            return view('ui.project.qr', compact(
+                'item',
+                'title'
+            ));
         }
         return redirect()->route('projectIndex')->with('error', 'چنین پروژه ای وجود ندارد.');        
     }
@@ -210,12 +231,19 @@ class ProjectController extends Controller
             'style'     => 'سبک',
             'subject'   => 'موضوع',
         };
+
         $tagValue = DB::table($tag.'s')
             ->where('id', $request->id)
             ->value('name_fa');
+
+
+        $site_title = Setting::where('name', 'site-title')->first()->value ?? 'سمفونی رنگ';
+        $site_describe = Setting::where('name', 'site-describe')->first()->value ?? 'گالری تابلوهای ایران و جهان';
+        $title = $tagValue.' ('.$site_title.')';
+
         return view('ui.project.tag', compact(
             'tagName',
-            'tagValue',
+            'title',
             'projects',
             'techniques',
             'styles',

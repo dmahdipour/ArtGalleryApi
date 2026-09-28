@@ -14,12 +14,9 @@
         مطلبی برای نمایش وجود ندارد
     @show
 
-    <!--Section 5-->
-    <div class="w-full bg-gray-700 h-5">
-        <div class="container mx-auto">
-            <h6 class="text-center text-white text-sm">تمام حقوق مادی و معنوی وب سایت محفوظ است.</h6>
-        </div>
-    </div>
+    {{-- ======================= FOOTER ========================= --}}
+    @include('ui.components.footer')
+
 
     @section('page-js')
     @show 

@@ -121,9 +121,10 @@
     </div>
     <hr class="my-10 border-[#cbb982] mx-10" />
     <div class="grid lg:grid-cols-8 gap-10 mx-10 my-10">
-        <div class="order-4 lg:order-1 col-span-1 flex items-center justify-center">
+        <div class="order-4 lg:order-1 col-span-1 flex flex-col gap-4 items-center justify-center">
+            <img src="/storage/{{$item->signature}}"/>
             <a href="{{ route('projectQr', $item->uuid) }}">
-                <img src="/storage/{{$item->signature}}" />
+                {!! QrCode::size(100)->generate(url()->current()) !!}
             </a>    
         </div>
         <div class="order-1 lg:order-2 lg:col-span-2">

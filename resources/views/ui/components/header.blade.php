@@ -10,7 +10,7 @@
                 use App\Models\Setting;
                 $site_logo = Setting::where('name', 'logo')->first()->file_path ?? '/images/logo.png';
                 @endphp
-                <img src="{{ $site_logo }}" class="w-16 h-16" />
+                <img src="/storage/{{ $site_logo }}" class="w-16 h-16" />
                 <span class="text-lg font-bold tracking-[0.08em] text-[#17352a] mr-1">
                     @php
                     $site_title = Setting::where('name', 'site-title')->first()->value ?? 'سمفونی رنگ';

@@ -243,6 +243,7 @@ class ProjectController extends Controller
 
         return view('ui.project.tag', compact(
             'tagName',
+            'tagValue',
             'title',
             'projects',
             'techniques',

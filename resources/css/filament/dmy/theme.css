@@ -63,8 +63,11 @@
 }
 
 
-.fi-link-label{
+.fi-simple-header-subheading>.fi-ac-link-action > span{
     @apply text-yellow-300 !text-lg;
+}
+.fi-sc-text > a > span{
+    @apply text-yellow-300;
 }
 
 .fi-ac-btn-action > span{
@@ -100,7 +103,7 @@
 
 .project-tabs .fi-tabs-item[aria-selected="true"] {
     color: #ffffff;
-    background: #8d7650;
+    background: #ffdca2;
     box-shadow: 0 2px 6px rgba(141, 118, 80, 0.25);
 }
 

@@ -43,6 +43,7 @@ class DmyPanelProvider extends PanelProvider
             ->login()
             ->registration(Register::class)
             ->emailVerification() 
+            ->passwordReset()
             ->viteTheme('resources/css/filament/dmy/theme.css')
             ->colors([
                 'primary' => Color::Amber,

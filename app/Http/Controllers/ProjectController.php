@@ -55,7 +55,7 @@ class ProjectController extends Controller
                 fn ($query) =>
                     $query->orderBy('projects.created_at', 'desc')
             )
-            ->paginate(20)
+            ->cursorPaginate(20)
             ->withQueryString();
 
         $techniques = Technique::query()
@@ -90,8 +90,21 @@ class ProjectController extends Controller
         $site_describe = Setting::where('name', 'site-describe')->first()->value ?? 'گالری تابلوهای ایران و جهان';
         $title = 'تابلوهای '.$site_title.' ('.$site_describe.')';
 
+        // Ajax for Load More
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => view('ui.components.project-list', [
+                    'projects' => $projects,
+                ])->render(),
+
+                'next_page_url' => $projects->nextPageUrl(),
+            ]);
+        }
+
+        $allProjects = $projects->count();
         return view('ui.project.index', compact(
             'projects',
+            'allProjects',
             'techniques',
             'styles',
             'subjects',
@@ -195,7 +208,7 @@ class ProjectController extends Controller
                 fn ($query) =>
                     $query->orderBy('projects.created_at', 'desc')
             )
-            ->paginate(16)
+            ->cursorPaginate(16)
             ->withQueryString();
 
         $techniques = Technique::query()
@@ -241,11 +254,26 @@ class ProjectController extends Controller
         $site_describe = Setting::where('name', 'site-describe')->first()->value ?? 'گالری تابلوهای ایران و جهان';
         $title = $tagValue.' ('.$site_title.')';
 
+
+        // Ajax for Load More
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => view('ui.components.project-list', [
+                    'projects' => $projects,
+                ])->render(),
+
+                'next_page_url' => $projects->nextPageUrl(),
+            ]);
+        }
+
+        $allProjects = $projects->count();
+
         return view('ui.project.tag', compact(
             'tagName',
             'tagValue',
             'title',
             'projects',
+            'allProjects',
             'techniques',
             'styles',
             'subjects'

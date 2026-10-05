@@ -50,7 +50,8 @@ class HomeController extends Controller
                 fn ($query) =>
                     $query->orderBy('projects.created_at', 'desc')
             )
-            ->paginate(20);
+            ->cursorPaginate(20)
+            ->withQueryString();
 
         $techniques = Technique::query()
             ->whereIn('id', Project::query()
@@ -90,6 +91,17 @@ class HomeController extends Controller
         $site_title = Setting::where('name', 'site-title')->first()->value ?? 'سمفونی رنگ';
         $site_describe = Setting::where('name', 'site-describe')->first()->value ?? 'گالری تابلوهای ایران و جهان';
         $title = $site_title.' ('.$site_describe.')';
+
+        // Ajax for Load More
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => view('ui.components.project-list', [
+                    'projects' => $projects,
+                ])->render(),
+
+                'next_page_url' => $projects->nextPageUrl(),
+            ]);
+        }
 
         return view('ui.index', compact(
             'allProjects',

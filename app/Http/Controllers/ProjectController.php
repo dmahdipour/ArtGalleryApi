@@ -48,12 +48,12 @@ class ProjectController extends Controller
             ->when(
                 $request->get('sort') === 'oldest',
                 fn ($query) =>
-                    $query->orderBy('projects.year', 'asc')
+                    $query->orderBy('projects.created_at', 'asc')
             )
             ->when(
                 $request->get('sort') !== 'oldest',
                 fn ($query) =>
-                    $query->orderBy('projects.year', 'desc')
+                    $query->orderBy('projects.created_at', 'desc')
             )
             ->paginate(20)
             ->withQueryString();
@@ -188,12 +188,12 @@ class ProjectController extends Controller
             ->when(
                 $request->get('sort') === 'oldest',
                 fn ($query) =>
-                    $query->orderBy('projects.year', 'asc')
+                    $query->orderBy('projects.created_at', 'asc')
             )
             ->when(
                 $request->get('sort') !== 'oldest',
                 fn ($query) =>
-                    $query->orderBy('projects.year', 'desc')
+                    $query->orderBy('projects.created_at', 'desc')
             )
             ->paginate(16)
             ->withQueryString();

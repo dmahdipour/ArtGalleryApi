@@ -34,5 +34,16 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'melipayamak' => [
+        'username' => env('MELIPAYAMAK_USERNAME'),
+        'password' => env('MELIPAYAMAK_PASSWORD'),
+
+        'admin_phone' => env('MELIPAYAMAK_ADMIN_PHONE'),
+
+        'body_ids' => [
+            'new_registration' => env('MELIPAYAMAK_BODY_NEW_REGISTRATION'),
+            'new_project' => env('MELIPAYAMAK_BODY_NEW_PROJECT'),
+        ],
+    ],
 
 ];

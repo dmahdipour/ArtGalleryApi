@@ -33,6 +33,7 @@ use Illuminate\Support\HtmlString;
 use Illuminate\Validation\Rules\Password;
 use LogicException;
 use SensitiveParameter;
+use App\Services\MeliPayamakService;
 
 /**
  * @property-read Action $loginAction
@@ -104,6 +105,17 @@ class Register extends SimplePage
         event(new Registered($user));
 
         $this->sendEmailVerificationNotification($user);
+
+        try {
+            app(MeliPayamakService::class)->sendPattern(
+                $user->name,
+                config('services.melipayamak.admin_phone'),
+                config('services.melipayamak.body_ids.new_registration')
+            );
+        } catch (\Throwable $e) {
+            // خطای SMS نباید باعث شکست ثبت‌نام شود
+            report($e);
+        }
 
         Filament::auth()->login($user);
 

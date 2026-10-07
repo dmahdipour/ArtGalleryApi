@@ -11,15 +11,16 @@ class VerifyEmail extends BaseNotification implements ShouldQueue
 {
     use Queueable;
 
-    public string $url;
-
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
             ->subject('تأیید آدرس ایمیل - سمفونی رنگ')
-            ->greeting('سلام!')
+            ->greeting('سلام ' . ($notifiable->name ?? '') . '!')
             ->line('برای تکمیل ثبت‌نام در سمفونی رنگ، لطفاً آدرس ایمیل خود را تأیید کنید.')
-            ->action('تأیید آدرس ایمیل', $this->url)
+            ->action(
+                'تأیید آدرس ایمیل',
+                $this->verificationUrl($notifiable)
+            )
             ->line('اگر شما این حساب کاربری را ایجاد نکرده‌اید، نیازی به انجام هیچ کاری نیست.')
             ->salutation('با احترام، سمفونی رنگ');
     }

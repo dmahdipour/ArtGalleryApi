@@ -14,7 +14,7 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
+use App\Notifications\VerifyEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -72,10 +72,18 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Member::class);
     }
-    
+
     public function messageReads(): HasMany
     {
         return $this->hasMany(MessageRead::class);
+    }
+
+    /**
+     * ارسال ایمیل تأیید سفارشی
+     */
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new VerifyEmail);
     }
 
     protected static function booted()
@@ -84,6 +92,7 @@ class User extends Authenticatable implements MustVerifyEmail
             if (!$user->hasRole(2)) {
                 $user->assignRole(2);
             }
+
             $user->member()->create([
                 'uuid' => Str::uuid(),
                 'member_type_id' => 2,

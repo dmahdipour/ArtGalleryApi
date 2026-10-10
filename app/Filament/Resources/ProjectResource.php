@@ -187,6 +187,9 @@ class ProjectResource extends Resource
                 TextColumn::make('year')
                     ->label('سال')
                     ->searchable(),
+                IconColumn::make('status')
+                    ->label('وضعیت')
+                    ->boolean(),
                 TextColumn::make('description')
                     ->label('توضیح یک سطری')
                     ->searchable()
@@ -196,7 +199,7 @@ class ProjectResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('theme')
                     ->label('جمله حکیمانه')
-                    ->searchable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

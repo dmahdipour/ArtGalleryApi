@@ -8,9 +8,7 @@ use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Auth\Events\Registered;
 use Filament\Auth\Http\Responses\Contracts\RegistrationResponse;
-use Filament\Auth\Notifications\VerifyEmail;
 use Filament\Facades\Filament;
-use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\CanUseDatabaseTransactions;
 use Filament\Pages\SimplePage;
@@ -34,11 +32,9 @@ use Illuminate\Validation\Rules\Password;
 use LogicException;
 use SensitiveParameter;
 use App\Services\MeliPayamakService;
+use App\Notifications\VerifyEmail;
+use App\Filament\Pages\Auth\Register;
 
-/**
- * @property-read Action $loginAction
- * @property-read Schema $form
- */
 class Register extends SimplePage
 {
     use CanUseDatabaseTransactions;
@@ -104,8 +100,14 @@ class Register extends SimplePage
 
         event(new Registered($user));
 
+        /*
+         * ارسال ایمیل تأیید سفارشی
+         */
         $this->sendEmailVerificationNotification($user);
 
+        /*
+         * ارسال پیامک به مدیر
+         */
         try {
             app(MeliPayamakService::class)->sendPattern(
                 $user->name,
@@ -124,17 +126,25 @@ class Register extends SimplePage
         return app(RegistrationResponse::class);
     }
 
-    protected function getRateLimitedNotification(TooManyRequestsException $exception): ?Notification
-    {
+    protected function getRateLimitedNotification(
+        TooManyRequestsException $exception
+    ): ?Notification {
         return Notification::make()
             ->title(__('filament-panels::auth/pages/register.notifications.throttled.title', [
                 'seconds' => $exception->secondsUntilAvailable,
                 'minutes' => $exception->minutesUntilAvailable,
             ]))
-            ->body(array_key_exists('body', __('filament-panels::auth/pages/register.notifications.throttled') ?: []) ? __('filament-panels::auth/pages/register.notifications.throttled.body', [
-                'seconds' => $exception->secondsUntilAvailable,
-                'minutes' => $exception->minutesUntilAvailable,
-            ]) : null)
+            ->body(
+                array_key_exists(
+                    'body',
+                    __('filament-panels::auth/pages/register.notifications.throttled') ?: []
+                )
+                    ? __('filament-panels::auth/pages/register.notifications.throttled.body', [
+                        'seconds' => $exception->secondsUntilAvailable,
+                        'minutes' => $exception->minutesUntilAvailable,
+                    ])
+                    : null
+            )
             ->danger();
     }
 
@@ -147,12 +157,14 @@ class Register extends SimplePage
         $rateLimitingKey = 'filament-register:' . sha1($email);
 
         if (RateLimiter::tooManyAttempts($rateLimitingKey, maxAttempts: 2)) {
-            $this->getRateLimitedNotification(new TooManyRequestsException(
-                static::class,
-                'register',
-                request()->ip(),
-                RateLimiter::availableIn($rateLimitingKey),
-            ))?->send();
+            $this->getRateLimitedNotification(
+                new TooManyRequestsException(
+                    static::class,
+                    'register',
+                    request()->ip(),
+                    RateLimiter::availableIn($rateLimitingKey),
+                )
+            )?->send();
 
             return true;
         }
@@ -163,13 +175,17 @@ class Register extends SimplePage
     }
 
     /**
-     * @param  array<string, mixed>  $data
+     * @param array<string, mixed> $data
      */
-    protected function handleRegistration(#[SensitiveParameter] array $data): Model
-    {
+    protected function handleRegistration(
+        #[SensitiveParameter] array $data
+    ): Model {
         return $this->getUserModel()::create($data);
     }
 
+    /**
+     * ارسال ایمیل تأیید سفارشی
+     */
     protected function sendEmailVerificationNotification(Model $user): void
     {
         if (! $user instanceof MustVerifyEmail) {
@@ -183,10 +199,13 @@ class Register extends SimplePage
         if (! method_exists($user, 'notify')) {
             $userClass = $user::class;
 
-            throw new LogicException("Model [{$userClass}] does not have a [notify()] method.");
+            throw new LogicException(
+                "Model [{$userClass}] does not have a [notify()] method."
+            );
         }
 
         $notification = app(VerifyEmail::class);
+
         $notification->url = Filament::getVerifyEmailUrl($user);
 
         $user->notify($notification);
@@ -237,9 +256,13 @@ class Register extends SimplePage
             ->required()
             ->rule(Password::default())
             ->showAllValidationMessages()
-            ->dehydrateStateUsing(fn (#[SensitiveParameter] $state) => Hash::make($state))
+            ->dehydrateStateUsing(
+                fn (#[SensitiveParameter] $state) => Hash::make($state)
+            )
             ->same('passwordConfirmation')
-            ->validationAttribute(__('filament-panels::auth/pages/register.form.password.validation_attribute'));
+            ->validationAttribute(
+                __('filament-panels::auth/pages/register.form.password.validation_attribute')
+            );
     }
 
     protected function getPasswordConfirmationFormComponent(): Component
@@ -311,11 +334,12 @@ class Register extends SimplePage
     }
 
     /**
-     * @param  array<string, mixed>  $data
+     * @param array<string, mixed> $data
      * @return array<string, mixed>
      */
-    protected function mutateFormDataBeforeRegister(#[SensitiveParameter] array $data): array
-    {
+    protected function mutateFormDataBeforeRegister(
+        #[SensitiveParameter] array $data
+    ): array {
         return $data;
     }
 
@@ -325,22 +349,34 @@ class Register extends SimplePage
             return null;
         }
 
-        return new HtmlString(__('filament-panels::auth/pages/register.actions.login.before') . ' ' . $this->loginAction->toHtml());
+        return new HtmlString(
+            __('filament-panels::auth/pages/register.actions.login.before')
+            . ' '
+            . $this->loginAction->toHtml()
+        );
     }
 
     public function content(Schema $schema): Schema
     {
         return $schema
             ->components([
-                RenderHook::make(PanelsRenderHook::AUTH_REGISTER_FORM_BEFORE),
+                RenderHook::make(
+                    PanelsRenderHook::AUTH_REGISTER_FORM_BEFORE
+                ),
+
                 $this->getFormContentComponent(),
-                RenderHook::make(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER),
+
+                RenderHook::make(
+                    PanelsRenderHook::AUTH_REGISTER_FORM_AFTER
+                ),
             ]);
     }
 
     public function getFormContentComponent(): Component
     {
-        return Form::make([EmbeddedSchema::make('form')])
+        return Form::make([
+            EmbeddedSchema::make('form'),
+        ])
             ->id('form')
             ->livewireSubmitHandler('register')
             ->footer([

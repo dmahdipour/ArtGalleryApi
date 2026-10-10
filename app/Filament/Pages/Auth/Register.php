@@ -2,6 +2,8 @@
 
 namespace App\Filament\Pages\Auth;
 
+use App\Notifications\VerifyEmail;
+use App\Services\MeliPayamakService;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use Filament\Actions\Action;
@@ -31,9 +33,6 @@ use Illuminate\Support\HtmlString;
 use Illuminate\Validation\Rules\Password;
 use LogicException;
 use SensitiveParameter;
-use App\Services\MeliPayamakService;
-use App\Notifications\VerifyEmail;
-use App\Filament\Pages\Auth\Register;
 
 class Register extends SimplePage
 {
@@ -42,7 +41,7 @@ class Register extends SimplePage
     use WithRateLimiting;
 
     /**
-     * @var array<string, mixed> | null
+     * @var array<string, mixed>|null
      */
     public ?array $data = [];
 
@@ -100,22 +99,17 @@ class Register extends SimplePage
 
         event(new Registered($user));
 
-        /*
-         * ارسال ایمیل تأیید سفارشی
-         */
+        // ارسال ایمیل تأیید سفارشی
         $this->sendEmailVerificationNotification($user);
 
-        /*
-         * ارسال پیامک به مدیر
-         */
+        // ارسال پیامک به مدیر؛ خطای پیامک نباید ثبت‌نام را مختل کند
         try {
             app(MeliPayamakService::class)->sendPattern(
                 $user->name,
                 config('services.melipayamak.admin_phone'),
-                config('services.melipayamak.body_ids.new_registration')
+                (int) config('services.melipayamak.body_ids.new_registration')
             );
         } catch (\Throwable $e) {
-            // خطای SMS نباید باعث شکست ثبت‌نام شود
             report($e);
         }
 
@@ -213,24 +207,22 @@ class Register extends SimplePage
 
     public function defaultForm(Schema $schema): Schema
     {
-        return $schema
-            ->statePath('data');
+        return $schema->statePath('data');
     }
 
     public function form(Schema $schema): Schema
     {
-        return $schema
-            ->components([
-                $this->getNameFormComponent(),
-                $this->getEmailFormComponent(),
-                $this->getPasswordFormComponent(),
-                $this->getPasswordConfirmationFormComponent(),
-            ]);
+        return $schema->components([
+            $this->getNameFormComponent(),
+            $this->getEmailFormComponent(),
+            $this->getPasswordFormComponent(),
+            $this->getPasswordConfirmationFormComponent(),
+        ]);
     }
 
     protected function getNameFormComponent(): Component
     {
-        return TextInput::make('name')
+        return \Filament\Forms\Components\TextInput::make('name')
             ->label(__('filament-panels::auth/pages/register.form.name.label'))
             ->required()
             ->maxLength(255)
@@ -239,7 +231,7 @@ class Register extends SimplePage
 
     protected function getEmailFormComponent(): Component
     {
-        return TextInput::make('email')
+        return \Filament\Forms\Components\TextInput::make('email')
             ->label(__('filament-panels::auth/pages/register.form.email.label'))
             ->email()
             ->required()
@@ -249,7 +241,7 @@ class Register extends SimplePage
 
     protected function getPasswordFormComponent(): Component
     {
-        return TextInput::make('password')
+        return \Filament\Forms\Components\TextInput::make('password')
             ->label(__('filament-panels::auth/pages/register.form.password.label'))
             ->password()
             ->revealable(filament()->arePasswordsRevealable())
@@ -267,7 +259,7 @@ class Register extends SimplePage
 
     protected function getPasswordConfirmationFormComponent(): Component
     {
-        return TextInput::make('passwordConfirmation')
+        return \Filament\Forms\Components\TextInput::make('passwordConfirmation')
             ->label(__('filament-panels::auth/pages/register.form.password_confirmation.label'))
             ->password()
             ->revealable(filament()->arePasswordsRevealable())
@@ -301,18 +293,18 @@ class Register extends SimplePage
         return $this->userModel = $provider->getModel();
     }
 
-    public function getTitle(): string | Htmlable
+    public function getTitle(): string|Htmlable
     {
         return __('filament-panels::auth/pages/register.title');
     }
 
-    public function getHeading(): string | Htmlable | null
+    public function getHeading(): string|Htmlable|null
     {
         return __('filament-panels::auth/pages/register.heading');
     }
 
     /**
-     * @return array<Action | ActionGroup>
+     * @return array<Action|ActionGroup>
      */
     protected function getFormActions(): array
     {
@@ -343,7 +335,7 @@ class Register extends SimplePage
         return $data;
     }
 
-    public function getSubheading(): string | Htmlable | null
+    public function getSubheading(): string|Htmlable|null
     {
         if (! filament()->hasLogin()) {
             return null;
@@ -358,18 +350,11 @@ class Register extends SimplePage
 
     public function content(Schema $schema): Schema
     {
-        return $schema
-            ->components([
-                RenderHook::make(
-                    PanelsRenderHook::AUTH_REGISTER_FORM_BEFORE
-                ),
-
-                $this->getFormContentComponent(),
-
-                RenderHook::make(
-                    PanelsRenderHook::AUTH_REGISTER_FORM_AFTER
-                ),
-            ]);
+        return $schema->components([
+            RenderHook::make(PanelsRenderHook::AUTH_REGISTER_FORM_BEFORE),
+            $this->getFormContentComponent(),
+            RenderHook::make(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER),
+        ]);
     }
 
     public function getFormContentComponent(): Component

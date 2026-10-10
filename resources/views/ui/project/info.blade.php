@@ -31,6 +31,7 @@
             </div>
 
             <div class="grid lg:grid-cols-2 mx-10 mt-4 gap-10">
+                @if($item->about_project)
                 <div>
                     <h3 class="font-bold text-xl text-green-950 mb-5">
                         <span class="text-[#cbb982]">✦</span> درباره {{$item->name_fa}} 
@@ -39,6 +40,8 @@
                         {{$item->about_project}}
                     </p>
                 </div>
+                @endif
+                @if($item->member_description)
                 <div>
                     <h3 class="text-xl font-bold text-green-950 mb-5">
                         <span class="text-[#cbb982]">✦</span> بیانیه هنرمند 
@@ -47,6 +50,7 @@
                         {{$item->member_description}}
                     </p>
                 </div>
+                @endif
             </div>
         </div>
         <!-- IMAGE MODAL -->

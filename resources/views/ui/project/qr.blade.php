@@ -13,7 +13,7 @@
             </span>
         </div>
         <div class="shrink-0">
-            {!! QrCode::size(300)->generate(url()->current()) !!}
+            {!! QrCode::size(300)->generate(str_replace('/qr/', '/', url()->current())) !!}
         </div>
     </div>
 </div>

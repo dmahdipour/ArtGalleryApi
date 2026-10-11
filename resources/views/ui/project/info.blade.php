@@ -1,12 +1,8 @@
-@extends('templates.project')
+@extends('templates.ui')
 @section('title', $title)
 
 @section('main-content')
-<div dir="rtl" class="container min-h-screen mx-auto pt-10">
-    <a href="{{ route('home') }}"
-        class="mt-5 mr-2 inline-block text-sm
-        text-[#aa8139] hover:underline">
-        BACK </a> 
+<div dir="rtl" class="container min-h-screen mx-auto pt-20">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div class="grid lg:col-span-2 lg:order-1 order-2 gap-4">
             <div class="text-center">

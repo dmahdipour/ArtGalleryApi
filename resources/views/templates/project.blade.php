@@ -8,6 +8,11 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{url('fonts/font.css')}}">
     <link rel="stylesheet" href="{{url('css/style.css')}}">  
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <meta name="theme-color" content="#17352a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-icon" href="{{ asset('images/icon-192.png') }}">
 </head>
 <body dir="rtl" class="bg-[#f7f6f1]">
     @section('main-content')
@@ -20,5 +25,19 @@
 
     @section('page-js')
     @show 
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .catch((error) => {
+                        console.error(
+                            'Service Worker registration failed:',
+                            error
+                        );
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

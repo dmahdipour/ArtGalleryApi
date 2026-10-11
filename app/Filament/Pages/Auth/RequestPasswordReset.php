@@ -7,7 +7,7 @@ use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Exception;
 use Filament\Facades\Filament;
 use Filament\Notifications\Notification;
-use Filament\Pages\Auth\PasswordReset\RequestPasswordReset as BaseRequestPasswordReset;
+use Filament\Auth\Pages\PasswordReset\RequestPasswordReset as BaseRequestPasswordReset;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Support\Facades\Password;
 

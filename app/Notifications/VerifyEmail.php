@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use Filament\Notifications\Auth\VerifyEmail as FilamentVerifyEmail;
+use Filament\Notifications\VerifyEmail as FilamentVerifyEmail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;

@@ -31,6 +31,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Setting;
+use App\Filament\Pages\Auth\RequestPasswordReset;
+
 
 class DmyPanelProvider extends PanelProvider
 {
@@ -43,7 +45,7 @@ class DmyPanelProvider extends PanelProvider
             ->login()
             ->registration(Register::class)
             ->emailVerification() 
-            ->passwordReset()
+            ->passwordReset(RequestPasswordReset::class)
             ->viteTheme('resources/css/filament/dmy/theme.css')
             ->colors([
                 'primary' => Color::Amber,

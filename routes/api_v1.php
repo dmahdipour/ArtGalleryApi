@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\V1\MemberTypeController;
 use App\Http\Controllers\Api\V1\CommentController;
 use App\Http\Controllers\Api\V1\ProjectController;
 use App\Http\Controllers\Api\V1\TechniqueController;
-use App\Http\Controllers\Api\V1\SubjectControlle;
+use App\Http\Controllers\Api\V1\SubjectController;
 use App\Http\Controllers\Api\V1\StyleController;
 use App\Http\Controllers\Api\V1\SellController;
 use Illuminate\Support\Facades\Route;
@@ -55,11 +55,11 @@ Route::middleware('auth:sanctum')->put('/technique', [TechniqueController::class
 Route::middleware('auth:sanctum')->delete('/technique', [TechniqueController::class, 'delete']);
 Route::middleware('auth:sanctum')->post('/technique/info', [TechniqueController::class, 'info']);
 
-Route::middleware('auth:sanctum')->get('/subjects', [SubjectControlle::class, 'index']);
-Route::middleware('auth:sanctum')->post('/subject', [SubjectControlle::class, 'add']);
-Route::middleware('auth:sanctum')->put('/subject', [SubjectControlle::class, 'update']);
-Route::middleware('auth:sanctum')->delete('/subject', [SubjectControlle::class, 'delete']);
-Route::middleware('auth:sanctum')->post('/subject/info', [SubjectControlle::class, 'info']);
+Route::middleware('auth:sanctum')->get('/subjects', [SubjectController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/subject', [SubjectController::class, 'add']);
+Route::middleware('auth:sanctum')->put('/subject', [SubjectController::class, 'update']);
+Route::middleware('auth:sanctum')->delete('/subject', [SubjectController::class, 'delete']);
+Route::middleware('auth:sanctum')->post('/subject/info', [SubjectController::class, 'info']);
 
 Route::middleware('auth:sanctum')->get('/styles', [StyleController::class, 'index']);
 Route::middleware('auth:sanctum')->post('/style', [StyleController::class, 'add']);

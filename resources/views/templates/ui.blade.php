@@ -14,7 +14,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="apple-touch-icon" href="{{ asset('images/icon-192.png') }}">
 </head>
-<body dir="rtl" class="font-YekanBakh-Regular bg-slate-50 ">
+<body dir="rtl" class="font-YekanBakh-Regular bg-slate-50 pb-16 lg:pb-0">
     <div class="min-h-screen bg-[#f7f5ef]">
         {{-- ======================= HEADER ========================= --}}
         @include('ui.components.header')

@@ -13,6 +13,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="apple-touch-icon" href="{{ asset('images/icon-192.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/icon-192.png') }}">
 </head>
 <body dir="rtl" class="bg-[#f7f6f1] pb-16 lg:pb-0">
     @section('main-content')

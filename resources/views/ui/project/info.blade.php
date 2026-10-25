@@ -258,11 +258,17 @@
                     <table class="w-full">
                         <tr>
                             <td>قیمت پایه</td>
-                            <td class="pr-1">{{$item->price}}</td>
+                            <td class="pr-1">{{number_format($item->price)}} تومان</td>
                         </tr>
                         <tr>
-                            <td>موجودی</td>
-                            <td class="pr-1">{{$item->count}}</td>
+                            <td>موجود</td>
+                            <td class="pr-1">
+                                @if($item->available)
+                                    <span>هست</span>
+                                @else
+                                    <span>نیست</span>
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <td>آدرس</td>

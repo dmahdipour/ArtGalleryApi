@@ -71,17 +71,19 @@
         </div>
 
         <!-- IMAGE MODAL -->
-        <div class="lg:col-span-1 lg:order-2 order-1">
+        <div class="lg:col-span-1 lg:order-2 order-1 w-full min-w-0">
             <button
                 data-modal-target="image-modal"
                 data-modal-toggle="image-modal"
                 type="button"
-                class="relative cursor-zoom-in"
+                class="relative block w-full min-w-0 cursor-zoom-in border-0 bg-transparent p-0"
+                style="width: 100% !important;"
             >
                 <img
                     src="{{ asset('storage/' . $item->thumbnail) }}"
                     alt="{{ $item->name_fa }}"
-                    class="block w-full max-w-none h-auto"
+                    class="block max-w-none"
+                    style="width: 100% !important; height: auto !important;"
                 >
                 <div
                     class="absolute left-0 top-0 -translate-x-full
@@ -91,7 +93,6 @@
                     {{ $item->name_en }}
                 </div>
             </button>
-
             <!-- Fullscreen Image Modal -->
             <div
                 id="image-modal"

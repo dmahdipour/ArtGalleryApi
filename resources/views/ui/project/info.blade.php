@@ -81,7 +81,7 @@
                 <img
                     src="{{ asset('storage/' . $item->thumbnail) }}"
                     alt="{{ $item->name_fa }}"
-                    class="w-full max-w-none h-auto object-contain md:w-auto md:max-w-full"
+                    class="block w-full max-w-none h-auto object"
                 >
                 <div
                     class="absolute left-0 top-0 -translate-x-full

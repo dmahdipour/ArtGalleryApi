@@ -2,7 +2,7 @@
 @section('title', $title)
 
 @section('main-content')
-<div dir="rtl" class="container min-h-screen mx-auto pt-20">
+<div dir="rtl" class="container min-h-screen mx-auto md:pt-20">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div class="grid lg:col-span-2 lg:order-1 order-2 gap-4">
             <div class="text-center">
@@ -25,7 +25,6 @@
                 </p>
                 <span class="text-gold text-1xl">✦</span>
             </div>
-
             <div class="grid lg:grid-cols-2 mx-10 mt-4 gap-10">
                 @if($item->about_project)
                 <div>
@@ -49,6 +48,28 @@
                 @endif
             </div>
         </div>
+
+        <!-- Share Button -->
+        <div class="flex md:hidden mr-2 -mb-16 h-14 w-14 z-2 justify-start">
+            <button
+                type="button"
+                data-modal-target="share-modal"
+                data-modal-toggle="share-modal"
+                class="inline-flex items-center gap-2 rounded-full
+                    bg-[#17352a] p-4 text-md text-white
+                    shadow-sm transition hover:bg-[#244b3b]"
+            >
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.7">
+                    <circle cx="18" cy="5" r="3"/>
+                    <circle cx="6" cy="12" r="3"/>
+                    <circle cx="18" cy="19" r="3"/>
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m8.7 10.7 6.6-4.4m-6.6 9 6.6 4.4"/>
+                </svg>
+            </button>
+        </div>
+
         <!-- IMAGE MODAL -->
         <div class="lg:col-span-1 lg:order-2 order-1">
             <button
@@ -60,9 +81,8 @@
                 <img
                     src="{{ asset('storage/' . $item->thumbnail) }}"
                     alt="{{ $item->name_fa }}"
-                    class="max-w-full"
+                    class="w-full max-w-none h-auto object-contain md:w-auto md:max-w-full"
                 >
-
                 <div
                     class="absolute left-0 top-0 -translate-x-full
                         rotate-[-90deg] origin-top-right text-[#cbb982]
@@ -107,7 +127,6 @@
                         />
                     </svg>
                 </button>
-
                 <!-- Image -->
                 <div class="flex h-full w-full items-center justify-center p-4 md:p-8">
                     <img
@@ -289,11 +308,255 @@
             </div>
         </div>
     </div>
+
+    {{-- Share Artwork --}}
+    <div class="mx-10 my-8 flex justify-center">
+        <button
+            type="button"
+            data-modal-target="share-modal"
+            data-modal-toggle="share-modal"
+            class="inline-flex items-center gap-2 rounded-full
+                   bg-[#17352a] px-7 py-3 text-sm text-white
+                   shadow-sm transition hover:bg-[#244b3b]"
+        >
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.7">
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="m8.7 10.7 6.6-4.4m-6.6 9 6.6 4.4"/>
+            </svg>
+            اشتراک‌گذاری اثر
+        </button>
+    </div>
+
+    {{-- Share Modal --}}
+    <div
+        id="share-modal"
+        tabindex="-1"
+        aria-hidden="true"
+        class="hidden fixed inset-0 z-[60] h-full w-full
+               items-center justify-center overflow-y-auto
+               bg-black/60 p-4"
+    >
+        <div class="relative w-full max-w-md rounded-2xl bg-[#faf9f5] p-6 shadow-2xl">
+            <button
+                type="button"
+                data-modal-hide="share-modal"
+                aria-label="بستن"
+                class="absolute left-4 top-4 rounded-full p-2 text-[#746f64]
+                       transition hover:bg-[#e9e5dc]"
+            >
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="1.8">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="m6 6 12 12M18 6 6 18"/>
+                </svg>
+            </button>
+
+            <div class="mb-6 text-center">
+                <span class="text-2xl text-[#b99959]">✦</span>
+                <h3 class="mt-2 text-xl font-bold text-[#17352a]">
+                    اشتراک‌گذاری اثر
+                </h3>
+                <p class="mt-2 text-xs leading-6 text-[#777268]">
+                    تصویر و اطلاعات این اثر را با دیگران به اشتراک بگذارید.
+                </p>
+            </div>
+
+            <div class="mb-5 flex items-center gap-3 rounded-xl border border-[#e3dfd5] bg-white p-3">
+                <img
+                    src="{{ asset('storage/' . $item->thumbnail) }}"
+                    alt="{{ $item->name_fa }}"
+                    class="h-20 w-16 rounded-lg object-cover"
+                >
+                <div class="min-w-0">
+                    <div class="truncate font-bold text-[#17352a]">
+                        {{ $item->name_fa }}
+                    </div>
+                    <div class="mt-1 text-xs text-[#8b806d]">
+                        {{ $item->member->name_fa }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <button
+                    type="button"
+                    id="shareArtworkButton"
+                    class="flex items-center justify-center gap-2 rounded-xl
+                           bg-[#17352a] px-3 py-3 text-sm text-white
+                           transition hover:bg-[#244b3b]"
+                >
+                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="1.7">
+                        <circle cx="18" cy="5" r="3"/>
+                        <circle cx="6" cy="12" r="3"/>
+                        <circle cx="18" cy="19" r="3"/>
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="m8.7 10.7 6.6-4.4m-6.6 9 6.6 4.4"/>
+                    </svg>
+                    ارسال تصویر و متن
+                </button>
+
+                <a
+                    id="whatsappShareLink"
+                    href="#"
+                    target="_blank"
+                    rel="noopener"
+                    class="flex items-center justify-center gap-2 rounded-xl
+                           border border-[#ded8cb] bg-white px-3 py-3
+                           text-sm text-[#17352a] transition hover:border-[#b99959]"
+                >
+                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12.04 2a9.8 9.8 0 0 0-8.36 14.91L2.3 22l5.22-1.37A9.96 9.96 0 0 0 12.04 22 10 10 0 0 0 12.04 2Zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.1.81.83-3.02-.2-.31A8.18 8.18 0 1 1 12.04 20.2Zm4.5-6.13c-.25-.13-1.48-.73-1.71-.81-.23-.08-.4-.13-.57.13-.17.25-.65.81-.8.98-.15.17-.3.19-.55.06-.25-.13-1.05-.39-2-.1.74-.67-.55-.74-.8-.99-.22-.22-.5-.56-.7-.84-.18-.25-.02-.39.12-.52.12-.12.25-.3.38-.45.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.45-.06-.13-.57-1.37-.78-1.87-.2-.49-.41-.42-.57-.43h-.49c-.17 0-.45.06-.68.32-.23.25-.89.87-.89 2.12s.91 2.46 1.04 2.63c.13.17 1.79 2.73 4.33 3.83.6.26 1.07.42 1.44.53.61.19 1.16.16 1.6.1.49-.07 1.48-.61 1.69-1.2.21-.59.21-1.09.15-1.2-.06-.1-.23-.17-.49-.3Z"/>
+                    </svg>
+                    واتساپ
+                </a>
+
+                <button
+                    type="button"
+                    id="copyShareLinkButton"
+                    class="rounded-xl border border-[#ded8cb] bg-white px-3 py-3
+                           text-sm text-[#17352a] transition hover:border-[#b99959]"
+                >
+                    کپی لینک صفحه
+                </button>
+
+                <button
+                    type="button"
+                    id="copyShareTextButton"
+                    class="rounded-xl border border-[#ded8cb] bg-white px-3 py-3
+                           text-sm text-[#17352a] transition hover:border-[#b99959]"
+                >
+                    کپی توضیحات
+                </button>
+
+                <button
+                    type="button"
+                    id="downloadArtworkButton"
+                    class="col-span-2 rounded-xl border border-[#ded8cb] bg-white px-3 py-3
+                           text-sm text-[#17352a] transition hover:border-[#b99959]"
+                >
+                    دانلود تصویر اثر
+                </button>
+            </div>
+
+            <p
+                id="shareFeedback"
+                role="status"
+                aria-live="polite"
+                class="mt-4 min-h-6 text-center text-xs text-[#8b806d]"
+            ></p>
+
+            <p class="text-center text-[11px] leading-5 text-[#9b9589]">
+                برای انتشار در استوری یا وضعیت، گزینه «ارسال تصویر و متن» را بزنید
+                و برنامه‌ی موردنظر را از منوی اشتراک‌گذاری گوشی انتخاب کنید.
+            </p>
+        </div>
+    </div>
+
 </div>
 @endsection
 
 @section('page-js')
 <script>
-    
+    document.addEventListener('DOMContentLoaded', () => {
+        const artwork = {
+            title: @json($item->name_fa),
+            artist: @json($item->member->name_fa),
+            description: @json($item->description),
+            about: @json($item->about_project),
+            url: @json(url()->current()),
+            image: @json(asset('storage/' . $item->image)),
+        };
+
+        const shareText = [
+            artwork.title,
+            `هنرمند: ${artwork.artist}`,
+            artwork.description,
+            artwork.about,
+            `مشاهده اثر: ${artwork.url}`,
+        ].filter(value => value && String(value).trim()).join('\n\n');
+
+        const feedback = document.getElementById('shareFeedback');
+        const showFeedback = (message) => {
+            if (feedback) feedback.textContent = message;
+        };
+
+        const copyText = async (value, successMessage) => {
+            try {
+                await navigator.clipboard.writeText(value);
+                showFeedback(successMessage);
+            } catch (error) {
+                showFeedback('کپی خودکار انجام نشد؛ لطفاً لینک را از نوار آدرس کپی کنید.');
+            }
+        };
+
+        document.getElementById('whatsappShareLink')?.addEventListener('click', (event) => {
+            event.currentTarget.href =
+                `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+        });
+
+        document.getElementById('copyShareLinkButton')?.addEventListener('click', () => {
+            copyText(artwork.url, 'لینک صفحه کپی شد.');
+        });
+
+        document.getElementById('copyShareTextButton')?.addEventListener('click', () => {
+            copyText(shareText, 'متن توضیحات کپی شد.');
+        });
+
+        document.getElementById('downloadArtworkButton')?.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.href = artwork.image;
+            link.download = `${artwork.title || 'artwork'}.jpg`;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            showFeedback('دانلود تصویر آغاز شد.');
+        });
+
+        document.getElementById('shareArtworkButton')?.addEventListener('click', async () => {
+            try {
+                const response = await fetch(artwork.image);
+                if (!response.ok) throw new Error('Image download failed');
+
+                const blob = await response.blob();
+                const extension = blob.type.includes('png') ? 'png' : 'jpg';
+                const file = new File(
+                    [blob],
+                    `artwork-${Date.now()}.${extension}`,
+                    { type: blob.type || 'image/jpeg' }
+                );
+
+                if (navigator.canShare && navigator.canShare({ files: [file] }) && navigator.share) {
+                    await navigator.share({
+                        title: artwork.title,
+                        text: shareText,
+                        files: [file],
+                    });
+                    showFeedback('منوی اشتراک‌گذاری باز شد.');
+                    return;
+                }
+
+                if (navigator.share) {
+                    await navigator.share({
+                        title: artwork.title,
+                        text: shareText,
+                        url: artwork.url,
+                    });
+                    showFeedback('لینک و توضیحات به اشتراک گذاشته شد.');
+                    return;
+                }
+
+                showFeedback('مرورگر شما اشتراک‌گذاری مستقیم تصویر را پشتیبانی نمی‌کند. تصویر را دانلود و سپس ارسال کنید.');
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    showFeedback('اشتراک‌گذاری انجام نشد. می‌توانید تصویر را دانلود و متن یا لینک را کپی کنید.');
+                }
+            }
+        });
+    });
 </script>
 @endsection

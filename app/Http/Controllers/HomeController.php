@@ -10,81 +10,40 @@ use App\Models\Technique;
 use App\Models\Style;
 use App\Models\Subject;
 use App\Models\Setting;
+use App\Models\Story;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
-
 
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
         $projects = Project::query()
-            ->with([
-                'technique',
-                'style',
-                'subject',
-            ])
-            ->when(
-                $request->filled('technique'),
-                fn ($query) =>
-                    $query->where('technique_id', $request->technique)
-            )
-            ->when(
-                $request->filled('style'),
-                fn ($query) =>
-                    $query->where('style_id', $request->style)
-            )
-            ->when(
-                $request->filled('subject'),
-                fn ($query) =>
-                    $query->where('subject_id', $request->subject)
-            )
+            ->with(['technique', 'style', 'subject'])
+            ->when($request->filled('technique'), fn ($query) => $query->where('technique_id', $request->technique))
+            ->when($request->filled('style'), fn ($query) => $query->where('style_id', $request->style))
+            ->when($request->filled('subject'), fn ($query) => $query->where('subject_id', $request->subject))
             ->where('projects.status', 1)
-            ->when(
-                $request->get('sort') === 'oldest',
-                fn ($query) =>
-                    $query->orderBy('projects.created_at', 'asc')
-            )
-            ->when(
-                $request->get('sort') !== 'oldest',
-                fn ($query) =>
-                    $query->orderBy('projects.created_at', 'desc')
-            )
+            ->when($request->get('sort') === 'oldest', fn ($query) => $query->orderBy('projects.created_at', 'asc'))
+            ->when($request->get('sort') !== 'oldest', fn ($query) => $query->orderBy('projects.created_at', 'desc'))
             ->cursorPaginate(20)
             ->withQueryString();
 
         $techniques = Technique::query()
-            ->whereIn('id', Project::query()
-                ->whereNotNull('technique_id')
-                ->where('projects.status', 1)
-                ->select('technique_id')
-            )
-            ->orderBy('name_fa')
-            ->get();
+            ->whereIn('id', Project::query()->whereNotNull('technique_id')->where('projects.status', 1)->select('technique_id'))
+            ->orderBy('name_fa')->get();
 
         $styles = Style::query()
-            ->whereIn('id', Project::query()
-                ->whereNotNull('style_id')
-                ->where('projects.status', 1)
-                ->select('style_id')
-            )
-            ->orderBy('name_fa')
-            ->get();
+            ->whereIn('id', Project::query()->whereNotNull('style_id')->where('projects.status', 1)->select('style_id'))
+            ->orderBy('name_fa')->get();
 
         $subjects = Subject::query()
-            ->whereIn('id', Project::query()
-                ->whereNotNull('subject_id')
-                ->where('projects.status', 1)
-                ->select('subject_id')
-            )
-            ->orderBy('name_fa')
-            ->get();
+            ->whereIn('id', Project::query()->whereNotNull('subject_id')->where('projects.status', 1)->select('subject_id'))
+            ->orderBy('name_fa')->get();
 
         $sliders = Page::where('name', 'like', 'slider%')
-            ->where('status', 1)
-            ->orderBy('id', 'desc')
-            ->get();
-        
+            ->where('status', 1)->orderBy('id', 'desc')->get();
+
         $allProjects = Project::where('status', 1)->count();
         $allUsers = User::where('is_active', 1)->whereNotNull('email_verified_at')->count();
 
@@ -92,26 +51,30 @@ class HomeController extends Controller
         $site_describe = Setting::where('name', 'site-describe')->first()->value ?? 'گالری تابلوهای ایران و جهان';
         $title = $site_title.' ('.$site_describe.')';
 
+        // استوری‌ها برای همه بازدیدکنندگان، بدون محدودیت زمانی
+        $stories = Story::query()
+            ->with('member.user')
+            ->where('is_active', true)
+            ->whereHas('member')
+            ->latest()
+            ->get()
+            ->groupBy('member_id')
+            ->map(fn ($items) => $items->values())
+            ->values();
+
         // Ajax for Load More
         if ($request->ajax()) {
             return response()->json([
                 'html' => view('ui.components.project-list', [
                     'projects' => $projects,
                 ])->render(),
-
                 'next_page_url' => $projects->nextPageUrl(),
             ]);
         }
 
         return view('ui.index', compact(
-            'allProjects',
-            'allUsers',
-            'projects',
-            'sliders',
-            'techniques',
-            'styles',
-            'subjects',
-            'title'
+            'allProjects', 'allUsers', 'projects', 'sliders',
+            'techniques', 'styles', 'subjects', 'title', 'stories'
         ));
     }
 }

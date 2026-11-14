@@ -3,6 +3,9 @@
 
 @section('main-content')
 
+{{-- ======================== Stories ========================= --}}
+@include('ui.components.stories.index', ['stories' => $stories ?? collect()])
+
 {{-- ======================== Slider ========================= --}}
 @include('ui.components.slider')
 
@@ -19,6 +22,5 @@
 
 @section('page-js')
 <script>
-    
 </script>
 @endsection

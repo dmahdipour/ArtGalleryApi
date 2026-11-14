@@ -1,0 +1,229 @@
+@if(($stories ?? collect())->isNotEmpty())
+<section class="stories-section mx-auto w-full max-w-7xl px-4 py-5" dir="rtl" aria-label="استوری هنرمندان">
+    <div class="mb-3 flex items-center justify-between">
+        <div>
+            <h2 class="text-lg font-bold text-[#17352a]">لحظه‌هایی از هنر</h2>
+            <p class="mt-0.5 text-xs text-[#8d7650]">تازه‌ترین روایت‌های هنرمندان</p>
+        </div>
+    </div>
+
+    <div class="stories-strip flex gap-4 overflow-x-auto pb-3" role="list">
+        @foreach($stories as $memberStories)
+            @php
+                $member = $memberStories->first()->member;
+                $memberName = $member?->name_fa ?: $member?->name_en ?: 'هنرمند';
+                $avatar = $member?->user?->avatar;
+                $storyItems = $memberStories->map(fn ($story) => [
+                    'src' => \Illuminate\Support\Facades\Storage::disk('public')->url($story->media_path),
+                    'type' => $story->media_type,
+                    'caption' => $story->caption,
+                    'created_at' => $story->created_at?->format('Y/m/d H:i'),
+                ])->values();
+            @endphp
+            <button
+                type="button"
+                class="story-person group flex w-[76px] shrink-0 flex-col items-center gap-2 text-center"
+                role="listitem"
+                data-stories='@json($storyItems)'
+                data-member="{{ $memberName }}"
+                aria-label="مشاهده استوری‌های {{ $memberName }}"
+            >
+                <span class="story-ring flex h-[70px] w-[70px] items-center justify-center rounded-full p-[3px]">
+                    <span class="flex h-full w-full items-center justify-center overflow-hidden rounded-full border-2 border-[#f7f5ef] bg-[#17352a] text-xl font-bold text-white">
+                        @if($avatar)
+                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($avatar) }}" alt="{{ $memberName }}" class="h-full w-full object-cover">
+                        @else
+                            {{ mb_substr($memberName, 0, 1) }}
+                        @endif
+                    </span>
+                </span>
+                <span class="w-full truncate text-xs text-[#17352a]">{{ $memberName }}</span>
+            </button>
+        @endforeach
+    </div>
+</section>
+
+<div id="story-viewer" class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/95" aria-hidden="true">
+    <div class="story-viewer-shell relative flex h-full w-full max-w-[520px] flex-col overflow-hidden bg-black sm:h-[min(92vh,900px)] sm:rounded-2xl">
+        <div class="absolute left-0 right-0 top-0 z-20 p-3">
+            <div id="story-progress" class="mb-3 flex gap-1"></div>
+            <div class="flex items-center justify-between text-white">
+                <div class="flex min-w-0 items-center gap-2">
+                    <div id="story-viewer-avatar" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#8d7650] font-bold"></div>
+                    <div class="min-w-0">
+                        <div id="story-viewer-name" class="truncate text-sm font-bold"></div>
+                        <div id="story-viewer-date" class="text-[10px] text-white/70"></div>
+                    </div>
+                </div>
+                <button type="button" id="story-close" class="rounded-full bg-black/30 p-2 text-2xl leading-none" aria-label="بستن">×</button>
+            </div>
+        </div>
+        <div id="story-media-container" class="flex min-h-0 flex-1 items-center justify-center">
+            <img id="story-image" class="hidden max-h-full max-w-full object-contain" alt="استوری">
+            <video id="story-video" class="hidden max-h-full max-w-full" playsinline controls></video>
+        </div>
+        <div id="story-caption" class="absolute bottom-5 left-4 right-4 z-20 text-center text-sm text-white drop-shadow"></div>
+        <button type="button" id="story-prev" class="absolute bottom-0 right-0 top-16 z-10 w-1/3" aria-label="استوری قبلی"></button>
+        <button type="button" id="story-next" class="absolute bottom-0 left-0 top-16 z-10 w-1/3" aria-label="استوری بعدی"></button>
+    </div>
+</div>
+
+<style>
+    .stories-strip { scrollbar-width: thin; scrollbar-color: #cbb982 transparent; }
+    .stories-strip::-webkit-scrollbar { height: 4px; }
+    .stories-strip::-webkit-scrollbar-thumb { background: #cbb982; border-radius: 10px; }
+    .story-ring { background: conic-gradient(#cbb982, #8d7650, #17352a, #cbb982); }
+    .story-person:focus-visible { outline: 2px solid #8d7650; outline-offset: 4px; border-radius: 12px; }
+    #story-progress > span { height: 3px; flex: 1; overflow: hidden; border-radius: 10px; background: rgb(255 255 255 / .35); }
+    #story-progress > span > i { display: block; width: 0; height: 100%; background: white; }
+    @media (min-width: 640px) { .story-viewer-shell { box-shadow: 0 20px 80px #0008; } }
+</style>
+
+<script>
+(() => {
+    const viewer = document.getElementById('story-viewer');
+    if (!viewer || viewer.dataset.initialized) return;
+    viewer.dataset.initialized = '1';
+
+    const image = document.getElementById('story-image');
+    const video = document.getElementById('story-video');
+    const progress = document.getElementById('story-progress');
+    const nameEl = document.getElementById('story-viewer-name');
+    const avatarEl = document.getElementById('story-viewer-avatar');
+    const dateEl = document.getElementById('story-viewer-date');
+    const captionEl = document.getElementById('story-caption');
+    let groups = [];
+    let groupIndex = 0;
+    let storyIndex = 0;
+    let timer = null;
+    let raf = null;
+    let startedAt = 0;
+    const IMAGE_DURATION = 5000;
+
+    const clearPlayback = () => {
+        clearTimeout(timer);
+        cancelAnimationFrame(raf);
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
+    };
+
+    const close = () => {
+        clearPlayback();
+        viewer.classList.add('hidden');
+        viewer.classList.remove('flex');
+        viewer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    };
+
+    const buildProgress = () => {
+        progress.innerHTML = '';
+        groups[groupIndex].items.forEach((item, index) => {
+            const bar = document.createElement('span');
+            const fill = document.createElement('i');
+            if (index < storyIndex) fill.style.width = '100%';
+            bar.appendChild(fill);
+            progress.appendChild(bar);
+        });
+    };
+
+    const advance = () => {
+        const current = groups[groupIndex];
+        if (storyIndex < current.items.length - 1) {
+            storyIndex++;
+        } else if (groupIndex < groups.length - 1) {
+            groupIndex++;
+            storyIndex = 0;
+        } else {
+            close();
+            return;
+        }
+        render();
+    };
+
+    const goBack = () => {
+        if (storyIndex > 0) storyIndex--;
+        else if (groupIndex > 0) {
+            groupIndex--;
+            storyIndex = groups[groupIndex].items.length - 1;
+        } else return;
+        render();
+    };
+
+    const animateImageProgress = () => {
+        const fill = progress.children[storyIndex]?.firstElementChild;
+        const tick = (now) => {
+            const ratio = Math.min((now - startedAt) / IMAGE_DURATION, 1);
+            if (fill) fill.style.width = `${ratio * 100}%`;
+            if (ratio >= 1) advance();
+            else raf = requestAnimationFrame(tick);
+        };
+        startedAt = performance.now();
+        raf = requestAnimationFrame(tick);
+    };
+
+    const render = () => {
+        clearPlayback();
+        const group = groups[groupIndex];
+        const item = group.items[storyIndex];
+        nameEl.textContent = group.name;
+        avatarEl.textContent = group.name.trim().charAt(0) || 'هنر';
+        dateEl.textContent = item.created_at || '';
+        captionEl.textContent = item.caption || '';
+        buildProgress();
+
+        if (item.type === 'video') {
+            image.classList.add('hidden');
+            video.classList.remove('hidden');
+            video.src = item.src;
+            video.currentTime = 0;
+            video.onended = advance;
+            video.onloadedmetadata = () => {
+                const fill = progress.children[storyIndex]?.firstElementChild;
+                const duration = Number.isFinite(video.duration) ? video.duration : 10;
+                const tick = () => {
+                    if (video.paused) return;
+                    if (fill && duration > 0) fill.style.width = `${Math.min(video.currentTime / duration, 1) * 100}%`;
+                    raf = requestAnimationFrame(tick);
+                };
+                raf = requestAnimationFrame(tick);
+            };
+            video.play().catch(() => {});
+        } else {
+            video.classList.add('hidden');
+            image.classList.remove('hidden');
+            image.src = item.src;
+            animateImageProgress();
+        }
+    };
+
+    document.querySelectorAll('.story-person').forEach((button) => {
+        button.addEventListener('click', () => {
+            try {
+                const items = JSON.parse(button.dataset.stories || '[]');
+                if (!items.length) return;
+                groups = [{ name: button.dataset.member || 'هنرمند', items }];
+                groupIndex = 0;
+                storyIndex = 0;
+                viewer.classList.remove('hidden');
+                viewer.classList.add('flex');
+                viewer.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                render();
+            } catch (error) { console.error('Unable to open stories', error); }
+        });
+    });
+
+    document.getElementById('story-close').addEventListener('click', close);
+    document.getElementById('story-next').addEventListener('click', advance);
+    document.getElementById('story-prev').addEventListener('click', goBack);
+    viewer.addEventListener('click', (event) => { if (event.target === viewer) close(); });
+    document.addEventListener('keydown', (event) => {
+        if (viewer.classList.contains('hidden')) return;
+        if (event.key === 'Escape') close();
+        if (event.key === 'ArrowLeft') advance();
+        if (event.key === 'ArrowRight') goBack();
+    });
+})();
+</script>
+@endif

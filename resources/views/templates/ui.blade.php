@@ -15,6 +15,7 @@
     <link rel="apple-touch-icon" href="{{ asset('images/icon-192.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('images/icon-192.png') }}">
 </head>
+@include('ui.components.pwa.install-modal')
 <body dir="rtl" class="font-YekanBakh-Regular bg-slate-50 pb-16 lg:pb-0">
     <div class="min-h-screen bg-[#f7f5ef]">
         {{-- ======================= HEADER ========================= --}}

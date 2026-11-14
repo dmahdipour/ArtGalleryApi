@@ -33,7 +33,7 @@ class StoryResource extends Resource
 {
     protected static ?string $model = Story::class;
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPlayCircle;
-    protected static string|UnitEnum|null $navigationGroup = 'محتوا';
+    protected static string|UnitEnum|null $navigationGroup = 'پروژه';
     protected static ?string $modelLabel = 'استوری';
     protected static ?string $pluralModelLabel = 'استوری‌ها';
     protected static ?int $navigationSort = 22;

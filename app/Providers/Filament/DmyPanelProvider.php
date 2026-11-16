@@ -65,6 +65,7 @@ class DmyPanelProvider extends PanelProvider
             ])
             ->spa()
             ->widgets([
+                Widgets\MenuIcons::class,
                 Widgets\StatsOverview::class,
                 Widgets\UserMessages::class,
             ])
